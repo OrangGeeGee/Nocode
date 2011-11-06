@@ -1,0 +1,12 @@
+Kad pasileisti reikes - Apache, PHP, MySQL
+Viskas viename siuo adresu http://www.wampserver.com/en/
+
+wwwroot - direktorija, kurioje randasi visi web failai. is jos turetu imti jusu lokalus web serveris.
+Jeigu isirasete wamp, tai spauskite kairiu peles klavisu ant wamp ikonos apacioj desinej, tada Apache > Alias directories > Add alias...
+Tokiu atveju pas mane http://127.0.0.1/nocode/ veda i C:\Users\Anthony\GIT\Nocode
+
+Patogumo delei mysql serveri paliekame be passwordo, tokiu atveju nereiks nustatineti configs/mysql_info.php failiuko
+Taip pat, reikia mysql serveryje sukurti duombaze pavadinimu "nocode"
+Atsidare http://127.0.0.1/nocode/dbutil.php narsyklej galite perkurti savo serverio duombaze
+
+
