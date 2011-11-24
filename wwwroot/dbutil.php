@@ -1,7 +1,3 @@
-<?php
-// sql failu direktorija 
-$dir = 'sql';
-?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,6 +21,7 @@ if(isset($_GET['file'])) {
 	$err = "";
 		
 	require_once 'default.php';
+	$dir = APP_PATH . '/sql';
 	$db = new db();
 	
 	$path = $dir."/".$_GET['file'];
