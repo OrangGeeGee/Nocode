@@ -16,12 +16,13 @@
 </head>
 <body>
 <?php 
-if(isset($_GET['file'])) {
+require_once 'default.php';
+$dir = APP_PATH . '/sql';
+
+if(isset($_GET['file'])) { 
 	echo date("Y-m-d H:i:s");
 	$err = "";
 		
-	require_once 'default.php';
-	$dir = APP_PATH . '/sql';
 	$db = new db();
 	
 	$path = $dir."/".$_GET['file'];
