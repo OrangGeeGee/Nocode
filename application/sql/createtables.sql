@@ -48,5 +48,6 @@ CREATE TABLE `app_history` (
   `priemoneskodas` varchar(10) NOT NULL,
   `nuo` DATE NOT NULL,
   `iki` DATE NOT NULL,
-  `kiekis` INT NOT NULL
+  `kiekis` INT NOT NULL,
+  `prognoze` BOOLEAN NOT NULL DEFAULT 0
 );

@@ -1,4 +1,29 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php /* Smarty version Smarty-3.1.5, created on 2011-11-28 23:35:56
+         compiled from "C:\Users\Anthony\GIT\Nocode\wwwroot/../application/templates\header.tpl" */ ?>
+<?php /*%%SmartyHeaderCode:135034ed407bcee43b1-22741499%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '867ea3f9031ece7864e2a77006fc39ce8e48b4c9' => 
+    array (
+      0 => 'C:\\Users\\Anthony\\GIT\\Nocode\\wwwroot/../application/templates\\header.tpl',
+      1 => 1322523355,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '135034ed407bcee43b1-22741499',
+  'function' => 
+  array (
+  ),
+  'version' => 'Smarty-3.1.5',
+  'unifunc' => 'content_4ed407bd01b8e',
+  'variables' => 
+  array (
+    'name' => 0,
+  ),
+  'has_nocache_code' => false,
+),false); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_4ed407bd01b8e')) {function content_4ed407bd01b8e($_smarty_tpl) {?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -19,7 +44,8 @@
 <div id="root">
 <div id="header">
 	<div id="username">
-		<span>Sveiki, {$name}</span>
+		<span>Sveiki, <?php echo $_smarty_tpl->tpl_vars['name']->value;?>
+</span>
 	</div>
 	<div id="top-menu">
 		<a href="index.php">Grįžti į pradžią</a> |
@@ -62,4 +88,4 @@
 		</ul>
 	</div>
 	
-	<div id="display">
+	<div id="display"><?php }} ?>

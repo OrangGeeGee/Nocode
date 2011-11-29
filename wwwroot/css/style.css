@@ -1,32 +1,41 @@
+/* COMMON */
 *{margin:0; padding:0;}
-body{background:#FFFFFF; width:900px; font-family:Arial; margin: 0 auto; color:#000000;}
+body{background:#FFFFFF; font-family:Arial; color:#000000;}
 ul{list-style-type:none;}
 a{text-decoration:none;}
 a:link{color:#000000;}
 a:visited{color:#000000;}
 a:hover{color:#0000FF;}
 a:active{color:#000000;}
-body > div {float:left; width:900px;}
 input[type=submit]{color:#FFFFFF; background:#000000; border:none; padding:2px;}
 input{margin:2px; border:solid 1px #000000;}
 label{width: 100px; float: left; text-align: right; margin-right: 0.5em; display: block; clear:left;}
 
-#header{height:30px; background:#000000; font-size:14px; color:#FFFFFF; clear: both; line-height:28px;}
-#username{position:relative; float:left; width:250px;}
-#username span{font-style:italic; margin-left:10px;}
-#top-menu{position:relative; float:right; width:650px; text-align:right;}
-#top-menu ul{}
-#top-menu ul li{margin:0px 5px; display:inline;}
-#content{color:#000000;}
-#main-menu{width:300px; border:solid #000000 1px; float:left; margin:10px; padding:5px; color:#000000;}
-#main-menu > ul{}
-#main-menu > ul > li{font-weight:bold; font-size:15px;}
-#main-menu > ul > li > ul {padding-left:20px;}
-#main-menu > ul > li > ul > li {font-weight:normal; font-size:smaller; text-decoration:underline;}
-#display{width:530px; border:solid #000000 1px; float:right; margin:10px; padding:5px; font-size:smaller;}
-#footer{text-align:center;}
+/* MAIN BLOCKS */
+#root { margin:0 auto; min-width:900px; max-width:1300px; }
+#header { height:30px; background:#000000; font-size:14px; color:#FFFFFF; clear: both; line-height:28px; margin-bottom:10px;}
+#main-menu { width:21%; border:solid #000000 1px; float:left; padding:5px; color:#000000; }
+#display { width:74%; border:solid #000000 1px; float:right; padding:15px; font-size:smaller; }
+#footer { text-align:center; clear:both; }
+#content { color:#000000; }
 
+/* TOP MENU */
+#username { position:relative; float:left; }
+#username span { font-style:italic; margin-left:10px; }
+#top-menu { position:relative; float:right; text-align:right; margin-right:10px; }
+#top-menu a { color:#fff; margin:0 5px; }
+#top-menu a:hover { text-decoration:underline; }
+
+/* NAVIGATION MENU */
+#main-menu > ul {}
+#main-menu > ul > li { font-weight:bold; font-size:15px; }
+#main-menu > ul > li > ul { padding-left:20px; }
+#main-menu > ul > li > ul > li { font-weight:normal; font-size:smaller; text-decoration:underline; }
+
+/* LOGIN */
 #login-form{position:relative; width:350px; margin-left:auto; margin-right:auto;}
+
+/* GRAPHS */
 #view{border:solid 1px #000000;}
 #division-select,#date-select{position:relative; float:left; clear:right; }
 #filters{ float:left; display:block;}

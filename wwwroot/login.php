@@ -2,6 +2,10 @@
 
 session_start();
 require "default.php";
+if(isset($_GET['logout'])) {
+	session_destroy();
+	header("Location: login.php"); die;
+}
 if(isset($_SESSION['uid'])) {
 	header("Location: index.php"); die;
 }
