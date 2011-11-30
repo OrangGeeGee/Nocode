@@ -4,8 +4,8 @@
 	//infoJSON;
 	var chart;
 	var selectionData = new Array();
-	function updateView() {
-		$.getJSON("index.php?ajax&p=ataskaita", function(json) {
+        
+		$.getJSON("index.php?ajax&p=ataskaita&divisions={foreach $padaliniai as $padalinys}{if $padalinys.selected}{$padalinys.id},{/if}{/foreach}-1{if $date_from}&date_from={$date_from}{/if}{if $date_till}&date_till={$date_till}{/if}", function(json) {
 			var options = {
 				chart: {
 					renderTo: 'view',
@@ -46,19 +46,10 @@
 			
 			chart = new Highcharts.Chart(options);
 		});
-	}
 	$(document).ready(function() {
-		updateView();
-		
-		$("#divisions").focus(function(){
+		$("#divisions").click(function(){
 			$("#select-area").slideDown("fast"); 
-		});
-		$("#save-selection").click(function(){
-			$("#select-area").slideUp("fast");
-			$("#select-area input:checked").each(function(){
-				selectionData.push($(this).val());
-			});
-			updateView();
+                        return false;
 		});
 	});
 		
@@ -68,27 +59,32 @@
 <div id="view"></div>
 <div id="filters">
 	<div id="wrapper">
-		<div id="division-select">
-			Padaliniai: 
-			<input type="text" id="divisions" size="10" />
-			<div id="select-area">
-			{foreach $padaliniai as $padalinys}
-				<input type="checkbox" value="{$padalinys.id}" />{$padalinys.pavadinimas}<br />
-			{/foreach}
-				<input type="submit" id="save-selection" value="Išsaugoti" />
-			</div>
-		</div>
-		<div id="date-select">
-			Laikotarpis Nuo:<input class="datepicker" type="text" id="from" size="10" />
-			Iki: <input class="datepicker" type="text" id="until" size="10" />
-		</div>
+                <form action="?p=ataskaita&src=padalinys" method="post">
+                    <div class="update_chart" id="division-select">
+                            Padaliniai: 
+                            <a href="#" id="divisions">pasirinkti</a>
+                            <div id="select-area">
+                            {foreach $padaliniai as $padalinys}
+                                    <input type="checkbox" {if $padalinys.selected}checked="checked" {/if}name="subdivision_{$padalinys@index+1}" value="{$padalinys.id}" />{$padalinys.pavadinimas}<br />
+                            {/foreach}
+                                    <input type="button" value="Išsaugoti" onclick="$('#select-area').hide();return false;"/>
+                            </div>
+                    </div>
+                    <div class="update_chart" id="date-select">
+                            Laikotarpis Nuo:<input {if $date_from}value="{$date_from}" {/if}name="date_from" class="datepicker" type="text" id="from" size="10" />
+                            Iki: <input {if $date_till}value="{$date_till}" {/if}name="date_till" class="datepicker" type="text" id="until" size="10" />
+                    </div>
+                    <div class="update_chart">
+                            Rodyti duomenis:<br/>
+                            <input {if $show_data neq 'hours'}checked="checked" {/if}type="radio" name="show_data" value="number"> pagal apdorotą paraiškų skaičių<br/>
+                            <input {if $show_data eq 'hours'}checked="checked" {/if}type="radio" name="show_data" value="hours"> pagal panaudotas jų apdorojimui valandas<br/>
+                    </div>
+                    <input type="submit" class="update_submit" value="Atnaujinti" name="update_chart"/>
+                </form>
 	</div>
-	
-	<div id="show-by">
-		Rodyti duomenis:<br/>
-		<input type="radio" name="group1" value="number"> pagal apdorotą paraiškų skaičių<br/>
-		<input type="radio" name="group1" value="hours"> pagal panaudotas jų apdorojimui valandas<br/>
-	</div>
+        <br/>
+        <br/>
+        <br/>
 	<div id="save">
 		Išsaugoti duomenų bazėje? <input type="submit" value="Taip" /><input type="submit" value="Ne" />
 	</div>

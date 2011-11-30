@@ -2,7 +2,7 @@
 *{margin:0; padding:0;}
 body{background:#FFFFFF; font-family:Arial; color:#000000;}
 ul{list-style-type:none;}
-a{text-decoration:none;}
+a{text-decoration:underline;}
 a:link{color:#000000;}
 a:visited{color:#000000;}
 a:hover{color:#0000FF;}
@@ -37,7 +37,8 @@ label{width: 100px; float: left; text-align: right; margin-right: 0.5em; display
 
 /* GRAPHS */
 #view{border:solid 1px #000000;}
-#division-select,#date-select{position:relative; float:left; clear:right; }
+.update_chart{padding: 7px}
+.update_submit{margin: 7px}
 #filters{ float:left; display:block;}
 #save{float:left;}
 #select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
