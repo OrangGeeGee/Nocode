@@ -11,13 +11,18 @@
 	<script src="js/highcharts.js" type="text/javascript"></script>
 	<script src="js/modules/exporting.js" type="text/javascript"></script>
 	<script src="js/index.js" type="text/javascript"></script>
-	
+        <!--[if lt IE 9]>
+	<script src="js/dd_roundies.js"></script>
+        <script>
+          DD_roundies.addRule('.rounded', '5px');
+        </script>
+        <![endif]-->
 	<title>ŽKS</title>
 </head>
 <body>
 
 <div id="root">
-<div id="header">
+<div id="header" class="rounded">
 	<div id="username">
 		<span>Sveiki, {$name}</span>
 	</div>
@@ -29,7 +34,7 @@
 	
 </div>
 <div id="content">
-	<div id="main-menu">
+	<div id="main-menu" class="rounded white">
 		<ul>
 			<li>Ataskaita pagal apkrovą
 				<ul>
@@ -62,4 +67,4 @@
 		</ul>
 	</div>
 	
-	<div id="display">
+	<div id="display" class="rounded white">

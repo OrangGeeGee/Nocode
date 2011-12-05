@@ -10,7 +10,8 @@
 				chart: {
 					renderTo: 'view',
 					defaultSeriesType: 'line',
-					height:400
+					height: 400,
+                                        width: 700
 				},
 				credits: { enabled:false },
 				title: { text:"Padalinio apkrova" },
