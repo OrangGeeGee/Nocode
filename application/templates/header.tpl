@@ -36,28 +36,28 @@
 <div id="content">
 	<div id="main-menu" class="rounded white">
 		<ul>
-			<li>Ataskaita pagal apkrovą
-				<ul>
+			<li><div class="first-level">Ataskaita pagal apkrovą</div>
+				<ul class="bottom-line">
 					<li><a href="?p=ataskaita&src=padalinys">Padalinio apkrova</a></li>
 					<li><a href="?p=ataskaita&src=is">IS apkrova</a></li>
 					<li><a href="?p=ataskaita">Bendra apkrova</a></li>
 				</ul>
 			</li>
-			<li>Paramos priemonių poveikio analizė
-				<ul>
+			<li><div class="first-level">Paramos priemonių poveikio analizė</div>
+				<ul class="bottom-line">
 				<!-- ppp = paramos priemoniu poveikis -->
 					<li><a href="?p=ppp&src=padalinys">IS poveikių analizė</a></li>
 					<li><a href="?p=ppp&src=is">Padalinių apkrovimo poveikių analizė</a></li>
 					<li><a href="?p=ppp">Bendra poveikių analizė</a></li>
 				</ul>
 			</li>
-		    <li>Paraiškų istorinio kiekio pateikimas
-				<ul>
+		    <li><div class="first-level">Paraiškų istorinio kiekio pateikimas</div>
+				<ul class="bottom-line">
 					<li><a href="?p=import&from=kb">Įvesti duomenis klaviatūra</a></li>
 					<li><a href="?p=import&from=file">Importuoti duomenis iš failo</a></li>
 				</ul>
 			</li>
-			<li>Rasti tinkamiausią laiką
+			<li><div class="first-level">Rasti tinkamiausią laiką</div>
 				<ul>
 					<li><a href="?p=laikas&target=is">IS atnaujinimui</a></li>
 					<li><a href="?p=laikas&target=requalify">Kvalifikacijos kėlimui</a></li>
