@@ -54,8 +54,7 @@
 			</li>
 		    <li><div class="first-level">Paraiškų istorinio kiekio pateikimas</div>
 				<ul class="bottom-line">
-					<li><a href="?p=import&from=kb">Įvesti duomenis klaviatūra</a></li>
-					<li><a href="?p=import&from=file">Importuoti duomenis iš failo</a></li>
+					<li><a href="?p=import">Įvesti duomenis</a></li>
 				</ul>
 			</li>
 			<li><div class="first-level">Rasti tinkamiausią laiką</div>

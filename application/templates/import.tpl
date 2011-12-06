@@ -1,15 +1,20 @@
 {include file="header.tpl"}
-
-<form action="" method="post">
-	<p><label for="priemone">Priemonė: </label><input type="text" id="priemone"></p>
-	<p><label for="nuo">Nuo: </label><input type="text" id="nuo"></p>
-	<p><label for="firstname">Iki: </label><input type="iki" id="iki"></p>
-	<p><label for="kiekis">Kiekis: </label><input type="text" id="kiekis"></p>
-	<input type="submit" value="Įvesti">
+{if $result_msg}
+    <div class="return_msg">
+        {$result_msg}
+    </div>
+{/if}
+<form action="?p=import&cmd=insert_from_kb" method="post" id="keyboard_insert_form">
+	<p><label>Priemonės kodas: </label><input type="text" name="priemoneskodas"></p>
+	<p><label>Nuo: </label><input type="text" name="nuo"></p>
+	<p><label>Iki: </label><input type="text" name="iki"></p>
+	<p><label>Kiekis: </label><input type="text" name="kiekis"></p>
+	<input type="button" value="Įvesti" id="keyboard_insert_submit">
 </form>
-
-
-<form action="" enctype="multipart/form-data" method="post">
+<br/>
+<br/>
+<br/>
+<form action="?p=import&cmd=insert_from_file" enctype="multipart/form-data" method="post">
 	Pasirinkite failą:<br/>
 	<input type="file" name="file" size="20" data-help="Pasirinkite failą iš savo kompiuterio, kurio formatas būtų toks: priemone, nuo, iki, kiekis.">
 	<input type="submit" value="Išsaugoti" data-help="Pasirinkė failą spustelkite šį mygtuką" />
