@@ -8,8 +8,8 @@ a:visited{color:#000000;}
 a:hover{color:#0000FF;}
 a:active{color:#000000;}
 input[type=radio], input[type=checkbox]{border: none;}
-input[type=submit]{color:#FFFFFF; background:#333333; border:none; padding:3px;}
-input[type=submit]:hover{background:#111111; cursor: pointer;}
+input[type=submit], input[type=button]{color:#FFFFFF; background:#333333; border:none; padding:3px;}
+input[type=submit]:hover, input[type=button]:hover{background:#111111; cursor: pointer;}
 input{margin:2px; border:solid 1px #000000;}
 label{width: 100px; float: left; text-align: right; margin-right: 0.5em; display: block; clear:left;}
 
@@ -39,15 +39,18 @@ body{background: #f5f5f5;}
 #login-form{position:relative; width:350px; margin-left:auto; margin-right:auto;}
 
 /* GRAPHS */
+#view-select { margin:4px;}
 #view{border:solid 1px #000000; width:700px; height:400px; padding:1px; }
 .update_chart{padding: 7px}
 .update_submit{margin: 7px}
 #filters{ float:left; display:block;}
 #save{float:left;}
 #select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
+.emptydataset { display: none; float:right; padding: 2px; margin-right:200px; }
 
 .rounded{border-radius:5px}
 .white{background:#ffffff}
+.error{color:#f00; font-weight:bold;}
 .clear{clear: both; height:30px}
 .first-level{margin-left: 4px; margin-top: 6px;}
 .bottom-line{border-bottom: 1px solid}

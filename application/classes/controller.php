@@ -77,7 +77,10 @@ class Controller {
                     if(!isset($_REQUEST['date_till'])){
                         $_REQUEST['date_till'] = '';
                     }
-                    $this->rodytiAtaskaita($_GET['divisions'],$_REQUEST['date_from'],$_REQUEST['date_till']);
+                    if(!isset($_REQUEST['show_data'])) {
+                    	$_REQUEST['show_data'] = '';
+                    }
+                    $this->rodytiAtaskaita($_GET['divisions'],$_REQUEST['date_from'],$_REQUEST['date_till'],$_REQUEST['show_data']);
     		}
     	}
     	
@@ -86,7 +89,16 @@ class Controller {
     /**
      * Informacijos grafikui pateikimo funkcija
      */
-    public function rodytiAtaskaita($divisions, $from, $till) {
+    public function rodytiAtaskaita($divisions, $from, $till, $showNumberOrHours) {
+    	// atvaizdavimas valandomis ir vienetais
+    	if(!empty($showNumberOrHours)&&$showNumberOrHours=="hours") {
+    		$unit = "val.";
+    		$hours = "*pp.valandos";
+    	} else {
+    		$unit = "vnt.";
+    		$hours = "";
+    	}
+    	
         if(!empty($from)){
             $from = " AND ist.nuo >= '".$from."'";
         }else{
@@ -96,12 +108,12 @@ class Controller {
             $till = " AND ist.iki <= '".$till."'";
         }
     	$query =
-    		"SELECT pad.kodas, pp.priemoneskodas, SUM(ist.kiekis) as kiekis, ist.nuo ".
+    		"SELECT pad.kodas, pp.priemoneskodas, SUM(ist.kiekis){$hours} as kiekis, ist.nuo ".
 			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist ".
 			"WHERE pad.kodas = pp.padaliniokodas".$from.$till." AND pad.id IN (".$divisions.") AND ist.priemoneskodas = pp.priemoneskodas ".
 			"GROUP BY pad.kodas, ist.nuo";
     	$ataskaitosDuomenys = $this->db->qKey(array("kodas","nuo"), $query);
-    	$first = true; $xAxis = array();
+    	$first = true; $xAxis = array(); $data = array();
     	
     	if(is_array($ataskaitosDuomenys))
     		foreach($ataskaitosDuomenys as $padalinys=>$datapoints) {
@@ -120,12 +132,8 @@ class Controller {
     			$first = false;
     		}
     		
-		// jeigu duomenu tasku daugiau nei 15, tai praretinti    		
-    	if(count($xAxis)>15) {
-    	}
-    	
 		$return = array(
-			"unit"=>"vnt.",
+			"unit"=>$unit,
 			"yCaption"=>"Apdorotų paraiškų skaičius",
 			"xAxis"=>$xAxis,
 			"data"=>$data
@@ -138,21 +146,19 @@ class Controller {
      * 'padaliniai', kuriame yra visi padaliniai
      */
     public function paruostiPadalinius() {
-    	$padaliniai = $this->db->q("SELECT * FROM {p}padaliniai");
-        $new = array();
-        foreach($padaliniai as $padalinys){
-            $new[$padalinys['id']] = $padalinys;
-            $new[$padalinys['id']]['selected']=false;
+    	$padaliniai = $this->db->qKey("id", "SELECT * FROM {p}padaliniai");
+        foreach($padaliniai as $id=>$padalinys){
+            $padaliniai[$id]['selected']=false;
         }
-        if(isset($_POST['update_chart'])){
+        /*if(isset($_POST['update_chart'])){
             foreach($_POST as $key=>$value){
                 if(strpos($key, 'subdivision_') > -1){
-                    $new[str_replace('subdivision_', '', $key)]['selected'] = true; 
+                    $padaliniai[str_replace('subdivision_', '', $key)]['selected'] = true; 
                 }
             }
         }else{
-            foreach($new as $key=>$value){
-                    $new[$key]['selected'] = true; 
+            foreach($padaliniai as $key=>$value){
+                    $padaliniai[$key]['selected'] = true; 
             }
         }
         if(isset($_POST['date_from'])){
@@ -169,8 +175,8 @@ class Controller {
             $this->smarty->assign("show_data", $_POST['show_data']);
         }else{
             $this->smarty->assign("show_data", '');
-        }
-    	$this->smarty->assign("padaliniai", $new);
+        }*/
+    	$this->smarty->assign("padaliniai", $padaliniai);
     }
     
     /**
@@ -189,7 +195,8 @@ class Controller {
     	
     	
     	// prognozuoti.... sekmes!
-    	
+    	list($history) = $this->db->qKey("SELECT count(id) as count FROM app_history");
+    	$history["count"];
     }
 }
 

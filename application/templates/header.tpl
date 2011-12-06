@@ -11,6 +11,7 @@
 	<script src="js/highcharts.js" type="text/javascript"></script>
 	<script src="js/modules/exporting.js" type="text/javascript"></script>
 	<script src="js/index.js" type="text/javascript"></script>
+	{if isset($js)}<script src="js/{$js}" type="text/javascript"></script>{/if}
         <!--[if lt IE 9]>
 	<script src="js/dd_roundies.js"></script>
         <script>
