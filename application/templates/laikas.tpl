@@ -12,7 +12,7 @@
 				height:300
 			},
 			credits: { enabled:false},
-			title: {text:"Padalinio apkrova"},
+			title: { text:"Padalinio apkrova" },
 			xAxis: {
 				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
 					'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

@@ -39,7 +39,7 @@ body{background: #f5f5f5;}
 #login-form{position:relative; width:350px; margin-left:auto; margin-right:auto;}
 
 /* GRAPHS */
-#view-select { margin:4px;}
+#view-select { margin:px;}
 #view{border:solid 1px #000000; width:700px; height:400px; padding:1px; }
 .update_chart{padding: 7px}
 .update_submit{margin: 7px}
@@ -48,6 +48,13 @@ body{background: #f5f5f5;}
 #select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
 .emptydataset { display: none; float:right; padding: 2px; margin-right:200px; }
 
+/* IMPORT */
+
+/* */
+#helpanchor { z-index:101; position:relative }
+#helpoverlay { position:absolute; top:0; left:0; width:100%; height:100%; display:none; background: #259; opacity:0.3; z-index:100; }
+
+/* ETCETERA */
 .rounded{border-radius:5px}
 .white{background:#ffffff}
 .error{color:#f00; font-weight:bold;}

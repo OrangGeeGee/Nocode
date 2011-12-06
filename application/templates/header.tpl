@@ -29,7 +29,7 @@
 	</div>
 	<div id="top-menu">
 		<a href="index.php">Grįžti į pradžią</a> |
-		<a href="#help" class="help">Pagalba</a> |
+		<a href="#help" id="helpanchor">Pagalba</a> |
 		<a href="login.php?logout">Atsijungti</a>
 	</div>
 	

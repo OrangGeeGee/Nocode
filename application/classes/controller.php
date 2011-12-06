@@ -50,7 +50,7 @@ class Controller {
     		
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
-    		
+    		$this->paruostiPadalinius();
     	} elseif($_GET['p']=="laikas") {
     		// Rasti tinkamiausią laiką
     		
@@ -147,35 +147,6 @@ class Controller {
      */
     public function paruostiPadalinius() {
     	$padaliniai = $this->db->qKey("id", "SELECT * FROM {p}padaliniai");
-        foreach($padaliniai as $id=>$padalinys){
-            $padaliniai[$id]['selected']=false;
-        }
-        /*if(isset($_POST['update_chart'])){
-            foreach($_POST as $key=>$value){
-                if(strpos($key, 'subdivision_') > -1){
-                    $padaliniai[str_replace('subdivision_', '', $key)]['selected'] = true; 
-                }
-            }
-        }else{
-            foreach($padaliniai as $key=>$value){
-                    $padaliniai[$key]['selected'] = true; 
-            }
-        }
-        if(isset($_POST['date_from'])){
-            $this->smarty->assign("date_from", $_POST['date_from']);
-        }else{
-            $this->smarty->assign("date_from", '');
-        }
-        if(isset($_POST['date_till'])){
-            $this->smarty->assign("date_till", $_POST['date_till']);
-        }else{
-            $this->smarty->assign("date_till", '');
-        }
-        if(isset($_POST['show_data'])){
-            $this->smarty->assign("show_data", $_POST['show_data']);
-        }else{
-            $this->smarty->assign("show_data", '');
-        }*/
     	$this->smarty->assign("padaliniai", $padaliniai);
     }
     
