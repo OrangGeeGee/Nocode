@@ -1,7 +1,7 @@
 {include file="header.tpl"}
 
 <script type="text/javascript">
-
+{literal}
 	var chart;
 	$(document).ready(function() {
 		chart = new Highcharts.Chart({
@@ -65,7 +65,7 @@
 			$("#select-area").slideUp("fast"); 
 		});
 	});
-		
+		{/literal}
 </script>
 
 <div id="view"></div>
