@@ -1,3 +1,5 @@
+TRUNCATE TABLE `app_history`;
+
 INSERT INTO `nocode`.`app_history` (`id`, `priemoneskodas`, `nuo`, `iki`, `kiekis`) VALUES (NULL, 'p1-1', '2008-01-01', '2008-01-31', '15');
 INSERT INTO `nocode`.`app_history` (`id`, `priemoneskodas`, `nuo`, `iki`, `kiekis`) VALUES (NULL, 'p1-1', '2008-02-01', '2008-02-29', '27');
 INSERT INTO `nocode`.`app_history` (`id`, `priemoneskodas`, `nuo`, `iki`, `kiekis`) VALUES (NULL, 'p1-1', '2008-03-01', '2008-03-31', '31');
