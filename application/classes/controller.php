@@ -50,7 +50,19 @@ class Controller {
     		
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
-    		$this->paruostiPadalinius();
+                if(isset($_GET['cmd'])){
+                    if($_GET['cmd'] == 'insert_from_kb'){
+                        $this->insertFromKeyboardPost();
+                    }elseif($_GET['cmd'] == 'insert_from_file'){
+                        $this->insertFromFilePost();
+                    }
+                }
+    		if(isset($_SESSION['result_msg'])){
+                    $this->smarty->assign("result_msg", $_SESSION["result_msg"]);
+                    unset($_SESSION["result_msg"]);
+                }else{
+                    $this->smarty->assign("result_msg", '');
+                }
     	} elseif($_GET['p']=="laikas") {
     		// Rasti tinkamiausią laiką
     		
@@ -168,6 +180,45 @@ class Controller {
     	// prognozuoti.... sekmes!
     	list($history) = $this->db->qKey("SELECT count(id) as count FROM app_history");
     	$history["count"];
+    }
+    
+    public function insertFromKeyboardPost() {
+    	if($this->db->update("history", $_POST)){
+            $_SESSION['result_msg'] = 'Duomenys sėkmingai įkelti.';
+        }else{
+            $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko.';
+        }
+        header('Location: ?p=import');
+        die;
+    }
+    
+    public function insertFromFilePost(){
+        require_once '../wwwroot/reader.php';
+        $data = new Spreadsheet_Excel_Reader($_FILES['file']['tmp_name']);
+        $import_data = array();
+        $success = true;
+        foreach($data->sheets as $sheet){
+            if($sheet['numRows'] > 1){
+                $columns = 0;
+                $query = 'INSERT INTO '.$this->db->prefix.'history ('.implode(',', $sheet['cells'][1]).')';
+                $query .= ' VALUES ';
+                foreach($sheet['cells'] as $key=>$value){
+                    if($key != 1){
+                        $query .= '("'.implode('","', $value).'"),';
+                    }
+                }
+                if(!$this->db->q(substr($query, 0, strlen($query)-1))){
+                    $success = false;
+                }
+            }
+        }
+        if($success == true){
+            $_SESSION['result_msg'] = 'Duomenys sėkmingai įkelti.';
+        }else{
+            $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko.';
+        }
+        header('Location: ?p=import');
+        die;
     }
 }
 

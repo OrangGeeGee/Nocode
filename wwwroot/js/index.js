@@ -1,9 +1,3 @@
-$(function() {
-	// inicijuojami iprasti elementai 
-	init_common();
-	
-});
-
 function init_common() {
 	$("#helpanchor").hover(function() {
 		$("#helpoverlay").show(250);
@@ -20,4 +14,23 @@ function init_common() {
 		changeYear: true
 		
 	});
+        
+        $("#keyboard_insert_submit").click(function(){
+            var empty = false;
+            $("#keyboard_insert_form").find("input[type='text']").each(function(){
+                if(!$(this).val()){
+                    empty = true;
+                }
+            });
+            if(empty == true){
+                alert("Visi laukai privalo būti užpildyti");
+            }else{
+                $("#keyboard_insert_form").submit();
+            }
+        });
 }
+$(function() {
+	// inicijuojami iprasti elementai 
+	init_common();
+	
+});
