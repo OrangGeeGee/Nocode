@@ -83,6 +83,22 @@ class Controller {
     		// Rasti tinkamiausią laiką
     		if(isset($_GET['target'])){
                     $this->smarty->assign("target", $_GET['target']);
+                    if($_GET['target'] == 'is'){
+                        $subdivisions = $this->db->q("SELECT * FROM {p}is");
+                        $this->smarty->assign("subdivisions", $subdivisions);
+                        if(isset($_POST['is_time'])){
+                            $this->smarty->assign("selected", $_POST['is_time']);
+                        }
+                    }else{
+                        $subdivisions = $this->db->q("SELECT * FROM {p}padaliniai");
+                        $this->smarty->assign("subdivisions", $subdivisions);
+                        if(isset($_POST['requalify_time'])){
+                            $this->smarty->assign("selected", $_POST['requalify_time']);
+                        }
+                        if(isset($_POST['repair_time'])){
+                            $this->smarty->assign("selected", $_POST['repair_time']);
+                        }
+                    }
                 }
                 if(isset($_GET['action'])){
                     if($_GET['action'] == 'find_time'){
@@ -371,17 +387,92 @@ class Controller {
     }
     
     public function findTime($target){
-        if($target == 'is'){
-            if(isset($_POST['is_time'])){
-                $isquery =
+        if(isset($_POST['is_time']) || isset($_POST['requalify_time']) || isset($_POST['repair_time'])){
+            if(isset($_POST['is_time']) && $target == 'is'){
+                $query =
     		"SELECT inf.kodas, inf.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis) as kiekis, ist.nuo ".
 			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist, app_ispadaliniai as infsys, app_is as inf ".
-			"WHERE inf.kodas = 'IS1' AND infsys.iskodas = inf.kodas AND infsys.padaliniokodas = pad.kodas AND pad.kodas = pp.padaliniokodas AND ist.priemoneskodas = pp.priemoneskodas ".
+			"WHERE inf.id = '".$_POST['is_time']."' AND infsys.iskodas = inf.kodas AND infsys.padaliniokodas = pad.kodas AND pad.kodas = pp.padaliniokodas AND ist.priemoneskodas = pp.priemoneskodas ".
 			"GROUP BY infsys.iskodas, ist.nuo";	
+            }elseif(isset($_POST['requalify_time']) && $target == 'requalify'){
+                $query =
+    		"SELECT pad.kodas, pad.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis) as kiekis, ist.nuo ".
+			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist ".
+			"WHERE pad.id = '".$_POST['requalify_time']."' AND pad.kodas = pp.padaliniokodas AND ist.priemoneskodas = pp.priemoneskodas ".
+			"GROUP BY pad.kodas, ist.nuo";
+            }elseif(isset($_POST['repair_time']) && $target == 'repair'){
+                $query =
+    		"SELECT pad.kodas, pad.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis) as kiekis, ist.nuo ".
+			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist ".
+			"WHERE pad.id = '".$_POST['repair_time']."' AND pad.kodas = pp.padaliniokodas AND ist.priemoneskodas = pp.priemoneskodas ".
+			"GROUP BY pad.kodas, ist.nuo";
             }
-            $rawdata = $this->db->qKey(array("kodas","nuo"), $isquery);
-            $data = $this->gautiAtasaitaSuvirskinta($rawdata);
-            print_r($rawdata);die;
+            $rawdata = $this->db->qKey(array("nuo"), $query);
+            $diff = '';
+            $jobs = array('01'=>array('data'=>0,'count'=>0),
+                            '02'=>array('data'=>0,'count'=>0),
+                            '03'=>array('data'=>0,'count'=>0),
+                            '04'=>array('data'=>0,'count'=>0),
+                            '05'=>array('data'=>0,'count'=>0),
+                            '06'=>array('data'=>0,'count'=>0),
+                            '07'=>array('data'=>0,'count'=>0),
+                            '08'=>array('data'=>0,'count'=>0),
+                            '09'=>array('data'=>0,'count'=>0),
+                            '10'=>array('data'=>0,'count'=>0),
+                            '11'=>array('data'=>0,'count'=>0),
+                            '12'=>array('data'=>0,'count'=>0));
+            
+            foreach($rawdata as $key=>$value){
+                if(empty($diff)){
+                    $diff = date('Y') - substr($key, 0, 4) + 1;
+                }
+                $jobs[substr($key, 5, 2)]['data'] = $jobs[substr($key, 5, 2)]['data'] + $value['kiekis']*(-1*(date('Y')-substr($key, 0, 4))+$diff);
+                $jobs[substr($key, 5, 2)]['count'] = $jobs[substr($key, 5, 2)]['count'] + 1*(-1*(date('Y')-substr($key, 0, 4))+$diff);
+            }
+            if($target == 'repair'){
+                foreach($jobs as $key=>$value){
+                    if($key < 3 || $key > 11){
+                        $jobs[$key]['data'] = $jobs[$key]['data']*(3/2);
+                    }
+                }
+            }
+            foreach($jobs as $key=>$value){
+                if(!isset($best_time)){
+                    $best_time = $value['data']/$value['count'];
+                    $best = $key;
+                }else{
+                    if($value['data']/$value['count'] < $best_time){
+                        $best_time = $value['data']/$value['count'];
+                        $best = $key;
+                    }
+                }
+            }
+            $prev = $best-1;
+            if($prev == 0){
+                $prev = '12';
+            }elseif($prev < 10){
+                $prev = '0'.$prev;
+            }
+            $next = $best+1;
+            if($next == 13){
+                $next = '01';
+            }elseif($next < 10){
+                $next = '0'.$next;
+            }
+            if($target == 'repair' && ($best < 3 || $best > 11)){
+                 if($jobs[$next] < $jobs[$prev]){
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.21';
+                }else{
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$prev.'.07 - '.$best.'.01';
+                }
+            }else{
+                if($jobs[$next] < $jobs[$prev]){
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.14';
+                }else{
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$prev.'.15 - '.$best.'.01';
+                }
+            }
+            $this->smarty->assign('result', $final_result);
         }
     }
 }
