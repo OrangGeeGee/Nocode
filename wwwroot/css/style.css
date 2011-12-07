@@ -41,13 +41,16 @@ body{background: #f5f5f5;}
 
 /* GRAPHS */
 #view-select { margin:4px;}
-#view{border:solid 1px #000000; width:700px; height:400px; padding:1px; }
+#view-graph { height:400px; }
+.views{border:solid 1px #000000; width:700px; padding:1px; }
 .update_chart{padding: 7px}
 .update_submit{margin: 7px}
 #filters{ float:left; display:block;}
 #save{float:left;}
 #select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
 .emptydataset { display: none; float:right; padding: 2px; margin-right:200px; }
+#view-table { overflow: auto; overflow-y: hidden; }
+#view-table table tr td { text-align:center; }
 
 /* IMPORT */
 
