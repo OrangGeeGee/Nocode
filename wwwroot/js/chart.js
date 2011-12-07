@@ -4,13 +4,13 @@ var chart;
  * Grafo atnaujinimo funkcija
  */
 function updateGraph() {
-    var get = { ajax: 1, p:"ataskaita" };
+    var get = { ajax: 1, p:"ataskaita", src:$("#src").val() };
     
-    get["divisions"] = new Array();
+    get["checked"] = new Array();
     $("#select-area .subdivisions:checked").each(function() {
-		get["divisions"].push($(this).val());
+		get["checked"].push($(this).val());
     });
-    get["divisions"] = get["divisions"].join(",");
+    get["checked"] = get["checked"].join(",");
 
     var from = $("#from").val();
     var until = $("#until").val();
@@ -22,6 +22,7 @@ function updateGraph() {
 	//divisions={foreach $padaliniai as $padalinys}{if $padalinys.selected}{$padalinys.id},{/if}{/foreach}-1{if $date_from}&date_from={$date_from}{/if}{if $date_till}&date_till={$date_till}{/if}
     
 	$.getJSON("index.php", get, function(json) {
+		if(json.debug!=undefined) $("#debug").html(json.debug);
 		var options = {
 			chart: {
 				renderTo: 'view',
@@ -30,7 +31,7 @@ function updateGraph() {
                                     width: 700
 			},
 			credits: { enabled:false },
-			title: { text:"Padalinio apkrova" },
+			title: { text:json.title },
 			xAxis: {
 				categories: json.xAxis,
 				labels: {

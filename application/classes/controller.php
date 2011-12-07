@@ -43,7 +43,21 @@ class Controller {
     		$tpl = "index";
     	} elseif($_GET['p']=="ataskaita") {
     		// Ataskaita pagal apkrovą
-    		$this->paruostiPadalinius();
+    		if(isset($_GET['src'])) {
+    			if($_GET['src']=="is") {
+	    			$this->paruostiIS("checkboxes");
+    			} else {
+    				$this->paruostiPadalinius("checkboxes");
+    			}
+    		} else {
+    			$_GET['src'] = "";
+    			$checkboxes = array(
+    				array("id"=>1, "pavadinimas"=>"Padalinių apkrova","kodas"=>""),
+    				array("id"=>2, "pavadinimas"=>"IS apkrova","kodas"=>"")
+    			);
+    			$this->smarty->assign("checkboxes", $checkboxes);
+    		}
+    		$this->smarty->assign("src", $_GET['src']);
     	} elseif($_GET['p']=="ppp") {
     		// ppp = paramos priemoniu poveikis
     		// Paramos priemonių poveikio analizė
@@ -82,30 +96,22 @@ class Controller {
      * Jeigu reikia AJAX informacijos programai, tai kreipiames is javascripto adresu
      * index.php?ajax&... , o apdorojame cia.
      */
-    public function ajax() {
-    	if(isset($_GET['p'])) {
-    		if($_GET['p']=="ataskaita") {
-                    if(!isset($_REQUEST['date_from'])){
-                        $_REQUEST['date_from'] = '';
-                    }
-                    if(!isset($_REQUEST['date_till'])){
-                        $_REQUEST['date_till'] = '';
-                    }
-                    if(!isset($_REQUEST['show_data'])) {
-                    	$_REQUEST['show_data'] = '';
-                    }
-                    $this->rodytiAtaskaita($_GET['divisions'],$_REQUEST['date_from'],$_REQUEST['date_till'],$_REQUEST['show_data']);
-    		}
-    	}
-    	
-    }
+	public function ajax() {
+		if(isset($_GET['p'])) {
+			if($_GET['p']=="ataskaita") {
+				$this->rodytiAtaskaita();
+			}
+		}
+		
+	}
     
     /**
      * Informacijos grafikui pateikimo funkcija
      */
-    public function rodytiAtaskaita($divisions, $from, $till, $showNumberOrHours) {
+    public function rodytiAtaskaita() {
     	// atvaizdavimas valandomis ir vienetais
-    	if(!empty($showNumberOrHours)&&$showNumberOrHours=="hours") {
+    	$src = $_GET['src']; $from = ""; $till = "";
+    	if(!empty($_GET['show_data']) && $_GET['show_data']=="hours") {
     		$unit = "val.";
     		$hours = "*pp.valandos";
     	} else {
@@ -113,55 +119,121 @@ class Controller {
     		$hours = "";
     	}
     	
-        if(!empty($from)){
-            $from = " AND ist.nuo >= '".$from."'";
-        }else{
+        if(!empty($_GET['date_from'])){
+            $from = " AND ist.nuo >= '".$_GET['date_from']."'";
+        } else {
             $from = " AND ist.nuo >= '".date('Y')."-01-01'";
         }
-        if(!empty($till)){
-            $till = " AND ist.iki <= '".$till."'";
+        if(!empty($_GET['date_till'])){
+            $till = " AND ist.iki <= '".$_GET['date_till']."'";
         }
-    	$query =
-    		"SELECT pad.kodas, pp.priemoneskodas, SUM(ist.kiekis){$hours} as kiekis, ist.nuo ".
+        
+        $padaliniuquery =
+    		"SELECT pad.kodas, pad.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis){$hours} as kiekis, ist.nuo ".
 			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist ".
-			"WHERE pad.kodas = pp.padaliniokodas".$from.$till." AND pad.id IN (".$divisions.") AND ist.priemoneskodas = pp.priemoneskodas ".
+			"WHERE pad.kodas = pp.padaliniokodas".$from.$till." AND ist.priemoneskodas = pp.priemoneskodas ".
+    		( $src=="padalinys" ? "AND pad.id IN ({$_GET['checked']}) " : "" ).
 			"GROUP BY pad.kodas, ist.nuo";
-    	$ataskaitosDuomenys = $this->db->qKey(array("kodas","nuo"), $query);
-    	$first = true; $xAxis = array(); $data = array();
-    	
-    	if(is_array($ataskaitosDuomenys))
-    		foreach($ataskaitosDuomenys as $padalinys=>$datapoints) {
-    			$tmp = array();
-    			foreach($datapoints as $point) {
-    				$tmp[] = intval($point["kiekis"]);
-    				if($first) {
-    					$xAxis[] = $point["nuo"];
-    				}
-    			}
-    			$data[] = array(
-    				"name"=>$padalinys,
-    				"data"=>$tmp
-    			); 
-    			
-    			$first = false;
-    		}
+    	$isquery =
+    		"SELECT inf.kodas, inf.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis){$hours} as kiekis, ist.nuo ".
+			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist, app_ispadaliniai as infsys, app_is as inf ".
+			"WHERE infsys.iskodas = inf.kodas AND infsys.padaliniokodas = pad.kodas AND pad.kodas = pp.padaliniokodas".$from.$till." AND ist.priemoneskodas = pp.priemoneskodas ".
+    		( $src!="" ? "AND inf.id IN ({$_GET['checked']}) " : "" ).
+			"GROUP BY infsys.iskodas, ist.nuo";	
+    		
+    	if($src=="is") {
+    		$title = "Informacinių Sistemų apkrova";
+    		$rawdata = $this->db->qKey(array("kodas","nuo"), $isquery);
+    		$data = $this->gautiAtasaitaSuvirskinta($rawdata);
+    	} elseif($src=="padalinys") {
+    		$title = "Padalinių apkrova";
+    		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuquery);
+    		$data = $this->gautiAtasaitaSuvirskinta($rawdata);
+    	} else {
+    		$title = "Bendra apkrova";
+    		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuquery);
+    		$rawisdata = $this->db->qKey(array("kodas","nuo"), $isquery);
+    		$padaliniudata = $this->gautiAtasaitaSuvirskinta($rawdata);
+    		$isdata = $this->gautiAtasaitaSuvirskinta($rawisdata);
+    		$data = array(
+    			array(
+    				"name"=>"Padlinių apkrova",
+    				"data"=>$this->gautiAtaskaitosSuvirskintaSuplota($padaliniudata)
+    			),
+    			array(
+    				"name"=>"Informacinių Sistemų apkrova",
+    				"data"=>$this->gautiAtaskaitosSuvirskintaSuplota($isdata)
+    			)    			
+    		);
+    	}
+    	$xAxis = $this->gautiAtasaitosXAxis($rawdata);
+
+    		
+    	ob_start();
+    	var_dump($this->db->lasterror, $this->db->lastquery);
+    	$c = ob_get_contents();
+    	ob_end_clean();
     		
 		$return = array(
 			"unit"=>$unit,
-			"yCaption"=>"Apdorotų paraiškų skaičius",
+			"title"=>$title,
+			"yCaption"=>"Apdorotų paraiškų skaičius ($unit)",
 			"xAxis"=>$xAxis,
-			"data"=>$data
+			"data"=>$data,
+			"debug"=>$c
 		);
 		echo json_encode($return);
+    }
+    private function gautiAtasaitosXAxis($ataskaitaIsDB) {
+        $xAxis = array();
+    	
+    	if(is_array($ataskaitaIsDB)) {
+    		$datapoints = array_shift($ataskaitaIsDB);
+    		foreach($datapoints as $point) {
+    			$xAxis[] = $point["nuo"];
+    		}
+    	}
+    	return $xAxis;    	
+    }
+    private function gautiAtasaitaSuvirskinta($ataskaitaIsDB) {
+        $data = array();
+    	
+    	if(is_array($ataskaitaIsDB)) {
+    		foreach($ataskaitaIsDB as $padalinys=>$datapoints) {
+    			$tmp = array();
+    			foreach($datapoints as $point) {
+    				$tmp[] = intval($point["kiekis"]);
+    			}
+    			$data[] = array(
+    				"name"=>$padalinys." ".$point["pavadinimas"],
+    				"data"=>$tmp
+    			); 
+    		}
+    	}
+    	return $data;
+    }
+    private function gautiAtaskaitosSuvirskintaSuplota($data) {
+    	$result = array();
+    	
+    	if(is_array($data))
+    		foreach($data as $datapoint) {
+    			foreach($datapoint["data"] as $index=>$atom) {
+    				if(!isset($result[$index])) {
+    					$result[$index] = $atom;
+    				} else $result[$index]+=$atom;
+    			}
+    		}
+    		
+    	return $result;
     }
     
     /**
      * Template variklyje Smarty atsiranda kintamasis
      * 'padaliniai', kuriame yra visi padaliniai
      */
-    public function paruostiPadalinius() {
+    public function paruostiPadalinius($varName="padaliniai") {
     	$padaliniai = $this->db->qKey("id", "SELECT * FROM {p}padaliniai");
-    	$this->smarty->assign("padaliniai", $padaliniai);
+    	$this->smarty->assign($varName, $padaliniai);
     }
     /**
      * Template variklyje Smarty atsiranda kintamasis
@@ -171,7 +243,15 @@ class Controller {
     	$priemones = $this->db->qKey("id", "SELECT * FROM {p}priemones");
     	$this->smarty->assign("priemones", $priemones);
     }
-    
+    /**
+     * Template variklyje Smarty atsiranda kintamasis
+     * 'is', kuriame yra visos informacinės sistemos
+     */    
+    public function paruostiIS($varName="is") {
+    	$is = $this->db->qKey("id", "SELECT * FROM {p}is");
+    	$this->smarty->assign($varName, $is);
+    }
+        
     /**
      * Prognozuoja pagal turimus duomenis 12 men i priekiu
      * turedamas omenyje, kad yra kas met mėnesių tendencija.
