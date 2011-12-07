@@ -107,7 +107,7 @@ $(document).ready(function() {
 		updateGraph();
 	});
 	
-	$("#wrapper", ".subdivisions, input[type='text'], input[type='radio']").
+	$("#filters").find(".subdivisions, input[type='text'], input[type='radio']").
 		bind("keyup change", function(e) {
 			updateGraph();
 		});

@@ -50,6 +50,8 @@ class Controller {
     		
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
+    		$this->paruostiPriemones();
+    		
                 if(isset($_GET['cmd'])){
                     if($_GET['cmd'] == 'insert_from_kb'){
                         $this->insertFromKeyboardPost();
@@ -161,6 +163,14 @@ class Controller {
     	$padaliniai = $this->db->qKey("id", "SELECT * FROM {p}padaliniai");
     	$this->smarty->assign("padaliniai", $padaliniai);
     }
+    /**
+     * Template variklyje Smarty atsiranda kintamasis
+     * 'priemones', kuriame yra visos priemones
+     */    
+    public function paruostiPriemones() {
+    	$priemones = $this->db->qKey("id", "SELECT * FROM {p}priemones");
+    	$this->smarty->assign("priemones", $priemones);
+    }
     
     /**
      * Prognozuoja pagal turimus duomenis 12 men i priekiu
@@ -192,8 +202,8 @@ class Controller {
         die;
     }
     
-    public function insertFromFilePost(){
-        require_once '../wwwroot/reader.php';
+    public function insertFromFilePost() {
+        require_once APP_PATH.'/classes/reader.php';
         $data = new Spreadsheet_Excel_Reader($_FILES['file']['tmp_name']);
         $import_data = array();
         $success = true;
@@ -207,15 +217,15 @@ class Controller {
                         $query .= '("'.implode('","', $value).'"),';
                     }
                 }
-                if(!$this->db->q(substr($query, 0, strlen($query)-1))){
+                if(!$this->db->q(substr($query, 0, strlen($query)-1))) {
                     $success = false;
                 }
             }
         }
         if($success == true){
             $_SESSION['result_msg'] = 'Duomenys sėkmingai įkelti.';
-        }else{
-            $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko.';
+        } else {
+            $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko. Patikrinkite ar tikrai šis failas yra tokio formato kaip pavyzdys';
         }
         header('Location: ?p=import');
         die;

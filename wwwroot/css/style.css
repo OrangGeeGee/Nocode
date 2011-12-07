@@ -1,5 +1,6 @@
 /* COMMON */
 *{margin:0; padding:0;}
+p { margin:5px 0; }
 body{background:#FFFFFF; font-family:Arial; color:#000000;}
 ul{list-style-type:none;}
 a{text-decoration:underline;}
