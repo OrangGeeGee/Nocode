@@ -97,17 +97,20 @@ $(document).ready(function() {
 		var checkedcount = subdivisions.filter(":checked").length;
 		masterswitch.attr("checked", checkedcount == count);
 		updateSubdivisionCount();
+		updateGraph();
 	});
 	masterswitch.click(function() {
 		subdivisions.each(function() {
 			$(this).attr("checked", masterswitch.is(':checked'));
 		});
 		updateSubdivisionCount();
-	});
-	
-	$("#wrapper input").bind("keyup change", function(e) {
 		updateGraph();
 	});
+	
+	$("#wrapper", ".subdivisions, input[type='text'], input[type='radio']").
+		bind("keyup change", function(e) {
+			updateGraph();
+		});
 	
 	updateGraph();
 });
