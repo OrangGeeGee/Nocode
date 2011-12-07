@@ -24,7 +24,7 @@ function init_common() {
             });
             if(empty == true){
                 alert("Visi laukai privalo būti užpildyti");
-            }else{
+            } else {
                 $("#keyboard_insert_form").submit();
             }
         });

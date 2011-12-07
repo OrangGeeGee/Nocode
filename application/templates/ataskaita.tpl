@@ -1,13 +1,27 @@
 {include file="header.tpl" js="chart.js"}
 
 <div id="view-select">
-	<a href="" id="table-select">Lentelė</a> |
-	<a href="" id="chart-select">Grafikas</a>
+	<a href="#" id="table-select">Lentelė</a> |
+	<a href="#" id="chart-select">Grafikas</a>
 	<span class="emptydataset ui-corner-all ui-state-error"">
 		Duomenų pagal parinktus kriterijus nerasta
 	</span>
 </div>
-<div id="view"></div>
+<div id="view-chart" class="views"></div>
+<div id="view-table" class="views hidden">
+<table>
+	<caption></caption>
+	<thead>
+		<tr>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	
+	</tbody>
+</table>
+
+</div>
 <div id="filters">
 	<div id="wrapper">
 		<input type="hidden" id="src" value="{$src}" />

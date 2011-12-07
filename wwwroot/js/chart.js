@@ -1,5 +1,10 @@
 var chart;
 
+$(document).ready(function() {
+	initEvents();	
+	updateGraph();
+});
+
 /**
  * Grafo atnaujinimo funkcija
  */
@@ -25,7 +30,7 @@ function updateGraph() {
 		if(json.debug!=undefined) $("#debug").html(json.debug);
 		var options = {
 			chart: {
-				renderTo: 'view',
+				renderTo: 'view-chart',
 				defaultSeriesType: 'line',
 				height: 400,
                                     width: 700
@@ -67,14 +72,75 @@ function updateGraph() {
 		} else {
 			$(".emptydataset").hide();
 		}
+		
+		updateTable(json)
+		
 		chart = new Highcharts.Chart(options);
 	});
 }
-$(document).ready(function() {
+/**
+ * Lenteles atnaujinimo funkcija
+ * @param response
+ */
+function updateTable(response) {
+	/* Susirandam reikiamas lenteles dalis */
+	var table = $("#view-table table");
+	var caption = table.find("caption");
+	var headerRow = table.find("thead tr");
+	var tableBody = table.find("tbody");
+	
+	/* Resetinam lentele */
+	table.find(".dynamic").remove();
+	
+	
+	/* Atnaujinam caption */
+	caption.html(response.title+". "+response.yCaption);
+	/* Atnaujinam headeri */
+	var i, j, str;
+	for(i in response.data) {
+		headerRow.append("<th class='dynamic'>"+response.data[i].name+"</th>");
+	}
+	/* Atnaujinam body */
+	for(i in response.xAxis) {
+		str = "<tr class='dynamic'><td class='date'>"+response.xAxis[i]+"</td>";	
+		for(j in response.data) {
+			str+= "<td>"+response.data[j].data[i]+"</td>";
+		}
+		str+= "</tr>";
+		tableBody.append(str)
+	}
+	
+}
+function updateSubdivisionCount() {
+	var countSpan = $("#division-select .count");
+	var count = $("#select-area .subdivisions:checked").length;
+	countSpan.html("("+count+")");
+	if(count>0) {
+		countSpan.removeClass("error");
+	} else {
+		countSpan.addClass("error");
+	}
+	
+}
+
+function initEvents() {
+	$("#table-select").click(function(e) {
+		if($("#view-chart").is(":visible")) {
+			$(".views").slideToggle();
+		}
+		e.preventDefault();
+	});
+	$("#chart-select").click(function(e) {
+		if($("#view-table").is(":visible")) {
+			$(".views").slideToggle();
+		}
+		e.preventDefault();
+	});
+	
+	// kad paspaudus bet kur, nei ant menu, padaliniu menu pasisleptu
 	$("#divisions").click(function(e) {
 		var anchor = $(this);
 		var selectarea = $("#select-area");
-		// kad paspaudus bet kur, nei ant menu, padaliniu menu pasisleptu
 		if(selectarea.is(":hidden")) {
             $(document).bind("click.tmp", function(e) {
             	var target = $(e.target);
@@ -89,7 +155,7 @@ $(document).ready(function() {
 		}
 		selectarea.slideToggle("fast");
         e.preventDefault();
-	});
+	});	
 	
 	var masterswitch = $("#select-area .masterswitch");
 	var subdivisions = $("#select-area .subdivisions");
@@ -112,17 +178,4 @@ $(document).ready(function() {
 		bind("keyup change", function(e) {
 			updateGraph();
 		});
-	
-	updateGraph();
-});
-function updateSubdivisionCount() {
-	var countSpan = $("#division-select .count");
-	var count = $("#select-area .subdivisions:checked").length;
-	countSpan.html("("+count+")");
-	if(count>0) {
-		countSpan.removeClass("error");
-	} else {
-		countSpan.addClass("error");
-	}
-	
 }
