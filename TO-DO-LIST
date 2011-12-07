@@ -10,24 +10,27 @@ nr. Pavadinimas
 0. Duomenų prognozė
 	TADAS
 		Prognozuojami duomenys pagal jau įvestus.
-1. Sugalvoti ir įgyvendinti ką gero įdėti pradžios tinklapyje į kurį patenki iškart prisijungęs.
-2. Login puslapio facelift
+1. Login puslapio facelift
  		Suvienodinti su vidiniais puslapiais.
-3. Įgyvendinti pagalbą, prirašyti prie elementų data-help savybę
+2. Įgyvendinti pagalbą, prirašyti prie elementų data-help savybę
 		Padaryti helpo hover - užvažiavus ant pagalba,
 		kad išgrynintų visus elementų komentarus,
 		kurie yra data-help atribute
-4. Ataskaita pagal apkrovą
+3. Ataskaita pagal apkrovą
 	ANTANAS
  		Damušti IS apkrova, Bendra apkrova   
-5. Paramos priemonių poveikio analizė
+4. Paramos priemonių poveikio analizė
  		IS Poveikio analizė 
  		Padalinių apkrovimo
  		Bendra poveikių analizė
-6. Rasti tinkamiausią laiką
+5. Rasti tinkamiausią laiką
  		IS Atnaujinimui
  		Kvalifikacijos kėlimui
  		Patalpų remontui
-7. Admin page
+6. Admin page
 	ANTANAS
  		Galima redaguoti visus duomenis ranka, tiesiai iš db. Matai įrašus, gali juos trinti.
+7. Sugalvoti ir įgyvendinti titulinį
+		Sumąstyti ką gero įdėti pradžios tinklapyje
+		į kurį patenki iškart prisijungęs, nes dabar
+		jis beprasmis
