@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 {include file='header.tpl'}
-
 <h1>Paramos priemonių poveikio analizė</h1>
-
-{include file='footer.tpl'}
-=======
-{include file="header.tpl" js="chart.js"}
 
 <div id="view-select">
 	<a href="" id="table-select">Lentelė</a> |
@@ -15,7 +9,7 @@
 	</span>
 </div>
 <div id="view"></div>
-<div id="filters">
+{*<div id="filters">
 	<div id="wrapper">
 		<form action="?p=ataskaita&src=padalinys" method="post">
 			<div class="update_chart" id="division-select">
@@ -46,7 +40,6 @@
 	<div id="save">
 		Išsaugoti duomenų bazėje? <input type="submit" value="Taip" /><input type="submit" value="Ne" />
 	</div>
-</div>
+</div>*}
 
 {include file="footer.tpl"}
->>>>>>> a8db928a83345691ecb39c248b10a0a52281d10d
