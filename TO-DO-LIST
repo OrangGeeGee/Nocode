@@ -1,34 +1,33 @@
 Sąrašas dalykų, kuriuos reikia padaryti. Visi pildom kai tik pamatom, kas dar nepadaryta!
 
-	Padarysiu duombazę su pradiniais duomenimis
-	done- sukurti lenteles
-	done- rankiniu budu padaryti duomenu importavima, kad turetume su kuo tobuleti
+Formatas:
+nr. Pavadinimas
+	KAM PRISKIRTA
+		Aprašymas. Nepatingėti aprašyti problemą.
+		Įvykdžius ištrinti
 
-	Sutvarkyti template'us
-	done- header.tpl, footer.tpl
-	done- importavimas is failo, importavimas is klavos
-	done- ataskaitos
-		- Leisti Ernestui ir Vytautui pasireikšti
-			o login.tpl puslapio išvaizdos sutvarkymas
-			o Padaryti, kad iš duomenų pagamintų lentelę
-			o Padailinti 404.tpl
-			o Sugalvoti ką konkrečiai rašyti tituliniam, kuo daugiau skaičiukų. Gražiai juos išdėlioti
-			o Tegu prigalvoja su pagalba ką galima būtų rašyti prie kiekvienos vietos, pvz.: import.tpl faile (data-help savybė prie elemento)
-			
-	Pabaigti surišinėti grafikus su realiais duomenim
-		- Ataskaitų
-		- Priemonių poveikio
-		- Pabaigti javascript'ą, kad visi laukai kažką darytų juose pakeitus reikšmę
-	
-	Paruošti vietą duomenų prognozei
-	done- palikti vietą kode, kad Tadas galėtų parašyti kodą prognozėms
-	done- pranešti apie tai Tadui
-		
-	Paruošti vietą duomenų failo importavimui
-		- paruošti vietą, kuri apdorotų excel'inį failą
-		- pranešti apie ją Ramintai
-		
-	 Sugalvoti darbo Mariui.
-	 
-	 Padaryti helpo hover
-		- užvažiavus ant pagalba, kad išgrynintų visus elementų komentarus, kurie yra data-help atribute
+
+0. Duomenų prognozė
+	TADAS
+		Prognozuojami duomenys pagal jau įvestus.
+1. Sugalvoti ir įgyvendinti ką gero įdėti pradžios tinklapyje į kurį patenki iškart prisijungęs.
+2. Login puslapio facelift
+ 		Suvienodinti su vidiniais puslapiais.
+3. Įgyvendinti pagalbą, prirašyti prie elementų data-help savybę
+		Padaryti helpo hover - užvažiavus ant pagalba,
+		kad išgrynintų visus elementų komentarus,
+		kurie yra data-help atribute
+4. Ataskaita pagal apkrovą
+	ANTANAS
+ 		Damušti IS apkrova, Bendra apkrova   
+5. Paramos priemonių poveikio analizė
+ 		IS Poveikio analizė 
+ 		Padalinių apkrovimo
+ 		Bendra poveikių analizė
+6. Rasti tinkamiausią laiką
+ 		IS Atnaujinimui
+ 		Kvalifikacijos kėlimui
+ 		Patalpų remontui
+7. Admin page
+	ANTANAS
+ 		Galima redaguoti visus duomenis ranka, tiesiai iš db. Matai įrašus, gali juos trinti.
