@@ -20,7 +20,7 @@
 				<input checked="checked" type="checkbox" class="masterswitch" name="master" value="1" /> Visi<br />
 			{foreach $checkboxes as $box}
 				<input checked="checked" type="checkbox" class="subdivisions" name="subdivision[{$box.id}]" value="{$box.id}" />
-				{$box.pavadinimas}<br />
+				{$box.kodas} <i>{$box.pavadinimas}</i><br />
 			{/foreach}
 			</div>
 		</div>
@@ -35,13 +35,7 @@
 			<input type="radio" name="show_data" value="hours"> pagal panaudotas jų apdorojimui valandas<br/>
 		</div>
 	</div>
-	<div id="debug"></div>
-		<br/>
-		<br/>
-		<br/>
-	<div id="save">
-		Išsaugoti duomenų bazėje? <input type="submit" value="Taip" /><input type="submit" value="Ne" />
-	</div>
+	<div id="debug" class="hidden"></div>
 </div>
 
 {include file="footer.tpl"}
