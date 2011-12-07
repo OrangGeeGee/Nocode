@@ -81,7 +81,14 @@ class Controller {
                 }
     	} elseif($_GET['p']=="laikas") {
     		// Rasti tinkamiausią laiką
-    		
+    		if(isset($_GET['target'])){
+                    $this->smarty->assign("target", $_GET['target']);
+                }
+                if(isset($_GET['action'])){
+                    if($_GET['action'] == 'find_time'){
+                        $this->findTime($_GET['target']);
+                    }
+                }
     	} else {
     		$this->smarty->assign("url", $_SERVER['REQUEST_URI']);
     		$tpl = "404";
@@ -264,12 +271,64 @@ class Controller {
     	// atkreipk dėmėsį į paskutinį vienetą, jis yra ten tam, kad
     	// nusakytų, jog šis įrašas yra prognozė. Pradžioj gal net gi galim ištrinti
     	// visas senas prognozes
-    	$this->db->delete("history", array("prognoze"=>1));
     	
-    	
-    	// prognozuoti.... sekmes!
-    	list($history) = $this->db->qKey("SELECT count(id) as count FROM app_history");
-    	$history["count"];
+		
+		//Istrina senas prognozes
+		$this->db->delete("history", array("prognoze"=>1));
+    	 	
+    	//Paselektinami kiekvienos priemones kodai
+    	$history = $this->db->q("SELECT distinct(priemoneskodas) as name FROM app_history");
+		
+		//Einama per kiekviena priemone
+    	for($i = 0; $i < count($history); $i++) {
+		
+			$query = "INSERT INTO `nocode`.`app_history` (`priemoneskodas`, `nuo`, `iki`, `kiekis`, `prognoze`) VALUES";
+			$priemonesKodas = $history[$i]['name'];
+
+			//Visu menesiu prognoze, konkreciai priemonei
+			for($men = 1; $men < 13; $men++) {
+				
+				$queryMen = '';
+				if ($men < 10) {
+				
+					$queryMen = '0'.$men;
+				
+				} else $queryMen = $men;
+				
+				$priemone = $this->db->q("SELECT distinct(kiekis), nuo FROM app_history WHERE priemoneskodas = '".$priemonesKodas."' AND nuo like '%-".$queryMen."-01' LIMIT 3");
+
+				$prognozeKiekis = 0;
+				$n = 0;
+				
+				//Sudedami kiekiai, pritaikant keikvienos priemones reiksmesParametra
+				for($k = 0; $k < count($priemone); $k++) {
+					
+					$reiksmesParametras = $k + 1;
+					$prognozeKiekis += $priemone[$k]['kiekis'] * $reiksmesParametras;
+					$n += $reiksmesParametras;
+				
+				}
+				
+				//Isskaiciuojamas prognozes kiekis
+				$prognozeKiekis = round($prognozeKiekis / $n);
+				$metai = date('Y');
+				$data = $metai.'-'.$queryMen;
+				
+				if ($men != 1) {
+				
+					$query .= ',';
+				
+				}
+				
+				$query .=" ('".$priemonesKodas."', '".$data."-01', '".$data.'-'.date('t', strtotime($data.'-01'))."', '".$prognozeKiekis."', 1)";
+				
+			}
+			
+			//Irasas i duomenu baze, uz 12 menesiu
+			$this->db->q($query);
+			
+		}
+
     }
     
     public function insertFromKeyboardPost() {
@@ -309,6 +368,21 @@ class Controller {
         }
         header('Location: ?p=import');
         die;
+    }
+    
+    public function findTime($target){
+        if($target == 'is'){
+            if(isset($_POST['is_time'])){
+                $isquery =
+    		"SELECT inf.kodas, inf.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis) as kiekis, ist.nuo ".
+			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist, app_ispadaliniai as infsys, app_is as inf ".
+			"WHERE inf.kodas = 'IS1' AND infsys.iskodas = inf.kodas AND infsys.padaliniokodas = pad.kodas AND pad.kodas = pp.padaliniokodas AND ist.priemoneskodas = pp.priemoneskodas ".
+			"GROUP BY infsys.iskodas, ist.nuo";	
+            }
+            $rawdata = $this->db->qKey(array("kodas","nuo"), $isquery);
+            $data = $this->gautiAtasaitaSuvirskinta($rawdata);
+            print_r($rawdata);die;
+        }
     }
 }
 
