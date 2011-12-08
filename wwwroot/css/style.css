@@ -73,3 +73,8 @@ body{background: #f5f5f5;}
 .first-level { margin-left: 4px; margin-top: 6px; }
 .bottom-line { border-bottom: 1px solid; }
 .return_msg { padding: 7px; width: 100%; text-align: center; border-bottom: 1px solid; margin-bottom: 14px; }
+
+.find_time{width:250px}
+.find_time_submit{float: right; padding: 10px; margin-right: 110px;}
+.find_time_form{width:500px; float: left; padding-top: 12px;}
+.find_time_submit_double{float: right; padding: 20px 10px 10px 10px; margin-right: 110px;}
