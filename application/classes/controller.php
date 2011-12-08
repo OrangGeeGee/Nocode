@@ -41,6 +41,16 @@ class Controller {
     	$tpl = "";
     	if(!isset($_GET['p'])) {
     		$tpl = "index";
+    		// jeigu nėra prognozuotų duomenų,
+    		// bet yra istorinių duomenų,
+    		// tai atlikti prognozę
+    		$prognoze = $this->db->q("SELECT * FROM {p}history WHERE prognoze = 1 LIMIT 0,1");
+    		if(empty($prognoze)) {
+    			$prognoze = $this->db->q("SELECT * FROM {p}history LIMIT 0,1");
+    			if(!empty($prognoze)) {
+    				$this->prognozuotiAteiti();
+    			}
+    		}
     	} elseif($_GET['p']=="ataskaita" || $_GET['p']=="ppp") {
     		// Ataskaita pagal apkrovą
     		if(isset($_GET['src'])) {
