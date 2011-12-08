@@ -321,15 +321,28 @@ class Controller {
 			$query = "INSERT INTO `nocode`.`app_history` (`priemoneskodas`, `nuo`, `iki`, `kiekis`, `prognoze`) VALUES";
 			$priemonesKodas = $history[$i]['name'];
 
+			//Gaunama data nuo kurios pradeti prognozavima
+			$lastMonth = $this->db->q("SELECT nuo FROM app_history WHERE priemoneskodas = '".$priemonesKodas."' order by nuo DESC LIMIT 1");
+			$nextMonth = date('m', strtotime($lastMonth[0]['nuo'])) + 1;
+			
 			//Visu menesiu prognoze, konkreciai priemonei
-			for($men = 1; $men < 13; $men++) {
+			for($men = $nextMonth; $men < ($nextMonth + 12); $men++) {
 				
 				$queryMen = '';
-				if ($men < 10) {
+				$metaiAdd = 0;
 				
-					$queryMen = '0'.$men;
+				if ($men > 12) {
+				
+					$metaiAdd++;
+					$queryMen = $men - 12;
 				
 				} else $queryMen = $men;
+				
+				if ($queryMen < 10) {
+				
+					$queryMen = '0'.$queryMen;
+				
+				}
 				
 				$priemone = $this->db->q("SELECT distinct(kiekis), nuo FROM app_history WHERE priemoneskodas = '".$priemonesKodas."' AND nuo like '%-".$queryMen."-01' LIMIT 3");
 
@@ -345,12 +358,12 @@ class Controller {
 				
 				}
 				
-				//Isskaiciuojamas prognozes kiekis
+				//Isskaiciuojamas prognozes kiekis bei data
 				$prognozeKiekis = round($prognozeKiekis / $n);
-				$metai = date('Y');
+				$metai = date('Y') + $metaiAdd;
 				$data = $metai.'-'.$queryMen;
 				
-				if ($men != 1) {
+				if ($men != $nextMonth) {
 				
 					$query .= ',';
 				
