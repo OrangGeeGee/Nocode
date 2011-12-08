@@ -22,6 +22,7 @@
 	<title>ŽKS</title>
 </head>
 <body>
+    <div class="background">&nbsp;</div>
 <!--[if lte IE 8]><div id="IElte8"><![endif]--> 
 <div id="root">
 <div id="header" class="rounded">
