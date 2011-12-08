@@ -98,7 +98,9 @@ function updateTable(response) {
 	/* Atnaujinam headeri */
 	var i, j, str;
 	for(i in response.data) {
-		headerRow.append("<th class='dynamic'>"+response.data[i].name+"</th>");
+		str = response.data[i].name;
+		
+		headerRow.append("<th class='dynamic'>"+str.split(" ")[0]+"</th>");
 	}
 	/* Atnaujinam body */
 	for(i in response.xAxis) {
@@ -109,7 +111,7 @@ function updateTable(response) {
 		str+= "</tr>";
 		tableBody.append(str)
 	}
-	
+	table.find(".dynamic:even").addClass("even");
 }
 function updateSubdivisionCount() {
 	var countSpan = $("#division-select .count");

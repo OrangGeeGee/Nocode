@@ -337,6 +337,7 @@ class Controller {
         }else{
             $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko.';
         }
+        $this->prognozuotiAteiti();
         header('Location: ?p=import');
         die;
     }
@@ -366,6 +367,7 @@ class Controller {
         } else {
             $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko. Patikrinkite ar tikrai šis failas yra tokio formato kaip pavyzdys';
         }
+		$this->prognozuotiAteiti();
         header('Location: ?p=import');
         die;
     }

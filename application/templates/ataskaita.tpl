@@ -9,7 +9,7 @@
 </div>
 <div id="view-chart" class="views"></div>
 <div id="view-table" class="views hidden">
-<table>
+<table border="0" cellspacing="0" cellpadding="0">
 	<caption></caption>
 	<thead>
 		<tr>

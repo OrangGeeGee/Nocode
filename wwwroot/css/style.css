@@ -50,7 +50,13 @@ body{background: #f5f5f5;}
 #select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
 .emptydataset { display: none; float:right; padding: 2px; margin-right:200px; }
 #view-table { overflow: auto; overflow-y: hidden; }
-#view-table table tr td { text-align:center; }
+#view-table table { margin:10px; }
+#view-table table caption { font-size:1.2em; margin-bottom:5px; }
+#view-table table tr td,
+#view-table table tr th { padding:5px; text-align:center; }
+#view-table table tr td.date { font-weight:bold; }
+#view-table table tr { background:#eee; border:1px solid #888; }
+#view-table table tr.even { background:#ddd; }
 
 /* IMPORT */
 
