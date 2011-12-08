@@ -8,7 +8,7 @@
 	<h2>Istorinio kiekio įvedimas iš klaviatūros</h2>
 	<table cellspacing="0" cellpadding="0">
 	<tr><td>Priemonės kodas:</td><td>
-	<select name="priemoneskodas">
+	<select name="priemoneskodas" id="priemone">
 	{foreach $priemones as $p}
 		<option value="{$p.kodas}">{$p.kodas}: {$p.pavadinimas}</option>
 	{/foreach}

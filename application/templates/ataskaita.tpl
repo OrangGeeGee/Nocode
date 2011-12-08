@@ -24,6 +24,7 @@
 </div>
 <div id="filters">
 	<div id="wrapper">
+		<input type="hidden" id="p" value="{$smarty.get.p}" />
 		<input type="hidden" id="src" value="{$src}" />
 		{if $src!=""}
 		<div class="update_chart" id="division-select">
@@ -37,6 +38,16 @@
 				{$box.kodas} <i>{$box.pavadinimas}</i><br />
 			{/foreach}
 			</div>
+		</div>
+		{/if}
+		{if isset($priemones)}
+		<div class="update_chart">
+			Paramos priemonė:<br />
+			<select name="priemone" id="priemone">
+			{foreach $priemones as $p}
+				<option value="{$p.kodas}">{$p.pavadinimas}</option>				
+			{/foreach}  
+			</select>			
 		</div>
 		{/if}
 		<div class="update_chart" id="date-select">

@@ -41,7 +41,7 @@ class Controller {
     	$tpl = "";
     	if(!isset($_GET['p'])) {
     		$tpl = "index";
-    	} elseif($_GET['p']=="ataskaita") {
+    	} elseif($_GET['p']=="ataskaita" || $_GET['p']=="ppp") {
     		// Ataskaita pagal apkrovą
     		if(isset($_GET['src'])) {
     			if($_GET['src']=="is") {
@@ -57,11 +57,15 @@ class Controller {
     			);
     			$this->smarty->assign("checkboxes", $checkboxes);
     		}
+    		$tpl = "ataskaita";
     		$this->smarty->assign("src", $_GET['src']);
-    	} elseif($_GET['p']=="ppp") {
-    		// ppp = paramos priemoniu poveikis
-    		// Paramos priemonių poveikio analizė
     		
+    		// ppp = paramos priemoniu poveikis
+    		// Papildomos funkcijos paramos priemonių poveikio analizei
+    		if($_GET['p']=="ppp") {
+    			$paramosPriemones = $this->db->q("SELECT * FROM {p}priemones");
+    			$this->smarty->assign("priemones", $paramosPriemones);
+    		}
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
     		$this->paruostiPriemones();
@@ -121,19 +125,20 @@ class Controller {
      */
 	public function ajax() {
 		if(isset($_GET['p'])) {
-			if($_GET['p']=="ataskaita") {
-				$this->rodytiAtaskaita();
+			if($_GET['p']=="ataskaita"||$_GET['p']=="ppp") {
+				$this->rodytiAtaskaita($_GET['p']);
 			}
 		}
 		
 	}
     
-    /**
+	/**
      * Informacijos grafikui pateikimo funkcija
-     */
-    public function rodytiAtaskaita() {
+	 * @param string $pilnaArPoveikiu Reikšmės "ataskaita" arba "ppp" nurodo ar skaičiuoti poveikį ar rodyti pilną ataskaitą
+	 */
+    public function rodytiAtaskaita($pilnaArPoveikiu) {
     	// atvaizdavimas valandomis ir vienetais
-    	$src = $_GET['src']; $from = ""; $till = "";
+    	$src = $_GET['src']; $from = ""; $till = ""; $pp = "";
     	if(!empty($_GET['show_data']) && $_GET['show_data']=="hours") {
     		$unit = "val.";
     		$hours = "*pp.valandos";
@@ -151,36 +156,41 @@ class Controller {
             $till = " AND ist.iki <= '".$_GET['date_till']."'";
         }
         
-        $padaliniuquery =
+        if(!empty($_GET['priemone'])) $pp = $_GET['priemone'];
+        
+        
+        $padaliniuQuery =
     		"SELECT pad.kodas, pad.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis){$hours} as kiekis, ist.nuo ".
 			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist ".
 			"WHERE pad.kodas = pp.padaliniokodas".$from.$till." AND ist.priemoneskodas = pp.priemoneskodas ".
     		( $src=="padalinys" ? "AND pad.id IN ({$_GET['checked']}) " : "" ).
+    		( $pp!="" ? "AND ist.priemoneskodas = '{$pp}' " : "" ).
 			"GROUP BY pad.kodas, ist.nuo";
-    	$isquery =
+    	$isQuery =
     		"SELECT inf.kodas, inf.pavadinimas, pp.priemoneskodas, SUM(ist.kiekis){$hours} as kiekis, ist.nuo ".
 			"FROM app_padaliniai as pad, app_priemonepadaliniai as pp, app_history as ist, app_ispadaliniai as infsys, app_is as inf ".
 			"WHERE infsys.iskodas = inf.kodas AND infsys.padaliniokodas = pad.kodas AND pad.kodas = pp.padaliniokodas".$from.$till." AND ist.priemoneskodas = pp.priemoneskodas ".
     		( $src!="" ? "AND inf.id IN ({$_GET['checked']}) " : "" ).
+    		( $pp!="" ? "AND ist.priemoneskodas = '{$pp}' " : "" ).
 			"GROUP BY infsys.iskodas, ist.nuo";	
     		
     	if($src=="is") {
-    		$title = "Informacinių Sistemų apkrova";
-    		$rawdata = $this->db->qKey(array("kodas","nuo"), $isquery);
+    		$title = ($pp == "" ? "Informacinių Sistemų apkrova" : "Paramos priemonės $pp poveikis Informacinėms Sistemoms");
+    		$rawdata = $this->db->qKey(array("kodas","nuo"), $isQuery);
     		$data = $this->gautiAtasaitaSuvirskinta($rawdata);
     	} elseif($src=="padalinys") {
     		$title = "Padalinių apkrova";
-    		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuquery);
+    		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuQuery);
     		$data = $this->gautiAtasaitaSuvirskinta($rawdata);
     	} else {
     		$title = "Bendra apkrova";
-    		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuquery);
-    		$rawisdata = $this->db->qKey(array("kodas","nuo"), $isquery);
+    		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuQuery);
+    		$rawisdata = $this->db->qKey(array("kodas","nuo"), $isQuery);
     		$padaliniudata = $this->gautiAtasaitaSuvirskinta($rawdata);
     		$isdata = $this->gautiAtasaitaSuvirskinta($rawisdata);
     		$data = array(
     			array(
-    				"name"=>"Padlinių apkrova",
+    				"name"=>"Padalinių apkrova",
     				"data"=>$this->gautiAtaskaitosSuvirskintaSuplota($padaliniudata)
     			),
     			array(

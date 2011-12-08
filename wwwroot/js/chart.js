@@ -9,13 +9,16 @@ $(document).ready(function() {
  * Grafo atnaujinimo funkcija
  */
 function updateGraph() {
-    var get = { ajax: 1, p:"ataskaita", src:$("#src").val() };
+    var get = { ajax: 1, p:$("#p").val(), src:$("#src").val() };
     
     get["checked"] = new Array();
     $("#select-area .subdivisions:checked").each(function() {
 		get["checked"].push($(this).val());
     });
     get["checked"] = get["checked"].join(",");
+    
+    var priemone = $("#priemone");
+    if(priemone.length>0) get["priemone"] = priemone.val();
 
     var from = $("#from").val();
     var until = $("#until").val();
@@ -33,7 +36,7 @@ function updateGraph() {
 				renderTo: 'view-chart',
 				defaultSeriesType: 'line',
 				height: 400,
-                                    width: 700
+                width: 700
 			},
 			credits: { enabled:false },
 			title: { text:json.title },
@@ -60,8 +63,22 @@ function updateGraph() {
 			},
 			tooltip: {
 				formatter: function() {
-		                return '<b>'+ this.series.name +'</b><br/>'+
-						this.x +': '+ this.y +' '+json.unit;
+					var x = this.x;
+					var y = this.y;
+		            var s = '<b>'+ x +'</b>';
+		            		            
+		            $.each(chart.series, function(i, serie) {
+		            	$.each(serie.data, function(j, point) {
+		            		if(point.category == x && point.y == y) {
+		            			s += '<br/>'+ serie.name +': '+
+		            			y +' '+json.unit;
+		            		}
+		            	});
+		            });
+		            
+		            return s;
+	                /*return '<b>'+ this.series.name +'</b><br/>'+
+					this.x +': '+ this.y +' '+json.unit;*/
 				}
 			},
 			series: json.data
@@ -176,7 +193,7 @@ function initEvents() {
 		updateGraph();
 	});
 	
-	$("#filters").find(".subdivisions, input[type='text'], input[type='radio']").
+	$("#filters").find(".subdivisions, input[type='text'], input[type='radio'], select").
 		bind("keyup change", function(e) {
 			updateGraph();
 		});

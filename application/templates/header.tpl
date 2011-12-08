@@ -39,7 +39,7 @@
 		<ul>
 			<li><div class="first-level">Ataskaita pagal apkrovą</div>
 				<ul class="bottom-line">
-					<li><a href="?p=ataskaita&src=padalinys">Padalinio apkrova</a></li>
+					<li><a href="?p=ataskaita&src=padalinys">Padalinių apkrova</a></li>
 					<li><a href="?p=ataskaita&src=is">IS apkrova</a></li>
 					<li><a href="?p=ataskaita">Bendra apkrova</a></li>
 				</ul>
@@ -47,8 +47,8 @@
 			<li><div class="first-level">Paramos priemonių poveikio analizė</div>
 				<ul class="bottom-line">
 				<!-- ppp = paramos priemoniu poveikis -->
-					<li><a href="?p=ppp&src=padalinys">IS poveikių analizė</a></li>
-					<li><a href="?p=ppp&src=is">Padalinių apkrovimo poveikių analizė</a></li>
+					<li><a href="?p=ppp&src=padalinys">Poveikio padaliniams analizė</a></li>
+					<li><a href="?p=ppp&src=is">Poveikio IS analizė</a></li>
 					<li><a href="?p=ppp">Bendra poveikių analizė</a></li>
 				</ul>
 			</li>
