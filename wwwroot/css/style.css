@@ -11,29 +11,29 @@ a:active{color:#000000;}
 input[type=radio], input[type=checkbox]{border: none;}
 input[type=submit], input[type=button]{color:#FFFFFF; background:#333333; border:none; padding:3px;}
 input[type=submit]:hover, input[type=button]:hover{background:#111111; cursor: pointer;}
-input{margin:2px; border:solid 1px #000000;}
+input{margin:2px; border:solid 1px #dddddd;}
 
 /* MAIN BLOCKS */
 body{background: #F7F7F9;}
 #root { margin:0 auto; min-width:1000px; max-width:1500px; position: relative; padding:0 10px;}
 #IEroot #root { width:1000px; }
-#header { margin-top: 10px;height:30px; background:#333333; font-size:14px; color:#FFFFFF; clear: both; line-height:28px; margin-bottom:10px;}
-#main-menu { width:240px; border:solid #000000 1px; float:left; padding:5px; color:#000000; }
-#display { min-width:690px; max-width:1202px; border:solid #000000 1px; padding:15px; font-size:smaller; margin-left:280px;	 }
+#header { border:solid #aaaaaaa 1px; margin-top: 10px;height:46px; background:#333333; font-size:14px; color:#FFFFFF; clear: both; line-height:28px; margin-bottom:10px;}
+#main-menu { width:240px; border:solid #aaaaaa 1px; float:left; padding:5px; color:#000000; }
+#display { min-width:690px; max-width:1202px; border:solid #aaaaaa 1px; padding:15px; font-size:smaller; margin-left:280px;}
 #IEroot #display { width:702px; }
 #footer { text-align:center; margin-top: 10px; color: #333; font-size: 17px; font-family: serif;}
 #content { color:#000000; }
 
 /* TOP MENU */
-#username { position:relative; float:left; }
+#username { position:relative; float:left; padding: 9px;}
 #username span { font-style:italic; margin-left:10px; }
 #top-menu { position:relative; float:right; text-align:right; margin-right:10px; }
-#top-menu a { color:#fff; margin:0 5px; font-family: sans-serif;}
+#top-menu a { color:#fff; margin:0 5px; font-family: sans-serif; font-weight: bold;}
 #top-menu a:hover { text-decoration:underline; }
-
+.top_image{margin-bottom: -12px; margin-top: 5px;}
 /* NAVIGATION MENU */
 #main-menu > ul {}
-#main-menu > ul > li { font-weight:bold; font-size:15px; font-family: sans-serif; color: #222222}
+#main-menu > ul > li { font-weight:bold; font-size:15px; font-family: sans-serif; color: #333333}
 #main-menu > ul > li > ul { padding: 10px; margin-left: 12px;}
 #main-menu > ul > li > ul > li {list-style-type: disc; font-weight:normal; font-size:smaller; text-decoration:underline; font-family: sans-serif; padding: 2px;}
 
@@ -48,15 +48,20 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .login-help{float: right; margin-right: 10px; margin-top: 10px;}
 /* VIEWS */
 #view-select { margin:4px;}
-.view-wrap { border:solid 1px #000000;  padding:1px; }
+.view-wrap { border:solid 1px #dddddd;  padding:1px; }
 #filters{ display:block;}
 #save{float:left;}
-#select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
+#select-area{border:solid 1px #999999; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
 .emptydataset { display: none; float:right; padding: 2px; margin-right:200px; }
 .update_chart{padding: 7px}
 .update_submit{margin: 7px}
 #filters .priemones {  }
-#priemone { width:300px; }
+#priemone { width:300px; margin-left: 5px;}
+.main-input{background: #F2F2F2; border: 0; height:16px; width: 75px}
+.main-input-block{width: 75px; padding: 0px 10px 0px; background: #F2F2F2; border: 1px solid #D0D0D0; display: inline-block; margin-left: 5px; margin-right: 5px;}
+#keyboard_insert_submit{margin-top: 20px}
+.title{margin-bottom:25px; color: #333333; font-family: sans-serif}
+.is_time{display: inline-block}
 /* VIEW-CHART */
 #view-chart { height:400px; }
 /* VIEW-TABLE */
@@ -85,10 +90,11 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .error { color:#f00; font-weight:bold; }
 .clear { clear: both; height:30px; }
 .first-level { margin-left: 4px; margin-top: 6px; }
-.bottom-line { border-bottom: 1px solid; }
-.return_msg { padding: 7px; width: 100%; text-align: center; border-bottom: 1px solid; margin-bottom: 14px; }
+.bottom-line { border-bottom: 1px solid #dddddd; }
+.return_msg { padding: 7px; width: 100%; text-align: center; border-bottom: 1px solid #dddddd; margin-bottom: 14px; }
 
 .find_time{width:250px}
-.find_time_submit{float: right; padding: 10px; margin-right: 110px;}
-.find_time_form{width:500px; float: left; padding-top: 12px;}
-.find_time_submit_double{float: right; padding: 20px 10px 10px 10px; margin-right: 110px;}
+.find_time_submit{float: left; padding: 5px; margin-right: 110px;}
+.find_time_form{float: left; padding-top: 12px;}
+.best_time{border-top: 1px solid #DDD; padding-top: 10px; margin-top: 10px;}
+.file-input{width: 245px}

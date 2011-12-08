@@ -29,5 +29,12 @@ $(function() {
         }
     });
 	
-	
+    $('#import_file').click(function(e){
+        e.preventDefault();
+        if($('#selected_file').val()){
+            $('#import_file_form').submit();
+        }else{
+            alert('Pasirinkite failą');
+        }
+    })
 });

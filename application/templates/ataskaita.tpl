@@ -7,7 +7,7 @@
 		Duomenų pagal parinktus kriterijus nerasta
 	</span>
 </div>
-<div class="view-wrap">
+<div class="view-wrap rounded">
 	<div id="view-chart" class="views"></div>
 	<div id="view-table" class="views hidden">
 <table border="0" cellspacing="0" cellpadding="0">
@@ -52,8 +52,8 @@
 		</div>
 		{/if}
 		<div class="update_chart" id="date-select">
-			Laikotarpis Nuo:<input name="date_from" class="datepicker" type="text" id="from" size="10" />
-			Iki: <input value="" name="date_till" class="datepicker" type="text" id="until" size="10" />
+			Laikotarpis Nuo:<p class="rounded main-input-block"><input name="date_from" class="main-input datepicker" type="text" id="from" size="10" /></p>
+			Iki: <p class="rounded main-input-block"><input value="" name="date_till" class="main-input datepicker" type="text" id="until" size="10" /></p>
 		</div>
 		<div class="update_chart">
 			Rodyti duomenis:<br/>

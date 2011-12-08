@@ -26,12 +26,12 @@
 <div id="root">
 <div id="header" class="rounded">
 	<div id="username">
-		<span>Sveiki, {$name}</span>
+		<span>Sveiki, {$name|capitalize}</span>
 	</div>
 	<div id="top-menu">
 		<a href="index.php">Grįžti į pradžią</a> |
-		<a href="#help" id="helpanchor">Pagalba</a> |
-		<a href="login.php?logout">Atsijungti</a>
+		<a href="#help" id="helpanchor"><img class="top_image" src="images/help.png" alt="Pagalba"/></a> |
+		<a href="login.php?logout"><img class="top_image" src="images/logout.png" alt="Atsijungti"/></a>
 	</div>
 	
 </div>
