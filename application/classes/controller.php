@@ -483,15 +483,21 @@ class Controller {
             }
             if($target == 'repair' && ($best < 3 || $best > 11)){
                  if($jobs[$next] < $jobs[$prev]){
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.21';
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$next.'.07';
                 }else{
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$prev.'.07 - '.$best.'.01';
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$prev.'.23 - '.$best.'.14';
+                }
+            }elseif($target == 'repair'){
+                if($jobs[$next] < $jobs[$prev]){
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$next.'.01';
+                }else{
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.14';
                 }
             }else{
                 if($jobs[$next] < $jobs[$prev]){
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.14';
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22';
                 }else{
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$prev.'.15 - '.$best.'.01';
+                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14';
                 }
             }
             $this->smarty->assign('result', $final_result);

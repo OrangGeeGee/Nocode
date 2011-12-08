@@ -79,15 +79,15 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 	margin-right: 0.5em; display: block; clear:left; }
 
 /* HELP */
-#helpanchor { z-index:101; position:relative }
-#helpoverlay { position:absolute; top:0; left:0; width:100%; height:100%; display:none; background: #259; opacity:0.3; z-index:100; }
+#helpanchor { z-index:101; position:relative; cursor: pointer}
+#helpoverlay { position:absolute; top:0; left:0; width:100%; height:100%; display:none; background: #999999; opacity:0.6; z-index:100; }
 
 /* ETCETERA */
 .hidden { display:none; }
 .rounded { border-radius:5px; }
 .rounded-big { border-radius:10px; }
 .white { background:#ffffff; }
-.error { color:#f00; font-weight:bold; }
+.error { color: #593AF7; font-size: 14px; font-family: sans-serif; padding: 10px; margin-left: 20px; float: left; }
 .clear { clear: both; height:30px; }
 .first-level { margin-left: 4px; margin-top: 6px; }
 .bottom-line { border-bottom: 1px solid #dddddd; }
@@ -98,3 +98,4 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .find_time_form{float: left; padding-top: 12px;}
 .best_time{border-top: 1px solid #DDD; padding-top: 10px; margin-top: 10px;}
 .file-input{width: 245px}
+p.empty{border: 1px solid #FA8588}

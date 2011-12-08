@@ -6,8 +6,6 @@
 	</div>
 </div>
 <!--[if lte IE 8]></div><![endif]--> 
-	<div id="helpoverlay">
-		<h1>Čia bus pagalba</h1>
-	</div>
+	<div id="helpoverlay"></div>
 </body>
 </html>

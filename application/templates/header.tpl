@@ -9,6 +9,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
 	<script src="js/jquery-ui-1.8.16.custom.min.js" type="text/javascript"></script>
 	<script src="js/highcharts.js" type="text/javascript"></script>
+        <script src="js/jquery.qtip.js" type="text/javascript"></script>
 	<script src="js/modules/exporting.js" type="text/javascript"></script>
 	<script src="js/index.js" type="text/javascript"></script>
 	{if isset($js)}<script src="js/{$js}" type="text/javascript"></script>{/if}
@@ -31,7 +32,7 @@
 	</div>
 	<div id="top-menu">
 		<a href="index.php">Grįžti į pradžią</a> |
-		<a href="#help" id="helpanchor"><img class="top_image" src="images/help.png" alt="Pagalba"/></a> |
+		<a href="#help" onclick="return false;" id="helpanchor"><img class="top_image" src="images/help.png" alt="Pagalba"/></a> |
 		<a href="login.php?logout"><img class="top_image" src="images/logout.png" alt="Atsijungti"/></a>
 	</div>
 	
