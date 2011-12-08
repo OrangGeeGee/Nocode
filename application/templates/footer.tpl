@@ -5,6 +5,7 @@
 		&#169; nocode, 2011
 	</div>
 </div>
+<!--[if lte IE 8]></div><![endif]--> 
 	<div id="helpoverlay">
 		<h1>Čia bus pagalba</h1>
 	</div>

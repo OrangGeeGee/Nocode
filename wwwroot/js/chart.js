@@ -36,7 +36,7 @@ function updateGraph() {
 				renderTo: 'view-chart',
 				defaultSeriesType: 'line',
 				height: 400,
-                width: 700
+                //width: 700
 			},
 			credits: { enabled:false },
 			title: { text:json.title },

@@ -22,7 +22,7 @@
 	<title>ŽKS</title>
 </head>
 <body>
-
+<!--[if lte IE 8]><div id="IElte8"><![endif]--> 
 <div id="root">
 <div id="header" class="rounded">
 	<div id="username">

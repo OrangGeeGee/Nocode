@@ -15,10 +15,12 @@ input{margin:2px; border:solid 1px #000000;}
 
 /* MAIN BLOCKS */
 body{background: #F7F7F9;}
-#root { margin:0 auto; width: 1000px; position: relative}
+#root { margin:0 auto; min-width:1000px; max-width:1500px; position: relative}
+#IEroot #root { width:1000px; }
 #header { margin-top: 10px;height:30px; background:#333333; font-size:14px; color:#FFFFFF; clear: both; line-height:28px; margin-bottom:10px;}
 #main-menu { width:240px; border:solid #000000 1px; float:left; padding:5px; color:#000000; }
-#display { width:702px; border:solid #000000 1px; float:right; padding:15px; font-size:smaller; }
+#display { min-width:702px; max-width:1202px; border:solid #000000 1px; padding:15px; font-size:smaller; margin-left:280px;	 }
+#IEroot #display { width:702px; }
 #footer { text-align:center; margin-top: 10px; color: #333; font-size: 17px; font-family: serif;}
 #content { color:#000000; }
 
@@ -46,7 +48,7 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .login-help{float: right; margin-right: 10px; margin-top: 10px;}
 /* VIEWS */
 #view-select { margin:4px;}
-.views{border:solid 1px #000000; width:700px; padding:1px; }
+.view-wrap { border:solid 1px #000000;  padding:1px; }
 #filters{ display:block;}
 #save{float:left;}
 #select-area{border:solid 1px #000000; border-radius:5px; -moz-border-radius:5px; padding:5px; position:absolute; display:none; background:#FFFFFF;}
@@ -55,8 +57,8 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .update_submit{margin: 7px}
 #filters .priemones {  }
 #priemone { width:300px; }
-/* VIEW-GRAPH */
-#view-graph { height:400px; }
+/* VIEW-CHART */
+#view-chart { height:400px; }
 /* VIEW-TABLE */
 #view-table { overflow: auto; overflow-y: hidden; }
 #view-table table { margin:10px; }

@@ -1,4 +1,5 @@
-function init_common() {
+$(function() {
+	
 	$("#helpanchor").hover(function() {
 		$("#helpoverlay").show(250);
 	}, function() {
@@ -12,25 +13,21 @@ function init_common() {
 		monthNames: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
 		changeMonth: true,
 		changeYear: true
-		
 	});
-        
-        $("#keyboard_insert_submit").click(function(){
-            var empty = false;
-            $("#keyboard_insert_form").find("input[type='text']").each(function(){
-                if(!$(this).val()){
-                    empty = true;
-                }
-            });
-            if(empty == true){
-                alert("Visi laukai privalo būti užpildyti");
-            } else {
-                $("#keyboard_insert_form").submit();
+    
+    $("#keyboard_insert_submit").click(function(){
+        var empty = false;
+        $("#keyboard_insert_form").find("input[type='text']").each(function(){
+            if(!$(this).val()){
+                empty = true;
             }
         });
-}
-$(function() {
-	// inicijuojami iprasti elementai 
-	init_common();
+        if(empty == true){
+            alert("Visi laukai privalo būti užpildyti");
+        } else {
+            $("#keyboard_insert_form").submit();
+        }
+    });
+	
 	
 });

@@ -7,8 +7,9 @@
 		Duomenų pagal parinktus kriterijus nerasta
 	</span>
 </div>
-<div id="view-chart" class="views"></div>
-<div id="view-table" class="views hidden">
+<div class="view-wrap">
+	<div id="view-chart" class="views"></div>
+	<div id="view-table" class="views hidden">
 <table border="0" cellspacing="0" cellpadding="0">
 	<caption></caption>
 	<thead>
@@ -19,8 +20,8 @@
 	<tbody>
 	
 	</tbody>
-</table>
-
+</table>	
+	</div>
 </div>
 <div id="filters">
 	<div id="wrapper">
