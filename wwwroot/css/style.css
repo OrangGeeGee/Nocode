@@ -14,12 +14,12 @@ input[type=submit]:hover, input[type=button]:hover{background:#111111; cursor: p
 input{margin:2px; border:solid 1px #000000;}
 
 /* MAIN BLOCKS */
-body{background: #f5f5f5;}
+body{background: #F7F7F9;}
 #root { margin:0 auto; width: 1000px; position: relative}
 #header { margin-top: 10px;height:30px; background:#333333; font-size:14px; color:#FFFFFF; clear: both; line-height:28px; margin-bottom:10px;}
 #main-menu { width:240px; border:solid #000000 1px; float:left; padding:5px; color:#000000; }
 #display { width:702px; border:solid #000000 1px; float:right; padding:15px; font-size:smaller; }
-#footer { text-align:center}
+#footer { text-align:center; margin-top: 10px; color: #333; font-size: 17px; font-family: serif;}
 #content { color:#000000; }
 
 /* TOP MENU */
@@ -36,8 +36,14 @@ body{background: #f5f5f5;}
 #main-menu > ul > li > ul > li {list-style-type: disc; font-weight:normal; font-size:smaller; text-decoration:underline; font-family: sans-serif; padding: 2px;}
 
 /* LOGIN */
-#login-form{position:relative; width:350px; margin-left:auto; margin-right:auto;}
-
+.login-main{position:relative; width:270px; margin-left:auto; margin-right:auto; border:1px solid;height: 300px; margin-top: 150px;border: 1px solid #D8D8D8; background: #ffffff}
+.background{width:100%; background: #F6F6F7 url('../images/nocodebg.png') repeat-x top center; position: absolute; height:209px; top: 0;}
+.login-input{background: #F2F2F2; border: 0; height:20px}
+.login-input-block{width: 155px; padding: 0px 10px 0px; background: #F2F2F2; border: 1px solid #D0D0D0;}
+.login-form{color: #333; font-weight: 700; font-size: 0.8em; margin-left: 48px; margin-top: 70px}
+input.login-submit{color: #333; width:130px; margin-left: 20px; background: url('../images/login-button.jpg') no-repeat top; border: 0 solid; font-size: 1em; height: 29px}
+input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat 0 -30px}
+.login-help{float: right; margin-right: 10px; margin-top: 10px;}
 /* VIEWS */
 #view-select { margin:4px;}
 .views{border:solid 1px #000000; width:700px; padding:1px; }
@@ -72,6 +78,7 @@ body{background: #f5f5f5;}
 /* ETCETERA */
 .hidden { display:none; }
 .rounded { border-radius:5px; }
+.rounded-big { border-radius:10px; }
 .white { background:#ffffff; }
 .error { color:#f00; font-weight:bold; }
 .clear { clear: both; height:30px; }
