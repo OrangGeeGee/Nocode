@@ -16,6 +16,7 @@
 	<script src="js/dd_roundies.js"></script>
         <script>
           DD_roundies.addRule('.rounded', '5px');
+        DD_roundies.addRule('.rounded-big', '10px');
         </script>
         <![endif]-->
 	<title>ŽKS</title>

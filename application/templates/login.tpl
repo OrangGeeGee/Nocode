@@ -3,32 +3,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" href="css/style.css" type="text/css" />
+<!--[if lt IE 9]>
+	<script src="js/dd_roundies.js"></script>
+        <script>
+          DD_roundies.addRule('.rounded', '5px');
+        DD_roundies.addRule('.rounded-big', '10px');
+        </script>
+<![endif]-->
 <title>ŽKS</title>
 </head>
 <body>
-
-<div id="header">
-	<div id="username">
-		<span></span>
-	</div>
-	<div id="top-menu">
-		<ul>
-			<li>Pagalba</li>	
-		</ul>
-	</div>
-	
-</div>
+<div class="background">&nbsp;</div>
 <div id="content">
 	{if $badCombination}
 		<div class="error">Bloga vartotojo vardo ir slaptažodžio kombinacija</div>
 	{/if}
-	<form id="login-form" action="login.php" method="post">
-		<label for="user">Prisijungimo vardas: </label>
-			<input type="text" name="name" id="user" /><br />
-		<label for="password">Slaptažodis: </label>
-			<input type="password" name="password" id="password" /><br />
-		<input type="submit" value="Prisijungti" />
-	</form>
+        <div class="login-main rounded-big">
+            <div class="login-help"><a href=""><img src="images/help.png" alt="Pagalba"/></a></div>
+            <form id="login-form" action="login.php" method="post" class="login-form">
+                    <label for="user">Prisijungimo vardas: </label><br/>
+                            <p class="rounded login-input-block"><input class="login-input" type="text" name="name" id="user" /></p><br />
+                    <label for="password">Slaptažodis: </label><br />
+                            <p class="rounded login-input-block"><input class="login-input" type="password" name="password" id="password" /></p><br />
+                    <input class="login-submit" type="submit" value="Prisijungti" />
+            </form>
+        </div>
 </div>
 <div id="footer">
 	&#169; nocode, 2011
