@@ -58,9 +58,9 @@ function updateGraph() {
 					color: '#808080'
 				}]
 			},
-			legend: {
-				enabled:false
-			},
+//			legend: {
+//				enabled:false
+//			},
 			tooltip: {
 				formatter: function() {
 					var x = this.x;
@@ -81,6 +81,14 @@ function updateGraph() {
 					this.x +': '+ this.y +' '+json.unit;*/
 				}
 			},
+			legend: {
+		         layout: 'vertical',
+		         align: 'right',
+		         verticalAlign: 'middle',
+		         //x: -10,
+		         //y: 100,
+		         //borderWidth: 0
+		      },
 			series: json.data
 		};
 		
