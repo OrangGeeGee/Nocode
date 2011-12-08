@@ -11,8 +11,10 @@ nr. Pavadinimas
 	TADAS
 		Prognozuojami duomenys pagal jau įvestus.
 1. Login puslapio facelift
+	MARIUS
  		Suvienodinti su vidiniais puslapiais.
 2. Įgyvendinti pagalbą, prirašyti prie elementų data-help savybę
+	MARIUS
 		Padaryti helpo hover - užvažiavus ant pagalba,
 		kad išgrynintų visus elementų komentarus,
 		kurie yra data-help atribute
@@ -20,10 +22,12 @@ nr. Pavadinimas
 	ANTANAS - DONE
  		Damušti IS apkrova, Bendra apkrova   
 4. Paramos priemonių poveikio analizė
+	ANTANS - DONE
  		IS Poveikio analizė 
  		Padalinių apkrovimo
  		Bendra poveikių analizė
 5. Rasti tinkamiausią laiką
+	MARIUS
  		IS Atnaujinimui
  		Kvalifikacijos kėlimui
  		Patalpų remontui
