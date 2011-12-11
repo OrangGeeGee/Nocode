@@ -82,7 +82,7 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 
 /* HELP */
 #helpanchor { z-index:101; position:relative; cursor: pointer}
-#helpoverlay { position:absolute; top:0; left:0; width:100%; height:100%; display:none; background: #000000; opacity:0.6; z-index:100; }
+#helpoverlay { position:fixed; top:0; left:0; width:100%; height:100%; display:none; background: #000000; opacity:0.6; z-index:100; }
 
 /* ETCETERA */
 .hidden { display:none; }
