@@ -25,8 +25,7 @@
 <body>
     <div class="background">&nbsp;</div>
 <!--[if lte IE 8]><div id="IElte8"><![endif]--> 
-<div id="root">
-<div id="header" class="rounded">
+<div id="header">
 	<div id="username">
 		<span>Sveiki, {$name|capitalize}</span>
 	</div>
@@ -37,6 +36,7 @@
 	</div>
 	
 </div>
+<div id="root">
 <div id="content">
 	<div id="main-menu" class="rounded white">
 		<ul>
