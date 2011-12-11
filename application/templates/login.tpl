@@ -33,7 +33,7 @@
             </div>
         </div>
         <div id="footer">
-            &#169; nocode, 2011
+            &#169; NoCode, 2011
         </div>
         <div id="helpoverlay"></div>
     </body>

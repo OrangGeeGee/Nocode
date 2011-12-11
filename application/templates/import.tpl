@@ -32,7 +32,7 @@
         <br/>
 	<p>	
 		<input id="selected_file" class="file-input" type="file" name="file" size="20" data-help="Pasirinkite failą iš savo kompiuterio, kurio formatas būtų toks: priemone, nuo, iki, kiekis." />
-		<input id="import_file" type="submit" class="login-submit" value="Išsaugoti" data-help="Pasirinkę failą spustelkite šį mygtuką" />
+		<input id="import_file" type="submit" class="login-submit" name="submit" value="Išsaugoti" data-help="Pasirinkę failą spustelkite šį mygtuką" />
 	</p>
 </form>
 {include file="footer.tpl"}

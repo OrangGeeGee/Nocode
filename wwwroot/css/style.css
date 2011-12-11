@@ -39,7 +39,7 @@ body{background: #F7F7F9;}
 
 /* LOGIN */
 .login-main{position:relative; width:270px; margin-left:auto; margin-right:auto; border:1px solid;height: 300px; margin-top: 150px;border: 1px solid #D8D8D8; background: #ffffff}
-.background{width:100%; background: #F6F6F7 url('../images/nocodebg.png') repeat-x top center; position: absolute; height:209px; top: 0;}
+.background{width:100%; background: #F6F6F7 url('../images/nocodebg.png') repeat-x top center; position: fixed; height:209px; top: 0;}
 .login-input{background: #F2F2F2; border: 0; height:20px}
 .login-input-block{width: 155px; padding: 0px 10px 0px; background: #F2F2F2; border: 1px solid #D0D0D0;}
 .login-form{color: #333; font-weight: 700; font-size: 0.8em; margin-left: 48px; margin-top: 70px}
@@ -61,8 +61,9 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .main-input-block{width: 75px; padding: 0px 10px 0px; background: #F2F2F2; border: 1px solid #D0D0D0; display: inline-block; margin-left: 5px; margin-right: 5px;}
 #keyboard_insert_submit{margin-top: 20px}
 .title{margin-bottom:25px; color: #333333; font-family: sans-serif}
-.is_time{display: inline-block}
+.is_time{display: inline-block; height: 106px}
 .show-advanced a{color: #0000FF}
+.advanced_search{height: 50px}
 /* VIEW-CHART */
 #view-chart { height:400px; }
 /* VIEW-TABLE */
