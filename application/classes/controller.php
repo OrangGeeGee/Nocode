@@ -113,6 +113,8 @@ class Controller {
                             $this->smarty->assign("selected", $_POST['repair_time']);
                         }
                     }
+                    $this->smarty->assign('date_from', '');
+                    $this->smarty->assign('date_till', '');
                 }
                 if(isset($_GET['action'])){
                     if($_GET['action'] == 'find_time'){
@@ -471,47 +473,247 @@ class Controller {
                     }
                 }
             }
-            foreach($jobs as $key=>$value){
-                if(!isset($best_time)){
-                    $best_time = $value['data']/$value['count'];
-                    $best = $key;
+            if(empty($_POST['date_from']) && !empty($_POST['date_till'])){
+                if(substr($_POST['date_till'], 0, 4) == date('Y')){
+                    $month_from = date('m');
+                    $month_till = substr($_POST['date_till'], 5, 2);
                 }else{
-                    if($value['data']/$value['count'] < $best_time){
-                        $best_time = $value['data']/$value['count'];
-                        $best = $key;
+                    if(substr($_POST['date_till'], 0, 4) > date('Y')){
+                        if(substr($_POST['date_till'], 0, 4) - date('Y') == 1){
+                            $month_till = date('m');
+                            $month_from = substr($_POST['date_from'], 5, 2);
+                        }else{
+                            $month_till = 12;
+                            $month_from = 0;
+                        }
+                    }else{
+                        $month_till = 12;
+                        $month_from = 0;
                     }
                 }
             }
-            $prev = $best-1;
-            if($prev == 0){
-                $prev = '12';
-            }elseif($prev < 10){
-                $prev = '0'.$prev;
+            if(!empty($_POST['date_from']) && empty($_POST['date_till'])){
+                $month_till = 12;
+                $month_from = 0;
             }
-            $next = $best+1;
-            if($next == 13){
-                $next = '01';
-            }elseif($next < 10){
-                $next = '0'.$next;
-            }
-            if($target == 'repair' && ($best < 3 || $best > 11)){
-                 if($jobs[$next] < $jobs[$prev]){
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$next.'.07';
+            if(!empty($_POST['date_from']) && !empty($_POST['date_till'])){
+                if(substr($_POST['date_till'], 0, 4) == substr($_POST['date_from'], 0, 4)){
+                    $month_from = substr($_POST['date_from'], 5, 2);
+                    $month_till = substr($_POST['date_till'], 5, 2);
                 }else{
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$prev.'.23 - '.$best.'.14';
+                    if(substr($_POST['date_till'], 0, 4) > substr($_POST['date_from'], 0, 4)){
+                        if(substr($_POST['date_till'], 0, 4) - substr($_POST['date_from'], 0, 4) == 1){
+                            $month_till = substr($_POST['date_till'], 5, 2);
+                            $month_from = substr($_POST['date_from'], 5, 2);
+                        }else{
+                            $month_till = 12;
+                            $month_from = 0;
+                        }
+                    }else{
+                        $month_till = 12;
+                        $month_from = 0;
+                    }
                 }
-            }elseif($target == 'repair'){
-                if($jobs[$next] < $jobs[$prev]){
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$next.'.01';
+            }
+            if(empty($_POST['date_from']) && empty($_POST['date_till'])){
+                $month_till = 12;
+                $month_from = 0;
+            }
+            if($_REQUEST['target'] != 'repair'){
+                foreach($jobs as $key=>$value){
+                    $ok = false;
+                    if($month_till >= $month_from){
+                        if($key < $month_till && $key > $month_from){
+                            $ok = true;
+                        }
+                    }else{
+                        if($key < $month_till || $key > $month_from){
+                            $ok = true;
+                        }
+                    }
+                    if($ok){
+                        if(!isset($best_time)){
+                            $best_time = $value['data']/$value['count'];
+                            $best = $key;
+                        }else{
+                            if($value['data']/$value['count'] < $best_time){
+                                $best_time = $value['data']/$value['count'];
+                                $best = $key;
+                            }
+                        }
+                    }
+                }
+                $prev = $best-1;
+                if($prev == 0){
+                    $prev = '12';
+                }elseif($prev < 10){
+                    $prev = '0'.$prev;
+                }
+                $next = $best+1;
+                if($next == 13){
+                    $next = '01';
+                }elseif($next < 10){
+                    $next = '0'.$next;
+                }
+                if($best > date('m')){
+                    $days = cal_days_in_month(CAL_GREGORIAN, $best, date('Y'));
                 }else{
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.14';
+                    $days = cal_days_in_month(CAL_GREGORIAN, $best, (date('Y')+1));
+                }
+                if($target == 'requalify'){
+                    $query = "SELECT pavadinimas FROM app_padaliniai WHERE id = '".$_POST['requalify_time']."'";
+                    $is = $this->db->q($query);
+                    if($jobs[$next] < $jobs[$prev]){
+                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                    }else{
+                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                    }
+                }else{
+                    $query = "SELECT pavadinimas FROM app_is WHERE id = '".$_POST['is_time']."'";
+                    $is = $this->db->q($query);
+                    if($jobs[$next] < $jobs[$prev]){
+                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                    }else{
+                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                    }
                 }
             }else{
-                if($jobs[$next] < $jobs[$prev]){
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22';
-                }else{
-                    $final_result = 'Tinkamiausias laikotarpis informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14';
+                foreach($jobs as $key=>$value){
+                    $ok = false;
+                    if($key < 11){
+                        $key2 = $key + 2;
+                    }elseif($key == '11'){
+                        $key2 = '01';
+                    }else{
+                        $key2 = '02';
+                    }
+                    if($month_till >= $month_from){
+                        if($key == '11' || $key == '12'){
+                            if($key+2 < $month_till && $key > $month_from){
+                                $ok = true;
+                            }
+                        }else{
+                            if($key2 < $month_till && $key > $month_from){
+                                $ok = true;
+                            }
+                        }
+                    }else{
+                        if($key == '11' || $key == '12'){
+                            if($key2 < $month_till && $key > $month_from){
+                                $ok = true;
+                            }
+                        }else{
+                            if($key2 < $month_till || $key > $month_from){
+                                $ok = true;
+                            }
+                        }
+                    }
+                    if($ok){
+                        if($key < 7){
+                            $key1 = '0'.($key+1);
+                            $key2 = '0'.($key+2);
+                            $key3 = '0'.($key+3);
+                        }elseif($key == '07'){
+                            $key1 = '08';
+                            $key2 = '09';
+                            $key3 = '10';
+                        }elseif($key == '08'){
+                            $key1 = '09';
+                            $key2 = '10';
+                            $key3 = '11';
+                        }elseif($key == '09'){
+                            $key1 = '10';
+                            $key2 = '11';
+                            $key3 = '12';
+                        }elseif($key == '10'){
+                            $key1 = '11';
+                            $key2 = '12';
+                            $key3 = '01';
+                        }elseif($key == '11'){
+                            $key1 = '12';
+                            $key2 = '01';
+                            $key3 = '02';
+                        }elseif($key == '12'){
+                            $key1 = '01';
+                            $key2 = '02';
+                            $key3 = '03';
+                        }
+                        if($key > 2 && $key < 11){
+                            if(!isset($best_time)){
+                                $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'];
+                                $best_from = $key.'.01';
+                                $best_end = $key2.'.01';
+                            }else{
+                                if($jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'] < $best_time){
+                                    $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'];
+                                    $best_from = $key.'.01';
+                                    $best_end = $key2.'.01';
+                                }
+                            }
+                        }elseif($key == '11'){
+                            if(!isset($best_time)){
+                                $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'] + $jobs[$key2]['data']/$jobs[$key2]['count']/2;
+                                $best_from = $key.'.01';
+                                $best_end = $key2.'.15';
+                            }else{
+                                if($jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count']/2 < $best_time){
+                                    $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count']/2;
+                                    $best_from = $key.'.01';
+                                    $best_end = $key2.'.15';
+                                }
+                            }
+                        }elseif($key == '12'){
+                            if(!isset($best_time)){
+                                $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'] + $jobs[$key2]['data']/$jobs[$key2]['count'];
+                                $best_from = $key.'.01';
+                                $best_end = $key3.'.01';
+                            }else{
+                                if($jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count'] < $best_time){
+                                    $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count'];
+                                    $best_from = $key.'.01';
+                                    $best_end = $key3.'.01';
+                                }
+                            }
+                        }elseif($key == '01'){
+                            if(!isset($best_time)){
+                                $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'] + $jobs[$key2]['data']/$jobs[$key2]['count']*2/3;
+                                $best_from = $key.'.01';
+                                $best_end = $key2.'.20';
+                            }else{
+                                if($jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count']*2/3 < $best_time){
+                                    $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count']*2/3;
+                                    $best_from = $key.'.01';
+                                    $best_end = $key2.'.20';
+                                }
+                            }
+                        }elseif($key == '02'){
+                            if(!isset($best_time)){
+                                $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count'] + $jobs[$key2]['data']/$jobs[$key2]['count']*1/3;
+                                $best_from = $key.'.01';
+                                $best_end = $key2.'.10';
+                            }else{
+                                if($jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count']*1/3 < $best_time){
+                                    $best_time = $jobs[$key]['data']/$jobs[$key]['count'] + $jobs[$key1]['data']/$jobs[$key1]['count']  + $jobs[$key2]['data']/$jobs[$key2]['count']*1/3;
+                                    $best_from = $key.'.01';
+                                    $best_end = $key2.'.10';
+                                }
+                            }
+                        }
+                    }
                 }
+                $query = "SELECT pavadinimas FROM app_padaliniai WHERE id = '".$_POST['repair_time']."'";
+                $is = $this->db->q($query);
+                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" patalpų remontui yra: '.$best_from.' - '.$best_end.'<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)$best_time;
+            }
+            if(isset($_POST['date_from'])){
+                $this->smarty->assign('date_from', $_POST['date_from']);
+            }else{
+                $this->smarty->assign('date_from', '');
+            }
+            if(isset($_POST['date_till'])){
+                $this->smarty->assign('date_till', $_POST['date_till']);
+            }else{
+                $this->smarty->assign('date_till', '');
             }
             $this->smarty->assign('result', $final_result);
         }
