@@ -466,13 +466,6 @@ class Controller {
                 $jobs[substr($key, 5, 2)]['data'] = $jobs[substr($key, 5, 2)]['data'] + $value['kiekis']*(-1*(date('Y')-substr($key, 0, 4))+$diff);
                 $jobs[substr($key, 5, 2)]['count'] = $jobs[substr($key, 5, 2)]['count'] + 1*(-1*(date('Y')-substr($key, 0, 4))+$diff);
             }
-            if($target == 'repair'){
-                foreach($jobs as $key=>$value){
-                    if($key < 3 || $key > 11){
-                        $jobs[$key]['data'] = $jobs[$key]['data']*(3/2);
-                    }
-                }
-            }
             if(empty($_POST['date_from']) && !empty($_POST['date_till'])){
                 if(substr($_POST['date_till'], 0, 4) == date('Y')){
                     $month_from = date('m');
@@ -519,16 +512,84 @@ class Controller {
                 $month_till = 12;
                 $month_from = 0;
             }
+            //$from
+            //3=01-07
+            //2=07-15
+            //1=15-22
+            //0=22-30
+            //$till
+            //3=22-31
+            //2=15-22
+            //1=07-15
+            //0=01-07
+            if(!empty($_POST['date_from'])){
+                if(substr($_POST['date_from'], 8, 2) > 22 ){
+                    $from = 0;
+                }elseif(substr($_POST['date_from'], 8, 2) > 14 ){
+                    $from = 1;
+                }elseif(substr($_POST['date_from'], 8, 2) > 6 ){
+                    $from = 2;
+                }else{
+                    $from = 3;
+                }
+            }else{
+                $from = 0;
+            }
+            if(!empty($_POST['date_till'])){
+                if(substr($_POST['date_till'], 8, 2) > 22 ){
+                    $till = 3;
+                }elseif(substr($_POST['date_till'], 8, 2) > 14 ){
+                    $till = 2;
+                }elseif(substr($_POST['date_till'], 8, 2) > 6 ){
+                    $till = 1;
+                }else{
+                    $till = 0;
+                }
+            }else{
+                $till = 0;
+            }
             if($_REQUEST['target'] != 'repair'){
                 foreach($jobs as $key=>$value){
                     $ok = false;
-                    if($month_till >= $month_from){
-                        if($key < $month_till && $key > $month_from){
-                            $ok = true;
+                    if($from > 0 && $till > 0){
+                        if($month_till >= $month_from){
+                                if($key <= $month_till && $key >= $month_from){
+                                    $ok = true;
+                                }
+                        }else{
+                                if($key <= $month_till || $key >= $month_from){
+                                    $ok = true;
+                                }
+                        }
+                    }elseif($from > 0 && $till == 0){
+                        if($month_till >= $month_from){
+                                if($key < $month_till && $key >= $month_from){
+                                    $ok = true;
+                                }
+                        }else{
+                                if($key < $month_till || $key >= $month_from){
+                                    $ok = true;
+                                }
+                        }
+                    }elseif($from == 0 && $till > 0){
+                        if($month_till >= $month_from){
+                                if($key <= $month_till && $key > $month_from){
+                                    $ok = true;
+                                }
+                        }else{
+                                if($key <= $month_till || $key > $month_from){
+                                    $ok = true;
+                                }
                         }
                     }else{
-                        if($key < $month_till || $key > $month_from){
-                            $ok = true;
+                        if($month_till >= $month_from){
+                                if($key < $month_till && $key > $month_from){
+                                    $ok = true;
+                                }
+                        }else{
+                                if($key < $month_till || $key > $month_from){
+                                    $ok = true;
+                                }
                         }
                     }
                     if($ok){
@@ -563,18 +624,78 @@ class Controller {
                 if($target == 'requalify'){
                     $query = "SELECT pavadinimas FROM app_padaliniai WHERE id = '".$_POST['requalify_time']."'";
                     $is = $this->db->q($query);
-                    if($jobs[$next] < $jobs[$prev]){
-                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                    if($best != $month_from && $best != $month_till){
+                        if($jobs[$next] < $jobs[$prev]){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }else{
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }
+                    }elseif($best == $month_from){
+                        if($from == '1'){
+                            if(substr($_POST['date_till'], 5, 2) != '02'){
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.23 - '.$best.'.30<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }else{
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.23 - '.$next.'.02<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            } 
+                        }elseif($from == '2'){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }elseif($from == '3'){
+                            if($jobs[$next] < $jobs[$prev]){
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }else{
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }
+                        }
                     }else{
-                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        if($till == '1'){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.01 - '.$best.'.07<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }elseif($till == '2'){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.08 - '.$best.'.15<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }elseif($till == '3'){
+                            if($jobs[$next] < $jobs[$prev]){
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }else{
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }
+                        }
                     }
                 }else{
                     $query = "SELECT pavadinimas FROM app_is WHERE id = '".$_POST['is_time']."'";
                     $is = $this->db->q($query);
-                    if($jobs[$next] < $jobs[$prev]){
-                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                    if($best != $month_from && $best != $month_till){
+                        if($jobs[$next] < $jobs[$prev]){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }else{
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }
+                    }elseif($best == $month_from){
+                        if($from == '1'){
+                            if(substr($_POST['date_till'], 5, 2) != '02'){
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.23 - '.$best.'.30<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }else{
+                                 $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.23 - '.$next.'.02<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }
+                        }elseif($from == '2'){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }elseif($from == '3'){
+                            if($jobs[$next] < $jobs[$prev]){
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }else{
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }
+                        }
                     }else{
-                        $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        if($till == '1'){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.07<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }elseif($till == '2'){
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.08 - '.$best.'.15<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                        }elseif($till == '3'){
+                            if($jobs[$next] < $jobs[$prev]){
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }else{
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            }
+                        }
                     }
                 }
             }else{
