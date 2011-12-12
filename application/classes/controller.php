@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Pagrindinė klasė, kuri atsakinga už template'ų sujungimą su 
- * duomenimis, taip pat už duomenų apdorojimą (arba bent jau
- * apdorojimo nukreipimą).
- * Ši klasė yra pati pati pradžia - tuo galime įsitikinti 
+ * PagrindinÄ— klasÄ—, kuri atsakinga uÅ¾ template'Å³ sujungimÄ… su 
+ * duomenimis, taip pat uÅ¾ duomenÅ³ apdorojimÄ… (arba bent jau
+ * apdorojimo nukreipimÄ…).
+ * Å i klasÄ— yra pati pati pradÅ¾ia - tuo galime ÄÆsitikinti 
  * wwwroot/index.php faile 
  * @author Anthony
  *
@@ -32,6 +32,7 @@ class Controller {
         $this->smarty = new MySmarty;
         $this->smarty->assign("name", $_SESSION['user']['name']);
         $this->db = new db();
+        date_default_timezone_set("Europe/Helsinki");
     }	
     
     /**
@@ -41,9 +42,11 @@ class Controller {
     	$tpl = "";
     	if(!isset($_GET['p'])) {
     		$tpl = "index";
-    		// jeigu nėra prognozuotų duomenų,
-    		// bet yra istorinių duomenų,
-    		// tai atlikti prognozę
+    		$this->smarty->assign('divisionTotal', $this->getTotalDivision());
+    		$this->smarty->assign('usersTotal', $this->getTotalUsers());
+    		// jeigu nÄ—ra prognozuotÅ³ duomenÅ³,
+    		// bet yra istoriniÅ³ duomenÅ³,
+    		// tai atlikti prognozÄ™
     		$prognoze = $this->db->q("SELECT * FROM {p}history WHERE prognoze = 1 LIMIT 0,1");
     		if(empty($prognoze)) {
     			$prognoze = $this->db->q("SELECT * FROM {p}history LIMIT 0,1");
@@ -52,7 +55,7 @@ class Controller {
     			}
     		}
     	} elseif($_GET['p']=="ataskaita" || $_GET['p']=="ppp") {
-    		// Ataskaita pagal apkrovą
+    		// Ataskaita pagal apkrovÄ…
     		if(isset($_GET['src'])) {
     			if($_GET['src']=="is") {
 	    			$this->paruostiIS("checkboxes");
@@ -62,7 +65,7 @@ class Controller {
     		} else {
     			$_GET['src'] = "";
     			$checkboxes = array(
-    				array("id"=>1, "pavadinimas"=>"Padalinių apkrova","kodas"=>""),
+    				array("id"=>1, "pavadinimas"=>"PadaliniÅ³ apkrova","kodas"=>""),
     				array("id"=>2, "pavadinimas"=>"IS apkrova","kodas"=>"")
     			);
     			$this->smarty->assign("checkboxes", $checkboxes);
@@ -71,13 +74,13 @@ class Controller {
     		$this->smarty->assign("src", $_GET['src']);
     		
     		// ppp = paramos priemoniu poveikis
-    		// Papildomos funkcijos paramos priemonių poveikio analizei
+    		// Papildomos funkcijos paramos priemoniÅ³ poveikio analizei
     		if($_GET['p']=="ppp") {
     			$paramosPriemones = $this->db->q("SELECT * FROM {p}priemones");
     			$this->smarty->assign("priemones", $paramosPriemones);
     		}
     	} elseif($_GET['p']=="import") {
-    		// Paraiškų istorinio kiekio pateikimas
+    		// ParaiÅ�kÅ³ istorinio kiekio pateikimas
     		$this->paruostiPriemones();
     		
                 if(isset($_GET['cmd'])){
@@ -94,7 +97,7 @@ class Controller {
                     $this->smarty->assign("result_msg", '');
                 }
     	} elseif($_GET['p']=="laikas") {
-    		// Rasti tinkamiausią laiką
+    		// Rasti tinkamiausiÄ… laikÄ…
     		if(isset($_GET['target'])){
                     $this->smarty->assign("target", $_GET['target']);
                     if($_GET['target'] == 'is'){
@@ -146,7 +149,7 @@ class Controller {
     
 	/**
      * Informacijos grafikui pateikimo funkcija
-	 * @param string $pilnaArPoveikiu Reikšmės "ataskaita" arba "ppp" nurodo ar skaičiuoti poveikį ar rodyti pilną ataskaitą
+	 * @param string $pilnaArPoveikiu ReikÅ�mÄ—s "ataskaita" arba "ppp" nurodo ar skaiÄ¨iuoti poveikÄÆ ar rodyti pilnÄ… ataskaitÄ…
 	 */
     public function rodytiAtaskaita($pilnaArPoveikiu) {
     	// atvaizdavimas valandomis ir vienetais
@@ -187,11 +190,11 @@ class Controller {
 			"GROUP BY infsys.iskodas, ist.nuo";	
     		
     	if($src=="is") {
-    		$title = ($pp == "" ? "Informacinių Sistemų apkrova" : "Paramos priemonės $pp poveikis Informacinėms Sistemoms");
+    		$title = ($pp == "" ? "InformaciniÅ³ SistemÅ³ apkrova" : "Paramos priemonÄ—s $pp poveikis InformacinÄ—ms Sistemoms");
     		$rawdata = $this->db->qKey(array("kodas","nuo"), $isQuery);
     		$data = $this->gautiAtasaitaSuvirskinta($rawdata);
     	} elseif($src=="padalinys") {
-    		$title = "Padalinių apkrova";
+    		$title = "PadaliniÅ³ apkrova";
     		$rawdata = $this->db->qKey(array("kodas","nuo"), $padaliniuQuery);
     		$data = $this->gautiAtasaitaSuvirskinta($rawdata);
     	} else {
@@ -202,11 +205,11 @@ class Controller {
     		$isdata = $this->gautiAtasaitaSuvirskinta($rawisdata);
     		$data = array(
     			array(
-    				"name"=>"Padalinių apkrova",
+    				"name"=>"PadaliniÅ³ apkrova",
     				"data"=>$this->gautiAtaskaitosSuvirskintaSuplota($padaliniudata)
     			),
     			array(
-    				"name"=>"Informacinių Sistemų apkrova",
+    				"name"=>"InformaciniÅ³ SistemÅ³ apkrova",
     				"data"=>$this->gautiAtaskaitosSuvirskintaSuplota($isdata)
     			)    			
     		);
@@ -222,7 +225,7 @@ class Controller {
 		$return = array(
 			"unit"=>$unit,
 			"title"=>$title,
-			"yCaption"=>"Apdorotų paraiškų skaičius ($unit)",
+			"yCaption"=>"ApdorotÅ³ paraiÅ�kÅ³ skaiÄ¨ius ($unit)",
 			"xAxis"=>$xAxis,
 			"data"=>$data,
 			"debug"=>$c
@@ -290,7 +293,7 @@ class Controller {
     }
     /**
      * Template variklyje Smarty atsiranda kintamasis
-     * 'is', kuriame yra visos informacinės sistemos
+     * 'is', kuriame yra visos informacinÄ—s sistemos
      */    
     public function paruostiIS($varName="is") {
     	$is = $this->db->qKey("id", "SELECT * FROM {p}is");
@@ -299,15 +302,15 @@ class Controller {
         
     /**
      * Prognozuoja pagal turimus duomenis 12 men i priekiu
-     * turedamas omenyje, kad yra kas met mėnesių tendencija.
+     * turedamas omenyje, kad yra kas met mÄ—nesiÅ³ tendencija.
      * @author Tadas
      */
     public function prognozuotiAteiti() {
-    	// Įrašas duombazėj turi atrodyti maždaug šitaip:
+    	// Ä®raÅ�as duombazÄ—j turi atrodyti maÅ¾daug Å�itaip:
     	// INSERT INTO `nocode`.`app_history` (`priemoneskodas`, `nuo`, `iki`, `kiekis`, `prognoze`)
     	// VALUES ('p4-3', '2008-09-01', '2008-09-30', '31', 1);
-    	// atkreipk dėmėsį į paskutinį vienetą, jis yra ten tam, kad
-    	// nusakytų, jog šis įrašas yra prognozė. Pradžioj gal net gi galim ištrinti
+    	// atkreipk dÄ—mÄ—sÄÆ ÄÆ paskutinÄÆ vienetÄ…, jis yra ten tam, kad
+    	// nusakytÅ³, jog Å�is ÄÆraÅ�as yra prognozÄ—. PradÅ¾ioj gal net gi galim iÅ�trinti
     	// visas senas prognozes
     	
 		
@@ -384,9 +387,9 @@ class Controller {
     
     public function insertFromKeyboardPost() {
     	if($this->db->update("history", $_POST)){
-            $_SESSION['result_msg'] = 'Duomenys sėkmingai įkelti.';
+            $_SESSION['result_msg'] = 'Duomenys sÄ—kmingai ÄÆkelti.';
         }else{
-            $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko.';
+            $_SESSION['result_msg'] = 'DuomenÅ³ ÄÆkelti nepavyko.';
         }
         $this->prognozuotiAteiti();
         header('Location: ?p=import');
@@ -414,9 +417,9 @@ class Controller {
             }
         }
         if($success == true){
-            $_SESSION['result_msg'] = 'Duomenys sėkmingai įkelti.';
+            $_SESSION['result_msg'] = 'Duomenys sÄ—kmingai ÄÆkelti.';
         } else {
-            $_SESSION['result_msg'] = 'Duomenų įkelti nepavyko. Patikrinkite ar tikrai šis failas yra tokio formato kaip pavyzdys';
+            $_SESSION['result_msg'] = 'DuomenÅ³ ÄÆkelti nepavyko. Patikrinkite ar tikrai Å�is failas yra tokio formato kaip pavyzdys';
         }
 		$this->prognozuotiAteiti();
         header('Location: ?p=import');
@@ -626,36 +629,36 @@ class Controller {
                     $is = $this->db->q($query);
                     if($best != $month_from && $best != $month_till){
                         if($jobs[$next] < $jobs[$prev]){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }else{
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }
                     }elseif($best == $month_from){
                         if($from == '1'){
                             if(substr($_POST['date_till'], 5, 2) != '02'){
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.23 - '.$best.'.30<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.23 - '.$best.'.30<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }else{
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.23 - '.$next.'.02<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.23 - '.$next.'.02<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             } 
                         }elseif($from == '2'){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }elseif($from == '3'){
                             if($jobs[$next] < $jobs[$prev]){
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }else{
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }
                         }
                     }else{
                         if($till == '1'){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.01 - '.$best.'.07<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.01 - '.$best.'.07<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }elseif($till == '2'){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.08 - '.$best.'.15<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.08 - '.$best.'.15<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }elseif($till == '3'){
                             if($jobs[$next] < $jobs[$prev]){
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }else{
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojų kvalifikacijos kėlimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" darbuotojÅ³ kvalifikacijos kÄ—limui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }
                         }
                     }
@@ -664,36 +667,36 @@ class Controller {
                     $is = $this->db->q($query);
                     if($best != $month_from && $best != $month_till){
                         if($jobs[$next] < $jobs[$prev]){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }else{
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }
                     }elseif($best == $month_from){
                         if($from == '1'){
                             if(substr($_POST['date_till'], 5, 2) != '02'){
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.23 - '.$best.'.30<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.23 - '.$best.'.30<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }else{
-                                 $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.23 - '.$next.'.02<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                 $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.23 - '.$next.'.02<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }
                         }elseif($from == '2'){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }elseif($from == '3'){
                             if($jobs[$next] < $jobs[$prev]){
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }else{
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }
                         }
                     }else{
                         if($till == '1'){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.07<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.01 - '.$best.'.07<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }elseif($till == '2'){
-                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.08 - '.$best.'.15<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                            $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.08 - '.$best.'.15<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                         }elseif($till == '3'){
                             if($jobs[$next] < $jobs[$prev]){
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.15 - '.$best.'.22<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }else{
-                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinės sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)(($best_time/$days)*7);
+                                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" informacinÄ—s sistemos atnaujinimui yra: '.$best.'.07 - '.$best.'.14<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)(($best_time/$days)*7);
                             }
                         }
                     }
@@ -824,7 +827,7 @@ class Controller {
                 }
                 $query = "SELECT pavadinimas FROM app_padaliniai WHERE id = '".$_POST['repair_time']."'";
                 $is = $this->db->q($query);
-                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" patalpų remontui yra: '.$best_from.' - '.$best_end.'<br/>Numatomas sustabdytų paraiškų skaičius: '.(integer)$best_time;
+                $final_result = 'Tinkamiausias laikotarpis "'.$is[0]['pavadinimas'].'" patalpÅ³ remontui yra: '.$best_from.' - '.$best_end.'<br/>Numatomas sustabdytÅ³ paraiÅ�kÅ³ skaiÄ¨ius: '.(integer)$best_time;
             }
             if(isset($_POST['date_from'])){
                 $this->smarty->assign('date_from', $_POST['date_from']);
@@ -838,6 +841,19 @@ class Controller {
             }
             $this->smarty->assign('result', $final_result);
         }
+    }
+    
+    public function getTotalDivision(){
+    	$query="SELECT SUM(kiekis) AS count FROM `app_history` WHERE priemoneskodas IN (SELECT kodas FROM app_priemones)";
+    	$totalCount = $this->db->q($query);
+    	echo $totalCount[0]['count'];
+    	return $totalCount[0]['count'];
+    }
+	public function getTotalUsers(){
+    	$query="SELECT COUNT(*) AS count FROM `app_users`";
+    	$totalCount = $this->db->q($query);
+    	echo $totalCount[0]['count'];
+    	return $totalCount[0]['count'];
     }
 }
 
