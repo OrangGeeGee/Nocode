@@ -21,7 +21,7 @@ body{background: #F7F7F9;}
 #main-menu { width:240px; border:solid #aaaaaa 1px; float:left; padding:5px; color:#000000; }
 #display { min-width:690px; max-width:1202px; border:solid #aaaaaa 1px; padding:15px; font-size:smaller; margin-left:280px;}
 #IEroot #display { width:702px; }
-#footer { text-align:center; margin-top: 10px; color: #333; font-size: 17px; font-family: serif;}
+#footer { text-align:center; margin-top: 10px; color: #333; font-size: 17px; font-family: arial;}
 #content { color:#000000; }
 
 /* TOP MENU */
