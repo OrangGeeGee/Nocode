@@ -20,6 +20,12 @@
         DD_roundies.addRule('.rounded-big', '10px');
         </script>
         <![endif]-->
+        <!--[if IE 8]>
+        <link rel="stylesheet" href="css/ie8.css" type="text/css" />
+        <![endif]-->
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/ie7.css" type="text/css" />
+        <![endif]-->
 	<title>ŽKS</title>
 </head>
 <body>
@@ -32,7 +38,7 @@
 	<div id="top-menu">
 		<a href="index.php">Grįžti į pradžią</a> |
 		<a href="#help" onclick="return false;" id="helpanchor"><img class="top_image" src="images/help.png" alt="Pagalba"/></a> |
-		<a href="login.php?logout"><img class="top_image" src="images/logout.png" alt="Atsijungti"/></a>
+		<a href="login.php?logout" class="logout_parent"><img class="top_image" src="images/logout.png" alt="Atsijungti"/></a>
 	</div>
 	
 </div>

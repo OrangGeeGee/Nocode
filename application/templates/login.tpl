@@ -13,13 +13,19 @@
                 DD_roundies.addRule('.rounded-big', '10px');
                 </script>
         <![endif]-->
+        <!--[if IE 8]>
+        <link rel="stylesheet" href="css/ie8.css" type="text/css" />
+        <![endif]-->
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/ie7.css" type="text/css" />
+        <![endif]-->
         <title>ŽKS</title>
     </head>
     <body>
         <div class="background">&nbsp;</div>
         <div id="content">
             <div class="login-main rounded-big">
-                <div class="login-help"><img id="helpanchor" src="images/help.png" alt="Pagalba"/></div>
+                <div class="login-help" id="helpanchor"><img src="images/help.png" alt="Pagalba"/></div>
                 {if $badCombination}
                     <div class="error">Neteisingi prisijungimo duomenys</div>
                 {/if}
