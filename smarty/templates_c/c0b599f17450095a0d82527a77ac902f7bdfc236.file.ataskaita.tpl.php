@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 20:00:19
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 20:56:43
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\ataskaita.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:14624edbd8bd142e55-58150295%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c0b599f17450095a0d82527a77ac902f7bdfc236' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\ataskaita.tpl',
-      1 => 1323712818,
+      1 => 1323716166,
       2 => 'file',
     ),
   ),
@@ -31,10 +31,10 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 
 <div id="view-select" data-help="Pasirinkti kaip atvaizduoti duomenis, lentele ar grafiku">
-	<a href="#" id="table-select">LentelÄ—</a> |
+	<a href="#" id="table-select">Lentelė</a> |
 	<a href="#" id="chart-select">Grafikas</a>
 	<span class="emptydataset ui-corner-all ui-state-error"">
-		DuomenÅ³ pagal parinktus kriterijus nerasta
+		Duomenų pagal parinktus kriterijus nerasta
 	</span>
 </div>
 <div class="view-wrap rounded">
@@ -61,7 +61,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 " />
 		<?php if ($_smarty_tpl->tpl_vars['src']->value!=''){?>
 		<div class="update_chart" id="division-select">
-			<?php if ($_smarty_tpl->tpl_vars['src']->value=="is"){?>InformacinÄ—s sistemos<?php }else{ ?>Padaliniai<?php }?>
+			<?php if ($_smarty_tpl->tpl_vars['src']->value=="is"){?>Informacinės sistemos<?php }else{ ?>Padaliniai<?php }?>
 			<span class="count" title="PaÅ¾ymÄ—tÅ³ objektÅ³ kiekis">(<?php echo count($_smarty_tpl->tpl_vars['checkboxes']->value);?>
 )</span>: 
 			<a href="#" id="divisions" data-help="Pasirinkti pagal kieno duomenis atvaizduoti">pasirinkti</a>
@@ -84,7 +84,7 @@ $_smarty_tpl->tpl_vars['box']->_loop = true;
 		<?php }?>
 		<?php if (isset($_smarty_tpl->tpl_vars['priemones']->value)){?>
 		<div class="update_chart">
-			Paramos priemonÄ—:<br />
+			Paramos priemonė:<br />
 			<select name="priemone" id="priemone">
 			<?php  $_smarty_tpl->tpl_vars['p'] = new Smarty_Variable; $_smarty_tpl->tpl_vars['p']->_loop = false;
  $_from = $_smarty_tpl->tpl_vars['priemones']->value; if (!is_array($_from) && !is_object($_from)) { settype($_from, 'array');}
@@ -104,8 +104,8 @@ $_smarty_tpl->tpl_vars['p']->_loop = true;
 		</div>
 		<div class="update_chart" data-help="Rodyti duomenis pagal valandas ar pagal apdorojimų skaičių">
 			Rodyti duomenis:<br/>
-			<input checked="checked" type="radio" name="show_data" value="number"> pagal apdorotÄ… paraiÅ�kÅ³ skaiÄ¨iÅ³<br/>
-			<input type="radio" name="show_data" value="hours"> pagal panaudotas jÅ³ apdorojimui valandas<br/>
+			<input checked="checked" type="radio" name="show_data" value="number"> pagal apdorotų paraiškų skaičių<br/>
+			<input type="radio" name="show_data" value="hours"> pagal panaudotas jų apdorojimui valandas<br/>
 		</div>
 	</div>
 	<div id="debug" class="hidden"></div>
