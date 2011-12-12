@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 18:12:57
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 20:16:33
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\login.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:317804edbd8a90e4c83-71651258%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'cbd02d5be95e044097dc3291e9da35467007bf71' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\login.tpl',
-      1 => 1323706374,
+      1 => 1323706432,
       2 => 'file',
     ),
   ),
@@ -38,13 +38,19 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                 DD_roundies.addRule('.rounded-big', '10px');
                 </script>
         <![endif]-->
+        <!--[if IE 8]>
+        <link rel="stylesheet" href="css/ie8.css" type="text/css" />
+        <![endif]-->
+        <!--[if IE 7]>
+        <link rel="stylesheet" href="css/ie7.css" type="text/css" />
+        <![endif]-->
         <title>ŽKS</title>
     </head>
     <body>
         <div class="background">&nbsp;</div>
         <div id="content">
             <div class="login-main rounded-big">
-                <div class="login-help"><img id="helpanchor" src="images/help.png" alt="Pagalba"/></div>
+                <div class="login-help" id="helpanchor"><img src="images/help.png" alt="Pagalba"/></div>
                 <?php if ($_smarty_tpl->tpl_vars['badCombination']->value){?>
                     <div class="error">Neteisingi prisijungimo duomenys</div>
                 <?php }?>
