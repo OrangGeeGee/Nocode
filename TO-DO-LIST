@@ -10,6 +10,7 @@ TO FIX:
 
 1. Nerodo lietuviškų raidžių grafikuose.
 	Tadas: Persikurkit duombazę, pakeičiau šiek tiek createtables.sql
+	-Done.
 
 2. Duomenis lentelėse rodo tik jei nurodai tarp menesio pirmos ir paskutinės dienos.
 Pvz.: įvedus "Laikotarpis Nuo: 2011-12-06 Iki: 2012-01-30" nerodo jokių duomenų.
