@@ -6,7 +6,19 @@ nr. Pavadinimas
 		Aprašymas. Nepatingėti aprašyti problemą.
 		Įvykdžius ištrinti
 
+TO FIX:
 
+1. Nerodo lietuviškų raidžių grafikuose.
+	Tadas: Persikurkit duombazę, pakeičiau šiek tiek createtables.sql
+
+2. Duomenis lentelėse rodo tik jei nurodai tarp menesio pirmos ir paskutinės dienos.
+Pvz.: įvedus "Laikotarpis Nuo: 2011-12-06 Iki: 2012-01-30" nerodo jokių duomenų.
+Manau čia irgi dėl to, kad duombazėje įrašai saugomi nuo mėn. pirmos iki paskutinės dienos, 
+bet rodant grafiką manau kažkaip reiktų išskaidyt po dienas, nes kvailai atrodo, pasirinkus
+pusantro mėnesio - negauni jokių duomenų.
+
+
+TO DO:
 0. Duomenų prognozė
 	TADAS - DONE
 		Prognozuojami duomenys pagal jau įvestus.
