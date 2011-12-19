@@ -33,6 +33,8 @@
 <p>	
 <form id="file_import_form" action="?p=import&cmd=insert_from_file" enctype="multipart/form-data" method="post">
     <input id="selected_file" class="file-input" type="file" name="file" size="20" data-help="Pasirinkite failą iš savo kompiuterio, kurio formatas būtų toks: priemone, nuo, iki, kiekis." />
+    <input id="fake_file" />
+    <input id="search_button" type="button" value="Ieškoti failo" class="login-submit"/>
     <input id="import_file" type="submit" class="login-submit" value="Išsaugoti" data-help="Pasirinkę failą spustelkite šį mygtuką" />
 </form>
 </p>

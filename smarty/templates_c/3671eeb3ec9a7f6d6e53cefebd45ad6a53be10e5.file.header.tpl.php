@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 18:23:56
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 22:48:13
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\header.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:77314edbd8b83d1bf3-35091037%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3671eeb3ec9a7f6d6e53cefebd45ad6a53be10e5' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\header.tpl',
-      1 => 1323706432,
+      1 => 1324327554,
       2 => 'file',
     ),
   ),
@@ -21,6 +21,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   array (
     'js' => 0,
     'name' => 0,
+    'menu' => 0,
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
@@ -77,29 +78,29 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 		<ul>
 			<li><div class="first-level">Ataskaita pagal apkrovą</div>
 				<ul class="bottom-line">
-					<li><a href="?p=ataskaita&src=padalinys">Padalinių apkrova</a></li>
-					<li><a href="?p=ataskaita&src=is">IS apkrova</a></li>
-					<li><a href="?p=ataskaita">Bendra apkrova</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==1){?> class="current_page"<?php }?>><a href="?p=ataskaita&src=padalinys">Padalinių apkrova</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==2){?> class="current_page"<?php }?>><a href="?p=ataskaita&src=is">IS apkrova</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==3){?> class="current_page"<?php }?>><a href="?p=ataskaita">Bendra apkrova</a></li>
 				</ul>
 			</li>
 			<li><div class="first-level">Paramos priemonių poveikio analizė</div>
 				<ul class="bottom-line">
 				<!-- ppp = paramos priemoniu poveikis -->
-					<li><a href="?p=ppp&src=padalinys">Poveikio padaliniams analizė</a></li>
-					<li><a href="?p=ppp&src=is">Poveikio IS analizė</a></li>
-					<li><a href="?p=ppp">Bendra poveikių analizė</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==4){?> class="current_page"<?php }?>><a href="?p=ppp&src=padalinys">Poveikio padaliniams analizė</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==5){?> class="current_page"<?php }?>><a href="?p=ppp&src=is">Poveikio IS analizė</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==6){?> class="current_page"<?php }?>><a href="?p=ppp">Bendra poveikių analizė</a></li>
 				</ul>
 			</li>
 		    <li><div class="first-level">Paraiškų istorinio kiekio pateikimas</div>
 				<ul class="bottom-line">
-					<li><a href="?p=import">Įvesti duomenis</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==7){?> class="current_page"<?php }?>><a href="?p=import">Įvesti duomenis</a></li>
 				</ul>
 			</li>
 			<li><div class="first-level">Rasti tinkamiausią laiką</div>
 				<ul>
-					<li><a href="?p=laikas&target=is">IS atnaujinimui</a></li>
-					<li><a href="?p=laikas&target=requalify">Kvalifikacijos kėlimui</a></li>
-					<li><a href="?p=laikas&target=repair">Patalpų remontui</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==8){?> class="current_page"<?php }?>><a href="?p=laikas&target=is">IS atnaujinimui</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==9){?> class="current_page"<?php }?>><a href="?p=laikas&target=requalify">Kvalifikacijos kėlimui</a></li>
+					<li<?php if ($_smarty_tpl->tpl_vars['menu']->value==10){?> class="current_page"<?php }?>><a href="?p=laikas&target=repair">Patalpų remontui</a></li>
 				</ul>
 			</li>
 		</ul>
