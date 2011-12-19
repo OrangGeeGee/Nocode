@@ -14,9 +14,9 @@
 	{/foreach}
 	</select>
 	</td></tr>
-	<tr><td>Nuo: </td><td><p class="rounded main-input-block"><input type="text" name="nuo" class="main-input datepicker" data-help="Įvedamų duomenų laikotarpio pradžios data"></p></td></tr>
+	<tr><td>Nuo: </td><td><p class="rounded main-input-block"><input type="text" name="nuo" class="main-input datepicker top_right" data-help="Įvedamų duomenų laikotarpio pradžios data"></p></td></tr>
 	<tr><td>Iki: </td><td><p class="rounded main-input-block"><input type="text" name="iki" class="main-input datepicker" data-help="Įvedamų duomenų laikotarpio pabaigos data"></p></td></tr>
-	<tr><td>Kiekis: </td><td><p class="rounded main-input-block"><input type="text" class="main-input" name="kiekis" data-help="Įvedamų paraiškų kiekis"></p></td></tr>
+	<tr><td>Kiekis: </td><td><p class="rounded main-input-block"><input type="text" class="main-input top_right" name="kiekis" data-help="Įvedamų paraiškų kiekis"></p></td></tr>
 	</table>
 	<input type="button" value="Įvesti" class="login-submit" id="keyboard_insert_submit" data-help="Įvedus duomenis spausti šį mygtuką">
 </form>

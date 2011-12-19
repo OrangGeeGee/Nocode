@@ -1,33 +1,117 @@
 $(function() {
     $("[data-help]").each(function(){
-        $(this).qtip({
-            content: {
-                text: $(this).attr('data-help'),
-                prerender: true
-            },
-            position: { 
-                corner: {
-                    target: 'topleft',
-                    tooltip: 'bottomLeft'
+        if($(this).hasClass('top_right')){
+            $(this).qtip({
+                content: {
+                    text: $(this).attr('data-help'),
+                    prerender: true
+                },
+                position: { 
+                    corner: {
+                        target: 'topright',
+                        tooltip: 'bottomLeft'
+                    }
+                },
+                style: { 
+                    width: 200,
+                    padding: 5,
+                    background: '#ffffff',
+                    color: 'black',
+                    textAlign: 'center',
+                    tip: true
+                },
+                show: { 
+                    effect: { 
+                        type: 'fade' 
+                    } 
                 }
-            },
-            style: { 
-                width: 200,
-                padding: 5,
-                background: '#ffffff',
-                color: 'black',
-                textAlign: 'center',
-                tip: true
-            },
-            show: { 
-                effect: { 
-                    type: 'fade' 
-                } 
-            }
-        });
+            });
+            }else if($(this).hasClass('bottom_right')){
+                $(this).qtip({
+                content: {
+                    text: $(this).attr('data-help'),
+                    prerender: true
+                },
+                position: { 
+                    corner: {
+                        target: 'bottomright',
+                        tooltip: 'topLeft'
+                    }
+                },
+                style: { 
+                    width: 200,
+                    padding: 5,
+                    background: '#ffffff',
+                    color: 'black',
+                    textAlign: 'center',
+                    tip: true
+                },
+                show: { 
+                    effect: { 
+                        type: 'fade' 
+                    } 
+                }
+            });
+        }else if($(this).hasClass('bottom_left')){
+                $(this).qtip({
+                content: {
+                    text: $(this).attr('data-help'),
+                    prerender: true
+                },
+                position: { 
+                    corner: {
+                        target: 'bottomleft',
+                        tooltip: 'topRight'
+                    }
+                },
+                style: { 
+                    width: 200,
+                    padding: 5,
+                    background: '#ffffff',
+                    color: 'black',
+                    textAlign: 'center',
+                    tip: true
+                },
+                show: { 
+                    effect: { 
+                        type: 'fade' 
+                    } 
+                }
+            });
+        }else{
+                $(this).qtip({
+                content: {
+                    text: $(this).attr('data-help'),
+                    prerender: true
+                },
+                position: { 
+                    corner: {
+                        target: 'topleft',
+                        tooltip: 'bottomRight'
+                    }
+                },
+                style: { 
+                    width: 200,
+                    padding: 5,
+                    background: '#ffffff',
+                    color: 'black',
+                    textAlign: 'center',
+                    tip: true
+                },
+                show: { 
+                    effect: { 
+                        type: 'fade' 
+                    } 
+                }
+            });
+        }
     });
     $("#helpanchor").hover(function() {
-        $("[data-help]").qtip("enable");
+        $("[data-help]").each(function(){
+            if(!$(this).hasClass('date_from_qtip') && !$(this).hasClass('date_till_qtip')){
+                $(this).qtip("enable");
+            }
+        });
         $("#helpoverlay").fadeIn(250);
         $("[data-help]").trigger('mouseover');
     }, function() {
@@ -125,6 +209,8 @@ $(function() {
             $('.is_from').datepicker("option", "maxDate", date_till);
         });
     }
+    $('.date_from_qtip').qtip('disable');
+    $('.date_till_qtip').qtip('disable');
     $("#keyboard_insert_submit").click(function(){
         var empty = false;
         $("#keyboard_insert_form").find("input[type='text']").each(function(){
@@ -176,4 +262,16 @@ $(function() {
         }
     });
     $("[data-help]").qtip("disable");
+    $(".show-advanced-search").click(function(){
+        if($(".advanced-search:visible").size() > 0){
+            $('.date_from_qtip').qtip('disable');
+            $('.date_till_qtip').qtip('disable');
+            $(".advanced-search").hide();
+        }else{
+            $('.date_from_qtip').qtip('enable');
+            $('.date_till_qtip').qtip('enable');
+            $(".advanced-search").show();
+        }
+        return false;
+    });
 });
