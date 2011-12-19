@@ -54,6 +54,7 @@ class Controller {
     				$this->prognozuotiAteiti();
     			}
     		}
+                $this->smarty->assign("menu", 0);
     	} elseif($_GET['p']=="ataskaita" || $_GET['p']=="ppp") {
                 if($_GET['p'] == "ataskaita"){
                     if(isset($_GET['src'])){
@@ -873,13 +874,11 @@ class Controller {
     public function getTotalDivision(){
     	$query="SELECT SUM(kiekis) AS count FROM `app_history` WHERE priemoneskodas IN (SELECT kodas FROM app_priemones)";
     	$totalCount = $this->db->q($query);
-    	echo $totalCount[0]['count'];
     	return $totalCount[0]['count'];
     }
 	public function getTotalUsers(){
     	$query="SELECT COUNT(*) AS count FROM `app_users`";
     	$totalCount = $this->db->q($query);
-    	echo $totalCount[0]['count'];
     	return $totalCount[0]['count'];
     }
 }
