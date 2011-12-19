@@ -91,7 +91,7 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .rounded { border-radius:5px; }
 .rounded-big { border-radius:10px; }
 .white { background:#ffffff; }
-.error { color: #593AF7; font-size: 14px; font-family: sans-serif; padding: 10px; margin-left: 20px; float: left; }
+.error { color: #ff0000; font-size: 14px; font-family: sans-serif; padding: 10px; margin-left: 20px; float: left; }
 .clear { clear: both; height:30px; }
 .first-level { margin-left: 4px; margin-top: 6px; }
 .bottom-line { border-bottom: 1px solid #dddddd; }
@@ -103,3 +103,5 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 .best_time{border-top: 1px solid #DDD; padding-top: 10px; margin-top: 10px;}
 .file-input{width: 245px}
 p.empty{border: 1px solid #FA8588}
+.import_error{color: red; padding: 5px; height: 16px}
+.keyboard_import_error{color: red; padding: 5px; height: 16px}

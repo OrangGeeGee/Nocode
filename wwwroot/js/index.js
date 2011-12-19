@@ -219,7 +219,7 @@ $(function() {
             }
         });
         if(empty == true){
-            alert("Visi laukai privalo būti užpildyti");
+            $('.keyboard_import_error').html('Visi laukai privalo būti užpildyti');
         } else {
             $("#keyboard_insert_form").submit();
         }
@@ -228,9 +228,9 @@ $(function() {
     $('#import_file').click(function(e){
         e.preventDefault();
         if($('#selected_file').val()){
-            $('#import_file_form').submit();
+            $('#file_import_form').submit();
         }else{
-            alert('Pasirinkite failą');
+            $('.import_error').html('Pasirinkite failą');
         }
     });
     
