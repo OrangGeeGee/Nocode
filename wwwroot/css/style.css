@@ -82,7 +82,7 @@ input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat
 #file_import_form{position:relative;}
 #keyboard_insert_form label { width: 115px; float: left; text-align: right;
 	margin-right: 0.5em; display: block; clear:left; }
-#selected_file{position:relative; -moz-opacity:0 ;	filter:alpha(opacity: 0); opacity: 0; z-index:2;}
+input#selected_file{position:relative; top:2px; width:280px; -moz-opacity:0 ;	filter:alpha(opacity: 0); opacity: 0; z-index:2;}
 #fake_file{height:24px; top:2px; width:150px; position: absolute; left:0; z-index:1;}
 #search_button{position:absolute; left:155px; margin-left:0 !important; z-index:1;}
 #import_file{position:absolute; left:265px; }

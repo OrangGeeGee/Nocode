@@ -275,3 +275,8 @@ $(function() {
         return false;
     });
 });
+$(document).ready(function() {
+	$('#selected_file').change(function() {
+		$('#fake_file').val($(this).val());
+	});
+});
