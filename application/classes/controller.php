@@ -55,6 +55,28 @@ class Controller {
     			}
     		}
     	} elseif($_GET['p']=="ataskaita" || $_GET['p']=="ppp") {
+                if($_GET['p'] == "ataskaita"){
+                    if(isset($_GET['src'])){
+                        if($_GET['src'] == "padalinys"){
+                            $this->smarty->assign("menu", 1);
+                        }elseif($_GET['src'] == "is"){
+                            $this->smarty->assign("menu", 2);
+                        }
+                    }else{
+                        $this->smarty->assign("menu", 3);
+                    }
+                }
+                if($_GET['p'] == "ppp"){
+                    if(isset($_GET['src'])){
+                        if($_GET['src'] == "padalinys"){
+                            $this->smarty->assign("menu", 4);
+                        }elseif($_GET['src'] == "is"){
+                            $this->smarty->assign("menu", 5);
+                        }
+                    }else{
+                        $this->smarty->assign("menu", 6);
+                    }
+                }
     		// Ataskaita pagal apkrova
     		if(isset($_GET['src'])) {
     			if($_GET['src']=="is") {
@@ -82,7 +104,7 @@ class Controller {
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
     		$this->paruostiPriemones();
-    		
+                $this->smarty->assign("menu", 7);
                 if(isset($_GET['cmd'])){
                     if($_GET['cmd'] == 'insert_from_kb'){
                         $this->insertFromKeyboardPost();
@@ -97,6 +119,13 @@ class Controller {
                     $this->smarty->assign("result_msg", '');
                 }
     	} elseif($_GET['p']=="laikas") {
+                if($_GET['target'] == "is"){
+                    $this->smarty->assign("menu", 8);
+                }elseif($_GET['target'] == "requalify"){
+                    $this->smarty->assign("menu", 9);
+                }else{
+                    $this->smarty->assign("menu", 10);
+                }
     		// Rasti tinkamiausia laika
     		if(isset($_GET['target'])){
                     $this->smarty->assign("target", $_GET['target']);

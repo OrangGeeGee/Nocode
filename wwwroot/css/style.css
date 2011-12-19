@@ -32,6 +32,8 @@ body{background: #F7F7F9;}
 #top-menu a:hover { text-decoration:underline; }
 .top_image{margin-bottom: -12px; margin-top: 5px; border: none}
 /* NAVIGATION MENU */
+#main-menu .current_page{margin-left: 10px; text-decoration: none; font-weight: bold}
+#main-menu .current_page a{margin-left: 10px; text-decoration: none; font-weight: bold}
 #main-menu > ul {}
 #main-menu > ul > li { font-weight:bold; font-size:15px; font-family: sans-serif; color: #333333}
 #main-menu > ul > li > ul { padding: 10px; margin-left: 12px;}

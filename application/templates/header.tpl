@@ -48,29 +48,29 @@
 		<ul>
 			<li><div class="first-level">Ataskaita pagal apkrovą</div>
 				<ul class="bottom-line">
-					<li><a href="?p=ataskaita&src=padalinys">Padalinių apkrova</a></li>
-					<li><a href="?p=ataskaita&src=is">IS apkrova</a></li>
-					<li><a href="?p=ataskaita">Bendra apkrova</a></li>
+					<li{if $menu eq 1} class="current_page"{/if}><a href="?p=ataskaita&src=padalinys">Padalinių apkrova</a></li>
+					<li{if $menu eq 2} class="current_page"{/if}><a href="?p=ataskaita&src=is">IS apkrova</a></li>
+					<li{if $menu eq 3} class="current_page"{/if}><a href="?p=ataskaita">Bendra apkrova</a></li>
 				</ul>
 			</li>
 			<li><div class="first-level">Paramos priemonių poveikio analizė</div>
 				<ul class="bottom-line">
 				<!-- ppp = paramos priemoniu poveikis -->
-					<li><a href="?p=ppp&src=padalinys">Poveikio padaliniams analizė</a></li>
-					<li><a href="?p=ppp&src=is">Poveikio IS analizė</a></li>
-					<li><a href="?p=ppp">Bendra poveikių analizė</a></li>
+					<li{if $menu eq 4} class="current_page"{/if}><a href="?p=ppp&src=padalinys">Poveikio padaliniams analizė</a></li>
+					<li{if $menu eq 5} class="current_page"{/if}><a href="?p=ppp&src=is">Poveikio IS analizė</a></li>
+					<li{if $menu eq 6} class="current_page"{/if}><a href="?p=ppp">Bendra poveikių analizė</a></li>
 				</ul>
 			</li>
 		    <li><div class="first-level">Paraiškų istorinio kiekio pateikimas</div>
 				<ul class="bottom-line">
-					<li><a href="?p=import">Įvesti duomenis</a></li>
+					<li{if $menu eq 7} class="current_page"{/if}><a href="?p=import">Įvesti duomenis</a></li>
 				</ul>
 			</li>
 			<li><div class="first-level">Rasti tinkamiausią laiką</div>
 				<ul>
-					<li><a href="?p=laikas&target=is">IS atnaujinimui</a></li>
-					<li><a href="?p=laikas&target=requalify">Kvalifikacijos kėlimui</a></li>
-					<li><a href="?p=laikas&target=repair">Patalpų remontui</a></li>
+					<li{if $menu eq 8} class="current_page"{/if}><a href="?p=laikas&target=is">IS atnaujinimui</a></li>
+					<li{if $menu eq 9} class="current_page"{/if}><a href="?p=laikas&target=requalify">Kvalifikacijos kėlimui</a></li>
+					<li{if $menu eq 10} class="current_page"{/if}><a href="?p=laikas&target=repair">Patalpų remontui</a></li>
 				</ul>
 			</li>
 		</ul>
