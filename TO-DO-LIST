@@ -1,43 +1,48 @@
 Sąrašas dalykų, kuriuos reikia padaryti. Visi pildom kai tik pamatom, kas dar nepadaryta!
 
-Formatas:
-nr. Pavadinimas
-	KAM PRISKIRTA
-		Aprašymas. Nepatingėti aprašyti problemą.
-		Įvykdžius ištrinti
+Pastebėjimai sistemos trūkumų (pabendravus su Vytautu): 
 
-TO FIX:
+    Istorinių duomenų įvedime įvedant iš failo, "Įvesti" visai nebeveikia.
+    Dar šiandien išryto, pasirinkti failą buvo lietuviškas mygtukas, dabar angliškas, arba čia naršyklė kalta. Bet taip neturėtų būti.
+    Ant senos naršyklės arba dėl javascript'o nebuvimo (nebe pamenu) įvedimo ir failo pasirinkimo mygtukai užlipo praktiškai vienas ant kito.
+    Kur galima rinktis datą mėnesių pavadinimai angliški.
+    Ant senesnių naršyklių įvedimo laukelis išeina už jo kontūrų, o Internet Explorer jie išvis ne dingsta, o lieka virš lentelės pvz.
+    Pranešimų gramatika, linksniai.
+    Privalomus langelius įvedimui pažymėti, kad ir žvaigždute.
+    Pradiniam puslapy parašyt, kad neišjungtų javascript'o.
+    Kur numato laiką, parašyti, ne tik mėnesį ir dienas, bet ir metus. Nes jei įvedu pvz nuo 2011-01-23 iki 2013-12-15 ir gausiu rezultatą 02.23-04.24, nebeaišku, kurių metų.
+    Galima būtų padaryti, kad rodytų atskirai remontui jei jis truktų 2 mėnesius ir atskirai 3. Bet čia toks nebūtinas dalykas.
+    Lentelėje parodyti ne tik pradžios datą, bet ir pabaigos. Ta prasme, dvi datas matyti, nes jei įvedama dvi datas, tai kodėl jų negalima ir matyti dviejų.
+    Be javascript'o įvedami duomenys, nors ir neįvesti langeliai.
+    Administratorius. Galimybė pridėti paraiškas, padalinius, IS, matyti jų sąryšį ir panašiai. Kad galima pažiūrėti būtų, kurie padaliniai, kokias priemones vykdo, gali vykdyti....
 
-1. Nerodo lietuviškų raidžių grafikuose.
-	Tadas: Persikurkit duombazę, pakeičiau šiek tiek createtables.sql
-	-Done.
+Pastebėjimai sistemos trūkumų (iš žks): 
 
-2. Duomenis lentelėse rodo tik jei nurodai tarp menesio pirmos ir paskutinės dienos.
-Pvz.: įvedus "Laikotarpis Nuo: 2011-12-06 Iki: 2012-01-30" nerodo jokių duomenų.
-Manau čia irgi dėl to, kad duombazėje įrašai saugomi nuo mėn. pirmos iki paskutinės dienos, 
-bet rodant grafiką manau kažkaip reiktų išskaidyt po dienas, nes kvailai atrodo, pasirinkus
-pusantro mėnesio - negauni jokių duomenų.
-
-
+    Jei įmanoma, padaryti, kad galima būtų duomenys įvesti iš įvairesnių excel'io failų.
+    Pažymėti pasirinktą menių funkciją kita spalva.
+    Parašyti antraštes puslapiams.
+    Parašyti kelią kuriuo buvo nueita iki to puslapio kur esama.
+    Neišnaudota lango erdvė. Truputi reikia didesnių tarpų, randant laikotarpį, nuo pasirinkimo iki atsako ir tarp tu eilučių. Labai susimala viskas.
+    Reikėtų slaptažodžio keitimo funkcijos ir šiaip naudotojo parametrų (bet čia jei liks laiko).
+    Klaidos pranešimai. Jų tvarka ir spalvos.
+    Grafikas grįžtant iš lentelės susitraukia, jei ją taisėm.
+    Įdėti kokias nors reikšmes į nuo iki laukelius po grafiku, kad žinoti, nuo kada rodyti duomenys.
+    Grafikų antraštės. PVZ Poveikio padaliniams analizėje nelabai tinka užrašas padalinių apkrova, nes atrodo, kad apkrovą ir tikrinu.
+    Netinkamai apibrėžtas įvedimo laukelis"Kiek". Kiek ko? Valandų ar paraiškų. Nes jei paraiškų, tai pagal ką valandos sužiūrimos?. Primesti, kad paraiškos per vienodą laiką sutvarkomos, nežinia ar geras sprendimas. 
+    Būtų neblogai pridėti laukelį "Valandų kiekis".
+    
 TO DO:
-0. Duomenų prognozė
-	TADAS - DONE
-		Prognozuojami duomenys pagal jau įvestus.
-2. Prirašyti prie elementų data-help savybę
-3. Ataskaita pagal apkrovą
-	ANTANAS - DONE
- 		Damušti IS apkrova, Bendra apkrova   
-4. Paramos priemonių poveikio analizė
-	ANTANS - DONE
- 		IS Poveikio analizė 
- 		Padalinių apkrovimo
- 		Bendra poveikių analizė
-6. Admin page
-	ANTANAS
- 		Galima redaguoti visus duomenis ranka, tiesiai iš db. Matai įrašus, gali juos trinti.
-7. Sugalvoti ir įgyvendinti titulinį
+1. Sugalvoti ir įgyvendinti titulinį
 		Sumąstyti ką gero įdėti pradžios tinklapyje
 		į kurį patenki iškart prisijungęs, nes dabar
 		jis beprasmis
-8. Ant IE < 9 sutvarkyt browse mygtuka ir laiko paieškoj inputus
-    VYTAUTAS
+2. Prirašyti prie elementų data-help savybę
+3. Admin page
+	ANTANAS
+ 		Galima redaguoti visus duomenis ranka, tiesiai iš db. Matai įrašus, gali juos trinti.
+4. Fix old bug
+		Duomenis lentelėse rodo tik jei nurodai tarp menesio pirmos ir paskutinės dienos.
+		Pvz.: įvedus "Laikotarpis Nuo: 2011-12-06 Iki: 2012-01-30" nerodo jokių duomenų.
+		Manau čia irgi dėl to, kad duombazėje įrašai saugomi nuo mėn. pirmos iki paskutinės
+		dienos, bet rodant grafiką manau kažkaip reiktų išskaidyt po dienas, nes kvailai atrodo,
+		pasirinkus pusantro mėnesio - negauni jokių duomenų.
