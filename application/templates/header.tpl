@@ -36,7 +36,6 @@
 		<span>Sveiki, {$name|capitalize}</span>
 	</div>
 	<div id="top-menu">
-                <div>Liko: <div id="timer"></div></div>
 		<a href="index.php">Grįžti į pradžią</a> |
 		<a href="#help" onclick="return false;" id="helpanchor"><img class="top_image" src="images/help.png" alt="Pagalba"/></a> |
 		<a href="login.php?logout" class="logout_parent"><img class="top_image" src="images/logout.png" alt="Atsijungti"/></a>
