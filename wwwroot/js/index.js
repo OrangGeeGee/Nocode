@@ -242,20 +242,24 @@ $(function() {
             empty = true;
             if(!$('#user').parent().hasClass('empty')){
                 $('#user').parent().addClass('empty');
+                $('#user').parent().after('<p class="warning empty-field1">* Privalomas laukas</p>');
             }
         }else{
             if($('#user').parent().hasClass('empty')){
                 $('#user').parent().removeClass('empty');
+                $('.empty-field1').remove();
             }
         }
         if(!$('#password').val()){
             empty = true;
             if(!$('#password').parent().hasClass('empty')){
                 $('#password').parent().addClass('empty');
+                $('#password').parent().after('<p class="warning empty-field2">* Privalomas laukas</p>');
             }
         }else{
             if($('#password').parent().hasClass('empty')){
                 $('#password').parent().removeClass('empty');
+                $('.empty-field2').remove();
             }
         }
         if(empty == false){

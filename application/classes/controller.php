@@ -44,6 +44,7 @@ class Controller {
     		$tpl = "index";
     		$this->smarty->assign('divisionTotal', $this->getTotalDivision());
     		$this->smarty->assign('usersTotal', $this->getTotalUsers());
+    		$this->smarty->assign('headingTitle', 'Pagrindinis');
     		// jeigu nera prognozuotu duomenu,
     		// bet yra istoriniu duomenu,
     		// tai atlikti prognoze
@@ -56,6 +57,7 @@ class Controller {
     		}
                 $this->smarty->assign("menu", 0);
     	} elseif($_GET['p']=="ataskaita" || $_GET['p']=="ppp") {
+    			$this->smarty->assign('headingTitle', $this->getHeadingTitle());
                 if($_GET['p'] == "ataskaita"){
                     if(isset($_GET['src'])){
                         if($_GET['src'] == "padalinys"){
@@ -104,6 +106,7 @@ class Controller {
     		}
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
+    		$this->smarty->assign('headingTitle', $this->getHeadingTitle());
     		$this->paruostiPriemones();
                 $this->smarty->assign("menu", 7);
                 if(isset($_GET['cmd'])){
@@ -120,6 +123,7 @@ class Controller {
                     $this->smarty->assign("result_msg", '');
                 }
     	} elseif($_GET['p']=="laikas") {
+    			$this->smarty->assign('headingTitle', $this->getHeadingTitle());
                 if($_GET['target'] == "is"){
                     $this->smarty->assign("menu", 8);
                 }elseif($_GET['target'] == "requalify"){
@@ -880,6 +884,17 @@ class Controller {
     	$query="SELECT COUNT(*) AS count FROM `app_users`";
     	$totalCount = $this->db->q($query);
     	return $totalCount[0]['count'];
+    }
+    public function getHeadingTitle(){
+    	$arr = explode("?", $_SERVER["REQUEST_URI"]);
+    	//return $arr[1];
+    	$arr = explode("&", $arr[1]);
+    	//return $arr[0];
+    	$p = substr($arr[0], 2, strlen($arr[0])-2);
+    	
+    	$titleArray = array('ataskaita' => 'Ataskaita pagal apkrovą', 'ppp' => 'Paramos priemonių poveikio analizė', 'import' => 'Paraiškų istorinio kiekio pateikimas', 'laikas' => 'Rasti tinkamiausią laiką');
+    	
+    	return $titleArray[$p];
     }
 }
 

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-20 00:10:27
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-20 01:12:13
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\login.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:317804edbd8a90e4c83-71651258%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'cbd02d5be95e044097dc3291e9da35467007bf71' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\login.tpl',
-      1 => 1324332625,
+      1 => 1324336330,
       2 => 'file',
     ),
   ),
@@ -44,7 +44,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <!--[if IE 7]>
         <link rel="stylesheet" href="css/ie7.css" type="text/css" />
         <![endif]-->
-        <title>ŽKS</title>
+        <title>Nocode - Prisijungimas</title>
     </head>
     <body>
         <div class="background">&nbsp;</div>

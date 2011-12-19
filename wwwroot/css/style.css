@@ -48,7 +48,7 @@ body{background: #F7F7F9;}
 input.login-submit{color: #333; width:130px; margin-left: 20px; background: url('../images/login-button.jpg') no-repeat top; border: 0 solid; font-size: 1em; height: 29px}
 input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat 0 -30px}
 .login-help{float: right; margin-right: 10px; margin-top: 10px;}
-.warning{color:red; font-size:12px; padding:5px; text-align:center;}
+.warning{color:red; font-size:12px; padding:2px; text-align:center; font-weight:normal;}
 /* VIEWS */
 #view-select { margin:4px;}
 .view-wrap { border:solid 1px #dddddd;  padding:1px; }

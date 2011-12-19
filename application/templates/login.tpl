@@ -19,7 +19,7 @@
         <!--[if IE 7]>
         <link rel="stylesheet" href="css/ie7.css" type="text/css" />
         <![endif]-->
-        <title>ŽKS</title>
+        <title>Nocode - Prisijungimas</title>
     </head>
     <body>
         <div class="background">&nbsp;</div>

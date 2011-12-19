@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 22:48:13
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-20 01:12:25
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\header.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:77314edbd8b83d1bf3-35091037%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '3671eeb3ec9a7f6d6e53cefebd45ad6a53be10e5' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\header.tpl',
-      1 => 1324327554,
+      1 => 1324336290,
       2 => 'file',
     ),
   ),
@@ -20,6 +20,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   'variables' => 
   array (
     'js' => 0,
+    'headingTitle' => 0,
     'name' => 0,
     'menu' => 0,
   ),
@@ -55,7 +56,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
         <!--[if IE 7]>
         <link rel="stylesheet" href="css/ie7.css" type="text/css" />
         <![endif]-->
-	<title>ŽKS</title>
+	<title>Nocode - <?php echo $_smarty_tpl->tpl_vars['headingTitle']->value;?>
+</title>
 </head>
 <body>
     <div class="background">&nbsp;</div>
