@@ -125,6 +125,7 @@ $(function() {
             dayNamesMin: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
             firstDay: 1,
             monthNames: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
+            monthNamesShort: ['Sau','Vas','Kov','Bal','Geg','Bir','Lie','Rgp','Rgs','Spa','Lap','Gru'],
             changeMonth: true,
             changeYear: true
         });

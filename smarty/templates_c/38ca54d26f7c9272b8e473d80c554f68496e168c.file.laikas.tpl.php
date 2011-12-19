@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 20:15:24
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 23:47:00
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\laikas.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:176034ee62b7e792d72-23222191%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '38ca54d26f7c9272b8e473d80c554f68496e168c' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\laikas.tpl',
-      1 => 1323713718,
+      1 => 1324327554,
       2 => 'file',
     ),
   ),
@@ -43,16 +43,16 @@ $_smarty_tpl->tpl_vars['subdivision']->_loop = true;
 "<?php if (isset($_smarty_tpl->tpl_vars['selected']->value)){?><?php if ($_smarty_tpl->tpl_vars['selected']->value==$_smarty_tpl->tpl_vars['subdivision']->value['id']){?> selected<?php }?><?php }?>><?php echo $_smarty_tpl->tpl_vars['subdivision']->value['pavadinimas'];?>
 </option><?php } ?></select><br/>
         </div>
-        <div class="find_time_submit"><input class="login-submit" type="submit" value="Rasti laiką" data-help="Pasirinkus - spausti šį mygtuką ir laukti rezultato"/></div>
+        <div class="find_time_submit"><input class="login-submit top_right" type="submit" value="Rasti laiką" data-help="Pasirinkus - spausti šį mygtuką ir laukti rezultato"/></div>
         <div style="clear: both">&nbsp;</div>
         <div class="show-advanced">
-            <a href="#" onclick="$('.advanced-search').toggle(); return false;" data-help="Ieškoti įvedant konkretų laikotarpį">Detali paieška</a>
+            <a href="#" class="show-advanced-search bottom_left" data-help="Ieškoti įvedant konkretų laikotarpį">Detali paieška</a>
         </div>
         <div class="advanced-search"<?php if (!$_smarty_tpl->tpl_vars['date_from']->value&&!$_smarty_tpl->tpl_vars['date_till']->value){?> style="display:none;"<?php }?>>
              Laikotarpis Nuo:<p class="rounded main-input-block"><input <?php if (isset($_smarty_tpl->tpl_vars['date_from']->value)){?>value="<?php echo $_smarty_tpl->tpl_vars['date_from']->value;?>
-" <?php }?>name="date_from" class="main-input datepicker is_from" type="text" id="from" size="10" data-help="Ieškomo laikotarpio pradžia"/></p>
+" <?php }?>name="date_from" class="main-input datepicker is_from bottom_right date_from_qtip" type="text" id="from" size="10" data-help="Ieškomo laikotarpio pradžia"/></p>
              Iki: <p class="rounded main-input-block"><input <?php if (isset($_smarty_tpl->tpl_vars['date_till']->value)){?>value="<?php echo $_smarty_tpl->tpl_vars['date_till']->value;?>
-" <?php }?>name="date_till" class="main-input datepicker is_till" type="text" id="until" size="10" data-help="Ieškomo laikotarpio pabaiga"/></p>
+" <?php }?>name="date_till" class="main-input datepicker is_till top_right date_till_qtip" type="text" id="until" size="10" data-help="Ieškomo laikotarpio pabaiga"/></p>
         </div>
     </form>
 </div>
@@ -68,16 +68,16 @@ $_smarty_tpl->tpl_vars['subdivision']->_loop = true;
 "<?php if (isset($_smarty_tpl->tpl_vars['selected']->value)){?><?php if ($_smarty_tpl->tpl_vars['selected']->value==$_smarty_tpl->tpl_vars['subdivision']->value['id']){?> selected<?php }?><?php }?>><?php echo $_smarty_tpl->tpl_vars['subdivision']->value['pavadinimas'];?>
 </option><?php } ?></select><br/>
         </div>
-        <div class="find_time_submit"><input class="login-submit" type="submit" value="Rasti laiką" data-help="Pasirinkus - spausti šį mygtuką ir laukti rezultato"/></div>
+        <div class="find_time_submit"><input class="login-submit top_right" type="submit" value="Rasti laiką" data-help="Pasirinkus - spausti šį mygtuką ir laukti rezultato"/></div>
         <div style="clear: both">&nbsp;</div>
         <div class="show-advanced">
-            <a href="#" onclick="$('.advanced-search').toggle(); return false;"  data-help="Ieškoti įvedant konkretų laikotarpį">Detali paieška</a>
+            <a href="#" class="show-advanced-search bottom_left" data-help="Ieškoti įvedant konkretų laikotarpį">Detali paieška</a>
         </div>
         <div class="advanced-search"<?php if (!$_smarty_tpl->tpl_vars['date_from']->value&&!$_smarty_tpl->tpl_vars['date_till']->value){?> style="display:none;"<?php }?>>
              Laikotarpis Nuo:<p class="rounded main-input-block"><input <?php if (isset($_smarty_tpl->tpl_vars['date_from']->value)){?>value="<?php echo $_smarty_tpl->tpl_vars['date_from']->value;?>
-" <?php }?>name="date_from" class="main-input datepicker is_from" type="text" id="from" size="10" data-help="Ieškomo laikotarpio pradžia"/></p>
+" <?php }?>name="date_from" class="main-input datepicker is_from bottom_right date_from_qtip" type="text" id="from" size="10" data-help="Ieškomo laikotarpio pradžia"/></p>
              Iki: <p class="rounded main-input-block"><input <?php if (isset($_smarty_tpl->tpl_vars['date_till']->value)){?>value="<?php echo $_smarty_tpl->tpl_vars['date_till']->value;?>
-" <?php }?>name="date_till" class="main-input datepicker is_till" type="text" id="until" size="10" data-help="Ieškomo laikotarpio pabaiga"/></p>
+" <?php }?>name="date_till" class="main-input datepicker is_till top_right date_till_qtip" type="text" id="until" size="10" data-help="Ieškomo laikotarpio pabaiga"/></p>
         </div>
     </form>
 </div>        
@@ -93,16 +93,16 @@ $_smarty_tpl->tpl_vars['subdivision']->_loop = true;
 "<?php if (isset($_smarty_tpl->tpl_vars['selected']->value)){?><?php if ($_smarty_tpl->tpl_vars['selected']->value==$_smarty_tpl->tpl_vars['subdivision']->value['id']){?> selected<?php }?><?php }?>><?php echo $_smarty_tpl->tpl_vars['subdivision']->value['pavadinimas'];?>
 </option><?php } ?></select><br/>
         </div>
-        <div class="find_time_submit"><input class="login-submit" type="submit" value="Rasti laiką" data-help="Pasirinkus - spausti šį mygtuką ir laukti rezultato"/></div>
+        <div class="find_time_submit"><input class="login-submit top_right" type="submit" value="Rasti laiką" data-help="Pasirinkus - spausti šį mygtuką ir laukti rezultato"/></div>
         <div style="clear: both">&nbsp;</div>
         <div class="show-advanced">
-            <a href="#" onclick="$('.advanced-search').toggle(); return false;" data-help="Ieškoti įvedant konkretų laikotarpį">Detali paieška</a>
+            <a href="#" class="show-advanced-search bottom_left" data-help="Ieškoti įvedant konkretų laikotarpį">Detali paieška</a>
         </div>
         <div class="advanced-search"<?php if (!$_smarty_tpl->tpl_vars['date_from']->value&&!$_smarty_tpl->tpl_vars['date_till']->value){?> style="display:none;"<?php }?>>
              Laikotarpis Nuo:<p class="rounded main-input-block"><input <?php if (isset($_smarty_tpl->tpl_vars['date_from']->value)){?>value="<?php echo $_smarty_tpl->tpl_vars['date_from']->value;?>
-" <?php }?>name="date_from" class="main-input datepicker repair_from" type="text" id="from" size="10" data-help="Ieškomo laikotarpio pradžia"/></p>
+" <?php }?>name="date_from" class="main-input datepicker repair_from bottom_right date_from_qtip" type="text" id="from" size="10" data-help="Ieškomo laikotarpio pradžia"/></p>
              Iki: <p class="rounded main-input-block"><input <?php if (isset($_smarty_tpl->tpl_vars['date_till']->value)){?>value="<?php echo $_smarty_tpl->tpl_vars['date_till']->value;?>
-" <?php }?>name="date_till" class="main-input datepicker repair_till" type="text" id="until" size="10" data-help="Ieškomo laikotarpio pabaiga"/></p>
+" <?php }?>name="date_till" class="main-input datepicker repair_till top_right date_till_qtip" type="text" id="until" size="10" data-help="Ieškomo laikotarpio pabaiga"/></p>
         </div>
     </form>
 </div>       

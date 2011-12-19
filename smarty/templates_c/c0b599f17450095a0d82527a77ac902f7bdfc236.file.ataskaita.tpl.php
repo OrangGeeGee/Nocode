@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-12 20:56:43
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 23:45:46
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\ataskaita.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:14624edbd8bd142e55-58150295%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'c0b599f17450095a0d82527a77ac902f7bdfc236' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\ataskaita.tpl',
-      1 => 1323716166,
+      1 => 1324327554,
       2 => 'file',
     ),
   ),
@@ -30,8 +30,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 <?php if ($_valid && !is_callable('content_4edbd8bd360ec')) {function content_4edbd8bd360ec($_smarty_tpl) {?><?php echo $_smarty_tpl->getSubTemplate ("header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, null, null, array('js'=>"chart.js"), 0);?>
 
 
-<div id="view-select" data-help="Pasirinkti kaip atvaizduoti duomenis, lentele ar grafiku">
-	<a href="#" id="table-select">Lentelė</a> |
+<div id="view-select">
+	<a href="#" data-help="Pasirinkti kaip atvaizduoti duomenis, lentele ar grafiku" class="bottom_right" id="table-select">Lentelė</a> |
 	<a href="#" id="chart-select">Grafikas</a>
 	<span class="emptydataset ui-corner-all ui-state-error"">
 		Duomenų pagal parinktus kriterijus nerasta
@@ -99,12 +99,12 @@ $_smarty_tpl->tpl_vars['p']->_loop = true;
 		</div>
 		<?php }?>
 		<div class="update_chart" id="date-select">
-			Laikotarpis Nuo:<p class="rounded main-input-block"><input name="date_from" class="main-input datepicker" type="text" id="from" size="10" data-help="Įvedamų duomenų laikotarpio pradžios data"/></p>
-			Iki: <p class="rounded main-input-block"><input value="" name="date_till" class="main-input datepicker" type="text" id="until" size="10" data-help="Įvedamų duomenų laikotarpio pabaigos data"/></p>
+			Laikotarpis Nuo:<p class="rounded main-input-block"><input name="date_from" class="main-input datepicker top_right" type="text" id="from" size="10" data-help="Įvedamų duomenų laikotarpio pradžios data"/></p>
+			Iki: <p class="rounded main-input-block"><input value="" name="date_till" class="main-input datepicker bottom_right" type="text" id="until" size="10" data-help="Įvedamų duomenų laikotarpio pabaigos data"/></p>
 		</div>
-		<div class="update_chart" data-help="Rodyti duomenis pagal valandas ar pagal apdorojimų skaičių">
+		<div class="update_chart">
 			Rodyti duomenis:<br/>
-			<input checked="checked" type="radio" name="show_data" value="number"> pagal apdorotų paraiškų skaičių<br/>
+			<input class="top_left" data-help="Rodyti duomenis pagal valandas ar pagal apdorojimų skaičių" checked="checked" type="radio" name="show_data" value="number"> pagal apdorotų paraiškų skaičių<br/>
 			<input type="radio" name="show_data" value="hours"> pagal panaudotas jų apdorojimui valandas<br/>
 		</div>
 	</div>

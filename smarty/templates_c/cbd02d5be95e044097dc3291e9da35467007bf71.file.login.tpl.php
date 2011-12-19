@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 22:53:46
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-20 00:10:27
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\login.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:317804edbd8a90e4c83-71651258%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'cbd02d5be95e044097dc3291e9da35467007bf71' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\login.tpl',
-      1 => 1324327554,
+      1 => 1324332625,
       2 => 'file',
     ),
   ),
@@ -60,7 +60,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
                     <label for="password">Slaptažodis: </label><br />
                     <p class="rounded login-input-block"><input class="login-input" type="password" name="password" id="password" data-help="Įveskite savo slaptažodį"/></p><br />
                     <input id="login-submit" class="login-submit bottom_right" type="submit" value="Prisijungti" data-help="Įvedę duomenis paspauskite šį mygtuką ir palaukite"/>
+                    
                 </form>
+              	<noscript><p class="warning">Dėmesio: norėdami sistema naudotis pilnavertiškai, Jūsų naršyklėje privalo būti įjungtas Javascript.</p></noscript>
             </div>
         </div>
         <div id="footer">

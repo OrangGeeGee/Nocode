@@ -35,7 +35,9 @@
                     <label for="password">Slaptažodis: </label><br />
                     <p class="rounded login-input-block"><input class="login-input" type="password" name="password" id="password" data-help="Įveskite savo slaptažodį"/></p><br />
                     <input id="login-submit" class="login-submit bottom_right" type="submit" value="Prisijungti" data-help="Įvedę duomenis paspauskite šį mygtuką ir palaukite"/>
+                    
                 </form>
+              	<noscript><p class="warning">Dėmesio: norėdami sistema naudotis pilnavertiškai, Jūsų naršyklėje privalo būti įjungtas Javascript.</p></noscript>
             </div>
         </div>
         <div id="footer">

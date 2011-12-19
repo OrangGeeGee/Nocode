@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 22:53:38
+<?php /* Smarty version Smarty-3.1.5, created on 2011-12-19 23:59:47
          compiled from "C:\zend\Nocode\wwwroot/../application/templates\import.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:30544edbd97a1614a9-86186052%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -7,7 +7,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     'd4787a2e6b16b47a7001161af860e95308b4dc51' => 
     array (
       0 => 'C:\\zend\\Nocode\\wwwroot/../application/templates\\import.tpl',
-      1 => 1324328015,
+      1 => 1324331983,
       2 => 'file',
     ),
   ),
@@ -52,7 +52,7 @@ $_smarty_tpl->tpl_vars['p']->_loop = true;
             </td></tr>
         <tr><td>Nuo: </td><td><p class="rounded main-input-block"><input type="text" name="nuo" class="main-input datepicker top_right" data-help="Įvedamų duomenų laikotarpio pradžios data"></p></td></tr>
         <tr><td>Iki: </td><td><p class="rounded main-input-block"><input type="text" name="iki" class="main-input datepicker" data-help="Įvedamų duomenų laikotarpio pabaigos data"></p></td></tr>
-        <tr><td>Kiekis: </td><td><p class="rounded main-input-block"><input type="text" class="main-input top_right" name="kiekis" data-help="Įvedamų paraiškų kiekis"></p></td></tr>
+        <tr><td>Kiekis vienetais: </td><td><p class="rounded main-input-block"><input type="text" class="main-input top_right" name="kiekis" data-help="Įvedamų paraiškų kiekis"></p></td></tr>
     </table>
     <input type="button" value="Įvesti" class="login-submit" id="keyboard_insert_submit" data-help="Įvedus duomenis spausti šį mygtuką">
 </form>

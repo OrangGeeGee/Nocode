@@ -40,7 +40,7 @@ body{background: #F7F7F9;}
 #main-menu > ul > li > ul > li {list-style-type: disc; font-weight:normal; font-size:smaller; text-decoration:underline; font-family: sans-serif; padding: 2px;}
 
 /* LOGIN */
-.login-main{position:relative; width:270px; margin-left:auto; margin-right:auto; border:1px solid;height: 300px; margin-top: 150px;border: 1px solid #D8D8D8; background: #ffffff}
+.login-main{position:relative; width:270px; margin-left:auto; margin-right:auto; border:1px solid; height: 300px; margin-top: 150px;border: 1px solid #D8D8D8; background: #ffffff}
 .background{width:100%; background: #F6F6F7 url('../images/nocodebg.png') repeat-x top center; position: fixed; height:209px; top: 0;}
 .login-input{background: #F2F2F2; border: 0; height:20px}
 .login-input-block{width: 155px; padding: 0px 10px 0px; background: #F2F2F2; border: 1px solid #D0D0D0;}
@@ -48,6 +48,7 @@ body{background: #F7F7F9;}
 input.login-submit{color: #333; width:130px; margin-left: 20px; background: url('../images/login-button.jpg') no-repeat top; border: 0 solid; font-size: 1em; height: 29px}
 input.login-submit:hover{background: url('../images/login-button.jpg') no-repeat 0 -30px}
 .login-help{float: right; margin-right: 10px; margin-top: 10px;}
+.warning{color:red; font-size:12px; padding:5px; text-align:center;}
 /* VIEWS */
 #view-select { margin:4px;}
 .view-wrap { border:solid 1px #dddddd;  padding:1px; }

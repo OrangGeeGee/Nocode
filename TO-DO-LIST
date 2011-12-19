@@ -3,9 +3,9 @@ Sąrašas dalykų, kuriuos reikia padaryti. Visi pildom kai tik pamatom, kas dar
 Pastebėjimai sistemos trūkumų (pabendravus su Vytautu): 
 
     Istorinių duomenų įvedime įvedant iš failo, "Įvesti" visai nebeveikia.
-    Dar šiandien išryto, pasirinkti failą buvo lietuviškas mygtukas, dabar angliškas, arba čia naršyklė kalta. Bet taip neturėtų būti.
+    +Dar šiandien išryto, pasirinkti failą buvo lietuviškas mygtukas, dabar angliškas, arba čia naršyklė kalta. Bet taip neturėtų būti.
     Ant senos naršyklės arba dėl javascript'o nebuvimo (nebe pamenu) įvedimo ir failo pasirinkimo mygtukai užlipo praktiškai vienas ant kito.
-    Kur galima rinktis datą mėnesių pavadinimai angliški.
+    +Kur galima rinktis datą mėnesių pavadinimai angliški.
     Ant senesnių naršyklių įvedimo laukelis išeina už jo kontūrų, o Internet Explorer jie išvis ne dingsta, o lieka virš lentelės pvz.
     Pranešimų gramatika, linksniai.
     Privalomus langelius įvedimui pažymėti, kad ir žvaigždute.
@@ -24,11 +24,11 @@ Pastebėjimai sistemos trūkumų (iš žks):
     Parašyti kelią kuriuo buvo nueita iki to puslapio kur esama.
     Neišnaudota lango erdvė. Truputi reikia didesnių tarpų, randant laikotarpį, nuo pasirinkimo iki atsako ir tarp tu eilučių. Labai susimala viskas.
     Reikėtų slaptažodžio keitimo funkcijos ir šiaip naudotojo parametrų (bet čia jei liks laiko).
-    Klaidos pranešimai. Jų tvarka ir spalvos.
-    Grafikas grįžtant iš lentelės susitraukia, jei ją taisėm.
+    +Klaidos pranešimai. Jų tvarka ir spalvos.
+    +Grafikas grįžtant iš lentelės susitraukia, jei ją taisėm.
     Įdėti kokias nors reikšmes į nuo iki laukelius po grafiku, kad žinoti, nuo kada rodyti duomenys.
     Grafikų antraštės. PVZ Poveikio padaliniams analizėje nelabai tinka užrašas padalinių apkrova, nes atrodo, kad apkrovą ir tikrinu.
-    Netinkamai apibrėžtas įvedimo laukelis"Kiek". Kiek ko? Valandų ar paraiškų. Nes jei paraiškų, tai pagal ką valandos sužiūrimos?. Primesti, kad paraiškos per vienodą laiką sutvarkomos, nežinia ar geras sprendimas. 
+    +Netinkamai apibrėžtas įvedimo laukelis"Kiek". Kiek ko? Valandų ar paraiškų. Nes jei paraiškų, tai pagal ką valandos sužiūrimos?. Primesti, kad paraiškos per vienodą laiką sutvarkomos, nežinia ar geras sprendimas. 
     Būtų neblogai pridėti laukelį "Valandų kiekis".
     
 TO DO:
