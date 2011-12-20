@@ -433,6 +433,7 @@ class Controller {
     }
     
     public function insertFromFilePost() {
+        if(!empty($_FILES['file']['tmp_name']) && substr($_FILES['file']['name'], strlen($_FILES['file']['name'])-3, 3) == 'xls'){
         require_once APP_PATH.'/classes/reader.php';
         $data = new Spreadsheet_Excel_Reader($_FILES['file']['tmp_name']);
         $import_data = array();
@@ -451,6 +452,9 @@ class Controller {
                     $success = false;
                 }
             }
+        }
+        }else{
+            $success = false;
         }
         if($success == true){
             $_SESSION['result_msg'] = 'Duomenys sėkmingai įkelti.';
