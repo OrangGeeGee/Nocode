@@ -36,6 +36,7 @@
 		<span>Sveiki, {$name|capitalize}</span>
 	</div>
 	<div id="top-menu">
+		{if $userPrivilleges==1}<a href="admin.php">Admin panelė</a> |{/if}
 		<a href="index.php">Grįžti į pradžią</a> |
 		<a href="#help" onclick="return false;" id="helpanchor"><img class="top_image" src="images/help.png" alt="Pagalba"/></a> |
 		<a href="login.php?logout" class="logout_parent"><img class="top_image" src="images/logout.png" alt="Atsijungti"/></a>
@@ -43,7 +44,7 @@
 	
 </div>
 <div id="root">
-<div id="content">
+<div id="content" class="{if (isset($showMenu)&&$showMenu==false)}nomenu{/if}">{if !(isset($showMenu)&&$showMenu==false)} 
 	<div id="main-menu" class="rounded white">
 		<ul>
 			<li><div class="first-level">Ataskaita pagal apkrovą</div>
@@ -75,5 +76,5 @@
 			</li>
 		</ul>
 	</div>
-	
+	{/if}
 	<div id="display" class="rounded white">

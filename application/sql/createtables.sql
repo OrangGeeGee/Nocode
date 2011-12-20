@@ -9,7 +9,8 @@ DROP TABLE IF EXISTS `app_history`;
 CREATE TABLE `app_users` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(32) NOT NULL,
-  `password` varchar(32) NOT NULL
+  `password` varchar(32) NOT NULL,
+  `privilleges` int(4) NOT NULL DEFAULT 0
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE `app_priemones` (

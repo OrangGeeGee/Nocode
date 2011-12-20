@@ -31,6 +31,7 @@ class Controller {
         }
         $this->smarty = new MySmarty;
         $this->smarty->assign("name", $_SESSION['user']['name']);
+        $this->smarty->assign("userPrivilleges", $_SESSION['user']['privilleges']);
         $this->db = new db();
         date_default_timezone_set("Europe/Helsinki");
     }	

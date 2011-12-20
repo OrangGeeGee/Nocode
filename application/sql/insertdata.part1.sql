@@ -5,9 +5,10 @@ TRUNCATE TABLE `app_is`;
 TRUNCATE TABLE `app_ispadaliniai`;
 TRUNCATE TABLE `app_priemonepadaliniai`;
 
-INSERT INTO `app_users` VALUES (1, "antanas", "password");
-INSERT INTO `app_users` VALUES (2, "raminta", "yy");
-INSERT INTO `app_users` VALUES (3, "tadas", "xx");
+INSERT INTO `app_users` VALUES (1, "antanas", "password", 0);
+INSERT INTO `app_users` VALUES (2, "raminta", "yy", 0);
+INSERT INTO `app_users` VALUES (3, "tadas", "xx", 0);
+INSERT INTO `app_users` VALUES (4, "admin", "admin", 1);
 
 INSERT INTO `nocode`.`app_priemones` (`id`, `kodas`, `pavadinimas`) VALUES (NULL, 'p1-1', '1.1. Profesinio mokymo ir informavimo veikla');
 INSERT INTO `nocode`.`app_priemones` (`id`, `kodas`, `pavadinimas`) VALUES (NULL, 'p1-2', '1.2. Naudojimasis konsultavimo paslaugomis');
