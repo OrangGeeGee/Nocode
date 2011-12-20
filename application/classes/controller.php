@@ -40,6 +40,7 @@ class Controller {
      */
     public function display() {
     	$tpl = "";
+    	$menu = 0;
     	if(!isset($_GET['p'])) {
     		$tpl = "index";
     		$this->smarty->assign('divisionTotal', $this->getTotalDivision());
@@ -61,23 +62,23 @@ class Controller {
                 if($_GET['p'] == "ataskaita"){
                     if(isset($_GET['src'])){
                         if($_GET['src'] == "padalinys"){
-                            $this->smarty->assign("menu", 1);
+                            $menu = 1;
                         }elseif($_GET['src'] == "is"){
-                            $this->smarty->assign("menu", 2);
+                            $menu = 2;
                         }
                     }else{
-                        $this->smarty->assign("menu", 3);
+                        $menu = 3;
                     }
                 }
                 if($_GET['p'] == "ppp"){
                     if(isset($_GET['src'])){
                         if($_GET['src'] == "padalinys"){
-                            $this->smarty->assign("menu", 4);
+                            $menu = 4;
                         }elseif($_GET['src'] == "is"){
-                            $this->smarty->assign("menu", 5);
+                            $menu = 5;
                         }
                     }else{
-                        $this->smarty->assign("menu", 6);
+                        $menu = 6;
                     }
                 }
     		// Ataskaita pagal apkrova
@@ -104,6 +105,7 @@ class Controller {
     			$paramosPriemones = $this->db->q("SELECT * FROM {p}priemones");
     			$this->smarty->assign("priemones", $paramosPriemones);
     		}
+    		$this->smarty->assign("menu", $menu);
     	} elseif($_GET['p']=="import") {
     		// Paraiškų istorinio kiekio pateikimas
     		$this->smarty->assign('headingTitle', $this->getHeadingTitle());
